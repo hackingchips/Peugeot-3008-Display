@@ -1,0 +1,1788 @@
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"UC1608.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.UC1608_Write_Command,"ax",%progbits
+  20              		.align	2
+  21              		.global	UC1608_Write_Command
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	UC1608_Write_Command, %function
+  25              	UC1608_Write_Command:
+  26              	.LFB32:
+  27              		.file 1 "UC1608.c"
+   1:UC1608.c      **** /* ========================================
+   2:UC1608.c      ****  *
+   3:UC1608.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:UC1608.c      ****  * All Rights Reserved
+   5:UC1608.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:UC1608.c      ****  *
+   7:UC1608.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:UC1608.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:UC1608.c      ****  *
+  10:UC1608.c      ****  * ========================================
+  11:UC1608.c      **** */
+  12:UC1608.c      **** 
+  13:UC1608.c      **** #include "project.h"
+  14:UC1608.c      **** #include "UC1608.h"
+  15:UC1608.c      **** 
+  16:UC1608.c      **** void UC1608_Write_Command(uint8 command); 
+  17:UC1608.c      **** void UC1608_Write_Data(uint8 data);
+  18:UC1608.c      **** 
+  19:UC1608.c      **** uint8 contrast_value = 11;
+  20:UC1608.c      **** 
+  21:UC1608.c      **** void UC1608_Write_Command(uint8 command)
+  22:UC1608.c      **** {
+  28              		.loc 1 22 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 2
+
+
+  36              		.cfi_offset 14, -4
+  37 0002 0400     		movs	r4, r0
+  23:UC1608.c      ****     /* When CD line = 0 data sent is command. */
+  24:UC1608.c      ****     LCD_CD_Write(0); 
+  38              		.loc 1 24 0
+  39 0004 0020     		movs	r0, #0
+  40              	.LVL1:
+  41 0006 FFF7FEFF 		bl	LCD_CD_Write
+  42              	.LVL2:
+  25:UC1608.c      ****     SPILCD_SpiUartWriteTxData(command);
+  43              		.loc 1 25 0
+  44 000a 2000     		movs	r0, r4
+  45 000c FFF7FEFF 		bl	SPILCD_SpiUartWriteTxData
+  46              	.LVL3:
+  26:UC1608.c      **** }
+  47              		.loc 1 26 0
+  48              		@ sp needed
+  49 0010 10BD     		pop	{r4, pc}
+  50              		.cfi_endproc
+  51              	.LFE32:
+  52              		.size	UC1608_Write_Command, .-UC1608_Write_Command
+  53 0012 C046     		.section	.text.UC1608_Write_data,"ax",%progbits
+  54              		.align	2
+  55              		.global	UC1608_Write_data
+  56              		.code	16
+  57              		.thumb_func
+  58              		.type	UC1608_Write_data, %function
+  59              	UC1608_Write_data:
+  60              	.LFB33:
+  27:UC1608.c      **** 
+  28:UC1608.c      **** void UC1608_Write_data(uint8 data)
+  29:UC1608.c      **** {
+  61              		.loc 1 29 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              	.LVL4:
+  66 0000 10B5     		push	{r4, lr}
+  67              		.cfi_def_cfa_offset 8
+  68              		.cfi_offset 4, -8
+  69              		.cfi_offset 14, -4
+  70 0002 0400     		movs	r4, r0
+  30:UC1608.c      ****     /* When CD line = 1 data sent is display data. */
+  31:UC1608.c      ****     LCD_CD_Write(1);
+  71              		.loc 1 31 0
+  72 0004 0120     		movs	r0, #1
+  73              	.LVL5:
+  74 0006 FFF7FEFF 		bl	LCD_CD_Write
+  75              	.LVL6:
+  32:UC1608.c      ****     SPILCD_SpiUartWriteTxData(data);
+  76              		.loc 1 32 0
+  77 000a 2000     		movs	r0, r4
+  78 000c FFF7FEFF 		bl	SPILCD_SpiUartWriteTxData
+  79              	.LVL7:
+  33:UC1608.c      **** }
+  80              		.loc 1 33 0
+  81              		@ sp needed
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 3
+
+
+  82 0010 10BD     		pop	{r4, pc}
+  83              		.cfi_endproc
+  84              	.LFE33:
+  85              		.size	UC1608_Write_data, .-UC1608_Write_data
+  86 0012 C046     		.section	.text.LCD_Init,"ax",%progbits
+  87              		.align	2
+  88              		.global	LCD_Init
+  89              		.code	16
+  90              		.thumb_func
+  91              		.type	LCD_Init, %function
+  92              	LCD_Init:
+  93              	.LFB34:
+  34:UC1608.c      **** 
+  35:UC1608.c      **** void LCD_Init()
+  36:UC1608.c      **** {
+  94              		.loc 1 36 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98 0000 10B5     		push	{r4, lr}
+  99              		.cfi_def_cfa_offset 8
+ 100              		.cfi_offset 4, -8
+ 101              		.cfi_offset 14, -4
+  37:UC1608.c      ****     /* Hardware reset. */
+  38:UC1608.c      ****     LCD_RESET_Write(0);
+ 102              		.loc 1 38 0
+ 103 0002 0020     		movs	r0, #0
+ 104 0004 FFF7FEFF 		bl	LCD_RESET_Write
+ 105              	.LVL8:
+  39:UC1608.c      ****     CyDelay(5);
+ 106              		.loc 1 39 0
+ 107 0008 0520     		movs	r0, #5
+ 108 000a FFF7FEFF 		bl	CyDelay
+ 109              	.LVL9:
+  40:UC1608.c      ****     LCD_RESET_Write(1);
+ 110              		.loc 1 40 0
+ 111 000e 0120     		movs	r0, #1
+ 112 0010 FFF7FEFF 		bl	LCD_RESET_Write
+ 113              	.LVL10:
+  41:UC1608.c      ****     CyDelay(5);
+ 114              		.loc 1 41 0
+ 115 0014 0520     		movs	r0, #5
+ 116 0016 FFF7FEFF 		bl	CyDelay
+ 117              	.LVL11:
+  42:UC1608.c      ****     
+  43:UC1608.c      ****     /* Software reset. */
+  44:UC1608.c      ****     UC1608_Write_Command(0xE2);
+ 118              		.loc 1 44 0
+ 119 001a E220     		movs	r0, #226
+ 120 001c FFF7FEFF 		bl	UC1608_Write_Command
+ 121              	.LVL12:
+  45:UC1608.c      ****     CyDelay(30);
+ 122              		.loc 1 45 0
+ 123 0020 1E20     		movs	r0, #30
+ 124 0022 FFF7FEFF 		bl	CyDelay
+ 125              	.LVL13:
+  46:UC1608.c      ****     
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 4
+
+
+  47:UC1608.c      ****     /* Configure display. */
+  48:UC1608.c      ****     UC1608_Write_Command(0x23);                     // Mux. ratio :96, Temperature compensation = -
+ 126              		.loc 1 48 0
+ 127 0026 2320     		movs	r0, #35
+ 128 0028 FFF7FEFF 		bl	UC1608_Write_Command
+ 129              	.LVL14:
+  49:UC1608.c      ****    	UC1608_Write_Command(0xC8);                     // Set LCD mapping control. MX=0, MY=1
+ 130              		.loc 1 49 0
+ 131 002c C820     		movs	r0, #200
+ 132 002e FFF7FEFF 		bl	UC1608_Write_Command
+ 133              	.LVL15:
+  50:UC1608.c      **** 	UC1608_Write_Command(0xE8);                     // LCD bias ratio = 1/10.7
+ 134              		.loc 1 50 0
+ 135 0032 E820     		movs	r0, #232
+ 136 0034 FFF7FEFF 		bl	UC1608_Write_Command
+ 137              	.LVL16:
+  51:UC1608.c      **** 	UC1608_Write_Command(0x81);                     // Set Gain and Potentiometer
+ 138              		.loc 1 51 0
+ 139 0038 8120     		movs	r0, #129
+ 140 003a FFF7FEFF 		bl	UC1608_Write_Command
+ 141              	.LVL17:
+  52:UC1608.c      ****     UC1608_Write_Command(0x00 | contrast_value);     
+ 142              		.loc 1 52 0
+ 143 003e 104B     		ldr	r3, .L4
+ 144 0040 1878     		ldrb	r0, [r3]
+ 145 0042 FFF7FEFF 		bl	UC1608_Write_Command
+ 146              	.LVL18:
+  53:UC1608.c      **** 	UC1608_Write_Command(0x2F);                     // Use internal charge pump. Internal VLCD.	
+ 147              		.loc 1 53 0
+ 148 0046 2F20     		movs	r0, #47
+ 149 0048 FFF7FEFF 		bl	UC1608_Write_Command
+ 150              	.LVL19:
+  54:UC1608.c      **** 	UC1608_Write_Command(0x40);                     // Start line = 0.
+ 151              		.loc 1 54 0
+ 152 004c 4020     		movs	r0, #64
+ 153 004e FFF7FEFF 		bl	UC1608_Write_Command
+ 154              	.LVL20:
+  55:UC1608.c      **** 	UC1608_Write_Command(0xA4);                     // All pixels OFF.
+ 155              		.loc 1 55 0
+ 156 0052 A420     		movs	r0, #164
+ 157 0054 FFF7FEFF 		bl	UC1608_Write_Command
+ 158              	.LVL21:
+  56:UC1608.c      **** //	Write_Instruction(0xA5);                        //--set  all pixel on
+  57:UC1608.c      **** 	UC1608_Write_Command(0xA6);                     //--set normal display
+ 159              		.loc 1 57 0
+ 160 0058 A620     		movs	r0, #166
+ 161 005a FFF7FEFF 		bl	UC1608_Write_Command
+ 162              	.LVL22:
+  58:UC1608.c      **** //    UC1608_Write_Command(0xA7);                        //--set inverse display
+  59:UC1608.c      **** 	UC1608_Write_Command(0x89);                     // Set RAM Address control
+ 163              		.loc 1 59 0
+ 164 005e 8920     		movs	r0, #137
+ 165 0060 FFF7FEFF 		bl	UC1608_Write_Command
+ 166              	.LVL23:
+  60:UC1608.c      **** //  Write_Instruction(0x90);                        //set fixed lines 1001xxxx
+  61:UC1608.c      ****     UC1608_Write_Command(0xB0);                     // Page address = 0.
+ 167              		.loc 1 61 0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 5
+
+
+ 168 0064 B020     		movs	r0, #176
+ 169 0066 FFF7FEFF 		bl	UC1608_Write_Command
+ 170              	.LVL24:
+  62:UC1608.c      ****     UC1608_Write_Command(0x00);                     // Column address = 0.
+ 171              		.loc 1 62 0
+ 172 006a 0020     		movs	r0, #0
+ 173 006c FFF7FEFF 		bl	UC1608_Write_Command
+ 174              	.LVL25:
+  63:UC1608.c      ****     UC1608_Write_Command(0x10);                     
+ 175              		.loc 1 63 0
+ 176 0070 1020     		movs	r0, #16
+ 177 0072 FFF7FEFF 		bl	UC1608_Write_Command
+ 178              	.LVL26:
+  64:UC1608.c      ****     UC1608_Write_Command(0xAF);                     // Enable the display.
+ 179              		.loc 1 64 0
+ 180 0076 AF20     		movs	r0, #175
+ 181 0078 FFF7FEFF 		bl	UC1608_Write_Command
+ 182              	.LVL27:
+  65:UC1608.c      **** }
+ 183              		.loc 1 65 0
+ 184              		@ sp needed
+ 185 007c 10BD     		pop	{r4, pc}
+ 186              	.L5:
+ 187 007e C046     		.align	2
+ 188              	.L4:
+ 189 0080 00000000 		.word	.LANCHOR0
+ 190              		.cfi_endproc
+ 191              	.LFE34:
+ 192              		.size	LCD_Init, .-LCD_Init
+ 193              		.section	.text.LCD_SetPageAddress,"ax",%progbits
+ 194              		.align	2
+ 195              		.global	LCD_SetPageAddress
+ 196              		.code	16
+ 197              		.thumb_func
+ 198              		.type	LCD_SetPageAddress, %function
+ 199              	LCD_SetPageAddress:
+ 200              	.LFB36:
+  66:UC1608.c      **** 
+  67:UC1608.c      **** void LCD_Clear()
+  68:UC1608.c      **** {
+  69:UC1608.c      ****     uint8 page, column;
+  70:UC1608.c      ****     
+  71:UC1608.c      ****     for (page = 0; page < 8; page++)
+  72:UC1608.c      ****     {
+  73:UC1608.c      ****         LCD_SetPageAddress(page);
+  74:UC1608.c      ****         LCD_SetColumnAddress(0);
+  75:UC1608.c      ****         
+  76:UC1608.c      ****         for (column = 0; column < 240; column++)
+  77:UC1608.c      ****         {
+  78:UC1608.c      ****             UC1608_Write_data(0x80);
+  79:UC1608.c      ****         }
+  80:UC1608.c      ****     }
+  81:UC1608.c      **** }
+  82:UC1608.c      **** 
+  83:UC1608.c      **** void LCD_SetPageAddress(uint8 page)
+  84:UC1608.c      **** {
+ 201              		.loc 1 84 0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 6
+
+
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              	.LVL28:
+ 206 0000 10B5     		push	{r4, lr}
+ 207              		.cfi_def_cfa_offset 8
+ 208              		.cfi_offset 4, -8
+ 209              		.cfi_offset 14, -4
+  85:UC1608.c      ****     UC1608_Write_Command(0xB0 | page);
+ 210              		.loc 1 85 0
+ 211 0002 5023     		movs	r3, #80
+ 212 0004 5B42     		rsbs	r3, r3, #0
+ 213 0006 1843     		orrs	r0, r3
+ 214              	.LVL29:
+ 215 0008 C0B2     		uxtb	r0, r0
+ 216 000a FFF7FEFF 		bl	UC1608_Write_Command
+ 217              	.LVL30:
+  86:UC1608.c      **** 	
+  87:UC1608.c      ****     return;
+  88:UC1608.c      **** }
+ 218              		.loc 1 88 0
+ 219              		@ sp needed
+ 220 000e 10BD     		pop	{r4, pc}
+ 221              		.cfi_endproc
+ 222              	.LFE36:
+ 223              		.size	LCD_SetPageAddress, .-LCD_SetPageAddress
+ 224              		.section	.text.LCD_SetColumnAddress,"ax",%progbits
+ 225              		.align	2
+ 226              		.global	LCD_SetColumnAddress
+ 227              		.code	16
+ 228              		.thumb_func
+ 229              		.type	LCD_SetColumnAddress, %function
+ 230              	LCD_SetColumnAddress:
+ 231              	.LFB37:
+  89:UC1608.c      **** 
+  90:UC1608.c      **** //**********************************************************
+  91:UC1608.c      **** //  Set Column Address
+  92:UC1608.c      **** //**********************************************************
+  93:UC1608.c      **** void LCD_SetColumnAddress(uint8 column)
+  94:UC1608.c      **** {
+ 232              		.loc 1 94 0
+ 233              		.cfi_startproc
+ 234              		@ args = 0, pretend = 0, frame = 0
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              	.LVL31:
+ 237 0000 10B5     		push	{r4, lr}
+ 238              		.cfi_def_cfa_offset 8
+ 239              		.cfi_offset 4, -8
+ 240              		.cfi_offset 14, -4
+ 241 0002 0400     		movs	r4, r0
+  95:UC1608.c      ****     UC1608_Write_Command((0x10 |(column >> 4)));
+ 242              		.loc 1 95 0
+ 243 0004 0009     		lsrs	r0, r0, #4
+ 244              	.LVL32:
+ 245 0006 1023     		movs	r3, #16
+ 246 0008 0343     		orrs	r3, r0
+ 247 000a D8B2     		uxtb	r0, r3
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 7
+
+
+ 248 000c FFF7FEFF 		bl	UC1608_Write_Command
+ 249              	.LVL33:
+  96:UC1608.c      **** 	UC1608_Write_Command((0x0F & column));
+ 250              		.loc 1 96 0
+ 251 0010 0F20     		movs	r0, #15
+ 252 0012 2040     		ands	r0, r4
+ 253 0014 FFF7FEFF 		bl	UC1608_Write_Command
+ 254              	.LVL34:
+  97:UC1608.c      **** 	return;
+  98:UC1608.c      **** }
+ 255              		.loc 1 98 0
+ 256              		@ sp needed
+ 257 0018 10BD     		pop	{r4, pc}
+ 258              		.cfi_endproc
+ 259              	.LFE37:
+ 260              		.size	LCD_SetColumnAddress, .-LCD_SetColumnAddress
+ 261 001a C046     		.section	.text.LCD_Clear,"ax",%progbits
+ 262              		.align	2
+ 263              		.global	LCD_Clear
+ 264              		.code	16
+ 265              		.thumb_func
+ 266              		.type	LCD_Clear, %function
+ 267              	LCD_Clear:
+ 268              	.LFB35:
+  68:UC1608.c      ****     uint8 page, column;
+ 269              		.loc 1 68 0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273 0000 70B5     		push	{r4, r5, r6, lr}
+ 274              		.cfi_def_cfa_offset 16
+ 275              		.cfi_offset 4, -16
+ 276              		.cfi_offset 5, -12
+ 277              		.cfi_offset 6, -8
+ 278              		.cfi_offset 14, -4
+ 279              	.LVL35:
+  71:UC1608.c      ****     {
+ 280              		.loc 1 71 0
+ 281 0002 0025     		movs	r5, #0
+ 282 0004 10E0     		b	.L9
+ 283              	.LVL36:
+ 284              	.L12:
+  73:UC1608.c      ****         LCD_SetColumnAddress(0);
+ 285              		.loc 1 73 0
+ 286 0006 2800     		movs	r0, r5
+ 287 0008 FFF7FEFF 		bl	LCD_SetPageAddress
+ 288              	.LVL37:
+  74:UC1608.c      ****         
+ 289              		.loc 1 74 0
+ 290 000c 0020     		movs	r0, #0
+ 291 000e FFF7FEFF 		bl	LCD_SetColumnAddress
+ 292              	.LVL38:
+  76:UC1608.c      ****         {
+ 293              		.loc 1 76 0
+ 294 0012 0024     		movs	r4, #0
+ 295 0014 04E0     		b	.L10
+ 296              	.LVL39:
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 8
+
+
+ 297              	.L11:
+  78:UC1608.c      ****         }
+ 298              		.loc 1 78 0 discriminator 3
+ 299 0016 8020     		movs	r0, #128
+ 300 0018 FFF7FEFF 		bl	UC1608_Write_data
+ 301              	.LVL40:
+  76:UC1608.c      ****         {
+ 302              		.loc 1 76 0 discriminator 3
+ 303 001c 0134     		adds	r4, r4, #1
+ 304              	.LVL41:
+ 305 001e E4B2     		uxtb	r4, r4
+ 306              	.LVL42:
+ 307              	.L10:
+  76:UC1608.c      ****         {
+ 308              		.loc 1 76 0 is_stmt 0 discriminator 1
+ 309 0020 EF2C     		cmp	r4, #239
+ 310 0022 F8D9     		bls	.L11
+  71:UC1608.c      ****     {
+ 311              		.loc 1 71 0 is_stmt 1 discriminator 2
+ 312 0024 0135     		adds	r5, r5, #1
+ 313              	.LVL43:
+ 314 0026 EDB2     		uxtb	r5, r5
+ 315              	.LVL44:
+ 316              	.L9:
+  71:UC1608.c      ****     {
+ 317              		.loc 1 71 0 is_stmt 0 discriminator 1
+ 318 0028 072D     		cmp	r5, #7
+ 319 002a ECD9     		bls	.L12
+  81:UC1608.c      **** 
+ 320              		.loc 1 81 0 is_stmt 1
+ 321              		@ sp needed
+ 322              	.LVL45:
+ 323 002c 70BD     		pop	{r4, r5, r6, pc}
+ 324              		.cfi_endproc
+ 325              	.LFE35:
+ 326              		.size	LCD_Clear, .-LCD_Clear
+ 327 002e C046     		.section	.text.LCD_SetContrast,"ax",%progbits
+ 328              		.align	2
+ 329              		.global	LCD_SetContrast
+ 330              		.code	16
+ 331              		.thumb_func
+ 332              		.type	LCD_SetContrast, %function
+ 333              	LCD_SetContrast:
+ 334              	.LFB38:
+  99:UC1608.c      **** 
+ 100:UC1608.c      **** 
+ 101:UC1608.c      **** 
+ 102:UC1608.c      **** 
+ 103:UC1608.c      **** //**********************************************************
+ 104:UC1608.c      **** //  Set Contrast Control Register
+ 105:UC1608.c      **** //**********************************************************
+ 106:UC1608.c      **** void LCD_SetContrast(uint8 contrast_value)
+ 107:UC1608.c      **** {
+ 335              		.loc 1 107 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 9
+
+
+ 339              	.LVL46:
+ 340 0000 10B5     		push	{r4, lr}
+ 341              		.cfi_def_cfa_offset 8
+ 342              		.cfi_offset 4, -8
+ 343              		.cfi_offset 14, -4
+ 344 0002 0400     		movs	r4, r0
+ 108:UC1608.c      ****     UC1608_Write_Command(0x81);
+ 345              		.loc 1 108 0
+ 346 0004 8120     		movs	r0, #129
+ 347              	.LVL47:
+ 348 0006 FFF7FEFF 		bl	UC1608_Write_Command
+ 349              	.LVL48:
+ 109:UC1608.c      **** 	UC1608_Write_Command(0x00 | contrast_value);
+ 350              		.loc 1 109 0
+ 351 000a 2000     		movs	r0, r4
+ 352 000c FFF7FEFF 		bl	UC1608_Write_Command
+ 353              	.LVL49:
+ 110:UC1608.c      **** 	return;
+ 111:UC1608.c      **** }
+ 354              		.loc 1 111 0
+ 355              		@ sp needed
+ 356 0010 10BD     		pop	{r4, pc}
+ 357              		.cfi_endproc
+ 358              	.LFE38:
+ 359              		.size	LCD_SetContrast, .-LCD_SetContrast
+ 360 0012 C046     		.section	.text.LCD_DisplayNormal,"ax",%progbits
+ 361              		.align	2
+ 362              		.global	LCD_DisplayNormal
+ 363              		.code	16
+ 364              		.thumb_func
+ 365              		.type	LCD_DisplayNormal, %function
+ 366              	LCD_DisplayNormal:
+ 367              	.LFB39:
+ 112:UC1608.c      **** 
+ 113:UC1608.c      **** void LCD_DisplayNormal()
+ 114:UC1608.c      **** {
+ 368              		.loc 1 114 0
+ 369              		.cfi_startproc
+ 370              		@ args = 0, pretend = 0, frame = 0
+ 371              		@ frame_needed = 0, uses_anonymous_args = 0
+ 372 0000 10B5     		push	{r4, lr}
+ 373              		.cfi_def_cfa_offset 8
+ 374              		.cfi_offset 4, -8
+ 375              		.cfi_offset 14, -4
+ 115:UC1608.c      ****     UC1608_Write_Command(0xA7);
+ 376              		.loc 1 115 0
+ 377 0002 A720     		movs	r0, #167
+ 378 0004 FFF7FEFF 		bl	UC1608_Write_Command
+ 379              	.LVL50:
+ 116:UC1608.c      **** }
+ 380              		.loc 1 116 0
+ 381              		@ sp needed
+ 382 0008 10BD     		pop	{r4, pc}
+ 383              		.cfi_endproc
+ 384              	.LFE39:
+ 385              		.size	LCD_DisplayNormal, .-LCD_DisplayNormal
+ 386 000a C046     		.section	.text.LCD_DisplayReverse,"ax",%progbits
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 10
+
+
+ 387              		.align	2
+ 388              		.global	LCD_DisplayReverse
+ 389              		.code	16
+ 390              		.thumb_func
+ 391              		.type	LCD_DisplayReverse, %function
+ 392              	LCD_DisplayReverse:
+ 393              	.LFB40:
+ 117:UC1608.c      **** 
+ 118:UC1608.c      **** void LCD_DisplayReverse()
+ 119:UC1608.c      **** {
+ 394              		.loc 1 119 0
+ 395              		.cfi_startproc
+ 396              		@ args = 0, pretend = 0, frame = 0
+ 397              		@ frame_needed = 0, uses_anonymous_args = 0
+ 398 0000 10B5     		push	{r4, lr}
+ 399              		.cfi_def_cfa_offset 8
+ 400              		.cfi_offset 4, -8
+ 401              		.cfi_offset 14, -4
+ 120:UC1608.c      ****     UC1608_Write_Command(0xA6);
+ 402              		.loc 1 120 0
+ 403 0002 A620     		movs	r0, #166
+ 404 0004 FFF7FEFF 		bl	UC1608_Write_Command
+ 405              	.LVL51:
+ 121:UC1608.c      **** }
+ 406              		.loc 1 121 0
+ 407              		@ sp needed
+ 408 0008 10BD     		pop	{r4, pc}
+ 409              		.cfi_endproc
+ 410              	.LFE40:
+ 411              		.size	LCD_DisplayReverse, .-LCD_DisplayReverse
+ 412              		.global	contrast_value
+ 413 000a C046     		.data
+ 414              		.set	.LANCHOR0,. + 0
+ 415              		.type	contrast_value, %object
+ 416              		.size	contrast_value, 1
+ 417              	contrast_value:
+ 418 0000 0B       		.byte	11
+ 419              		.text
+ 420              	.Letext0:
+ 421              		.file 2 "Generated_Source\\PSoC4/LCD_CD.h"
+ 422              		.file 3 "Generated_Source\\PSoC4/SPILCD_SPI_UART.h"
+ 423              		.file 4 "Generated_Source\\PSoC4/LCD_RESET.h"
+ 424              		.file 5 "Generated_Source\\PSoC4/CyLib.h"
+ 425              		.file 6 "Generated_Source\\PSoC4/cytypes.h"
+ 426              		.section	.debug_info,"",%progbits
+ 427              	.Ldebug_info0:
+ 428 0000 63040000 		.4byte	0x463
+ 429 0004 0400     		.2byte	0x4
+ 430 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 431 000a 04       		.byte	0x4
+ 432 000b 01       		.uleb128 0x1
+ 433 000c 70010000 		.4byte	.LASF32
+ 434 0010 0C       		.byte	0xc
+ 435 0011 45020000 		.4byte	.LASF33
+ 436 0015 CA000000 		.4byte	.LASF34
+ 437 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 438 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 11
+
+
+ 439 0021 00000000 		.4byte	.Ldebug_line0
+ 440 0025 02       		.uleb128 0x2
+ 441 0026 01       		.byte	0x1
+ 442 0027 06       		.byte	0x6
+ 443 0028 69020000 		.4byte	.LASF0
+ 444 002c 02       		.uleb128 0x2
+ 445 002d 01       		.byte	0x1
+ 446 002e 08       		.byte	0x8
+ 447 002f 6D000000 		.4byte	.LASF1
+ 448 0033 02       		.uleb128 0x2
+ 449 0034 02       		.byte	0x2
+ 450 0035 05       		.byte	0x5
+ 451 0036 AB000000 		.4byte	.LASF2
+ 452 003a 02       		.uleb128 0x2
+ 453 003b 02       		.byte	0x2
+ 454 003c 07       		.byte	0x7
+ 455 003d 0F000000 		.4byte	.LASF3
+ 456 0041 02       		.uleb128 0x2
+ 457 0042 04       		.byte	0x4
+ 458 0043 05       		.byte	0x5
+ 459 0044 54020000 		.4byte	.LASF4
+ 460 0048 02       		.uleb128 0x2
+ 461 0049 04       		.byte	0x4
+ 462 004a 07       		.byte	0x7
+ 463 004b 7B000000 		.4byte	.LASF5
+ 464 004f 02       		.uleb128 0x2
+ 465 0050 08       		.byte	0x8
+ 466 0051 05       		.byte	0x5
+ 467 0052 07020000 		.4byte	.LASF6
+ 468 0056 02       		.uleb128 0x2
+ 469 0057 08       		.byte	0x8
+ 470 0058 07       		.byte	0x7
+ 471 0059 2F010000 		.4byte	.LASF7
+ 472 005d 03       		.uleb128 0x3
+ 473 005e 04       		.byte	0x4
+ 474 005f 05       		.byte	0x5
+ 475 0060 696E7400 		.ascii	"int\000"
+ 476 0064 02       		.uleb128 0x2
+ 477 0065 04       		.byte	0x4
+ 478 0066 07       		.byte	0x7
+ 479 0067 22010000 		.4byte	.LASF8
+ 480 006b 04       		.uleb128 0x4
+ 481 006c 4E020000 		.4byte	.LASF35
+ 482 0070 06       		.byte	0x6
+ 483 0071 F701     		.2byte	0x1f7
+ 484 0073 2C000000 		.4byte	0x2c
+ 485 0077 02       		.uleb128 0x2
+ 486 0078 04       		.byte	0x4
+ 487 0079 04       		.byte	0x4
+ 488 007a 62000000 		.4byte	.LASF9
+ 489 007e 02       		.uleb128 0x2
+ 490 007f 08       		.byte	0x8
+ 491 0080 04       		.byte	0x4
+ 492 0081 A4000000 		.4byte	.LASF10
+ 493 0085 02       		.uleb128 0x2
+ 494 0086 01       		.byte	0x1
+ 495 0087 08       		.byte	0x8
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 12
+
+
+ 496 0088 22020000 		.4byte	.LASF11
+ 497 008c 02       		.uleb128 0x2
+ 498 008d 08       		.byte	0x8
+ 499 008e 04       		.byte	0x4
+ 500 008f 5D020000 		.4byte	.LASF12
+ 501 0093 02       		.uleb128 0x2
+ 502 0094 04       		.byte	0x4
+ 503 0095 07       		.byte	0x7
+ 504 0096 FE010000 		.4byte	.LASF13
+ 505 009a 05       		.uleb128 0x5
+ 506 009b B5000000 		.4byte	.LASF14
+ 507 009f 01       		.byte	0x1
+ 508 00a0 15       		.byte	0x15
+ 509 00a1 00000000 		.4byte	.LFB32
+ 510 00a5 12000000 		.4byte	.LFE32-.LFB32
+ 511 00a9 01       		.uleb128 0x1
+ 512 00aa 9C       		.byte	0x9c
+ 513 00ab E2000000 		.4byte	0xe2
+ 514 00af 06       		.uleb128 0x6
+ 515 00b0 22000000 		.4byte	.LASF16
+ 516 00b4 01       		.byte	0x1
+ 517 00b5 15       		.byte	0x15
+ 518 00b6 6B000000 		.4byte	0x6b
+ 519 00ba 00000000 		.4byte	.LLST0
+ 520 00be 07       		.uleb128 0x7
+ 521 00bf 0A000000 		.4byte	.LVL2
+ 522 00c3 39040000 		.4byte	0x439
+ 523 00c7 D1000000 		.4byte	0xd1
+ 524 00cb 08       		.uleb128 0x8
+ 525 00cc 01       		.uleb128 0x1
+ 526 00cd 50       		.byte	0x50
+ 527 00ce 01       		.uleb128 0x1
+ 528 00cf 30       		.byte	0x30
+ 529 00d0 00       		.byte	0
+ 530 00d1 09       		.uleb128 0x9
+ 531 00d2 10000000 		.4byte	.LVL3
+ 532 00d6 44040000 		.4byte	0x444
+ 533 00da 08       		.uleb128 0x8
+ 534 00db 01       		.uleb128 0x1
+ 535 00dc 50       		.byte	0x50
+ 536 00dd 02       		.uleb128 0x2
+ 537 00de 74       		.byte	0x74
+ 538 00df 00       		.sleb128 0
+ 539 00e0 00       		.byte	0
+ 540 00e1 00       		.byte	0
+ 541 00e2 05       		.uleb128 0x5
+ 542 00e3 3D000000 		.4byte	.LASF15
+ 543 00e7 01       		.byte	0x1
+ 544 00e8 1C       		.byte	0x1c
+ 545 00e9 00000000 		.4byte	.LFB33
+ 546 00ed 12000000 		.4byte	.LFE33-.LFB33
+ 547 00f1 01       		.uleb128 0x1
+ 548 00f2 9C       		.byte	0x9c
+ 549 00f3 2A010000 		.4byte	0x12a
+ 550 00f7 06       		.uleb128 0x6
+ 551 00f8 68000000 		.4byte	.LASF17
+ 552 00fc 01       		.byte	0x1
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 13
+
+
+ 553 00fd 1C       		.byte	0x1c
+ 554 00fe 6B000000 		.4byte	0x6b
+ 555 0102 21000000 		.4byte	.LLST1
+ 556 0106 07       		.uleb128 0x7
+ 557 0107 0A000000 		.4byte	.LVL6
+ 558 010b 39040000 		.4byte	0x439
+ 559 010f 19010000 		.4byte	0x119
+ 560 0113 08       		.uleb128 0x8
+ 561 0114 01       		.uleb128 0x1
+ 562 0115 50       		.byte	0x50
+ 563 0116 01       		.uleb128 0x1
+ 564 0117 31       		.byte	0x31
+ 565 0118 00       		.byte	0
+ 566 0119 09       		.uleb128 0x9
+ 567 011a 10000000 		.4byte	.LVL7
+ 568 011e 44040000 		.4byte	0x444
+ 569 0122 08       		.uleb128 0x8
+ 570 0123 01       		.uleb128 0x1
+ 571 0124 50       		.byte	0x50
+ 572 0125 02       		.uleb128 0x2
+ 573 0126 74       		.byte	0x74
+ 574 0127 00       		.sleb128 0
+ 575 0128 00       		.byte	0
+ 576 0129 00       		.byte	0
+ 577 012a 0A       		.uleb128 0xa
+ 578 012b 3C020000 		.4byte	.LASF22
+ 579 012f 01       		.byte	0x1
+ 580 0130 23       		.byte	0x23
+ 581 0131 00000000 		.4byte	.LFB34
+ 582 0135 84000000 		.4byte	.LFE34-.LFB34
+ 583 0139 01       		.uleb128 0x1
+ 584 013a 9C       		.byte	0x9c
+ 585 013b BA020000 		.4byte	0x2ba
+ 586 013f 07       		.uleb128 0x7
+ 587 0140 08000000 		.4byte	.LVL8
+ 588 0144 50040000 		.4byte	0x450
+ 589 0148 52010000 		.4byte	0x152
+ 590 014c 08       		.uleb128 0x8
+ 591 014d 01       		.uleb128 0x1
+ 592 014e 50       		.byte	0x50
+ 593 014f 01       		.uleb128 0x1
+ 594 0150 30       		.byte	0x30
+ 595 0151 00       		.byte	0
+ 596 0152 07       		.uleb128 0x7
+ 597 0153 0E000000 		.4byte	.LVL9
+ 598 0157 5B040000 		.4byte	0x45b
+ 599 015b 65010000 		.4byte	0x165
+ 600 015f 08       		.uleb128 0x8
+ 601 0160 01       		.uleb128 0x1
+ 602 0161 50       		.byte	0x50
+ 603 0162 01       		.uleb128 0x1
+ 604 0163 35       		.byte	0x35
+ 605 0164 00       		.byte	0
+ 606 0165 07       		.uleb128 0x7
+ 607 0166 14000000 		.4byte	.LVL10
+ 608 016a 50040000 		.4byte	0x450
+ 609 016e 78010000 		.4byte	0x178
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 14
+
+
+ 610 0172 08       		.uleb128 0x8
+ 611 0173 01       		.uleb128 0x1
+ 612 0174 50       		.byte	0x50
+ 613 0175 01       		.uleb128 0x1
+ 614 0176 31       		.byte	0x31
+ 615 0177 00       		.byte	0
+ 616 0178 07       		.uleb128 0x7
+ 617 0179 1A000000 		.4byte	.LVL11
+ 618 017d 5B040000 		.4byte	0x45b
+ 619 0181 8B010000 		.4byte	0x18b
+ 620 0185 08       		.uleb128 0x8
+ 621 0186 01       		.uleb128 0x1
+ 622 0187 50       		.byte	0x50
+ 623 0188 01       		.uleb128 0x1
+ 624 0189 35       		.byte	0x35
+ 625 018a 00       		.byte	0
+ 626 018b 07       		.uleb128 0x7
+ 627 018c 20000000 		.4byte	.LVL12
+ 628 0190 9A000000 		.4byte	0x9a
+ 629 0194 9F010000 		.4byte	0x19f
+ 630 0198 08       		.uleb128 0x8
+ 631 0199 01       		.uleb128 0x1
+ 632 019a 50       		.byte	0x50
+ 633 019b 02       		.uleb128 0x2
+ 634 019c 09       		.byte	0x9
+ 635 019d E2       		.byte	0xe2
+ 636 019e 00       		.byte	0
+ 637 019f 07       		.uleb128 0x7
+ 638 01a0 26000000 		.4byte	.LVL13
+ 639 01a4 5B040000 		.4byte	0x45b
+ 640 01a8 B2010000 		.4byte	0x1b2
+ 641 01ac 08       		.uleb128 0x8
+ 642 01ad 01       		.uleb128 0x1
+ 643 01ae 50       		.byte	0x50
+ 644 01af 01       		.uleb128 0x1
+ 645 01b0 4E       		.byte	0x4e
+ 646 01b1 00       		.byte	0
+ 647 01b2 07       		.uleb128 0x7
+ 648 01b3 2C000000 		.4byte	.LVL14
+ 649 01b7 9A000000 		.4byte	0x9a
+ 650 01bb C6010000 		.4byte	0x1c6
+ 651 01bf 08       		.uleb128 0x8
+ 652 01c0 01       		.uleb128 0x1
+ 653 01c1 50       		.byte	0x50
+ 654 01c2 02       		.uleb128 0x2
+ 655 01c3 08       		.byte	0x8
+ 656 01c4 23       		.byte	0x23
+ 657 01c5 00       		.byte	0
+ 658 01c6 07       		.uleb128 0x7
+ 659 01c7 32000000 		.4byte	.LVL15
+ 660 01cb 9A000000 		.4byte	0x9a
+ 661 01cf DA010000 		.4byte	0x1da
+ 662 01d3 08       		.uleb128 0x8
+ 663 01d4 01       		.uleb128 0x1
+ 664 01d5 50       		.byte	0x50
+ 665 01d6 02       		.uleb128 0x2
+ 666 01d7 09       		.byte	0x9
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 15
+
+
+ 667 01d8 C8       		.byte	0xc8
+ 668 01d9 00       		.byte	0
+ 669 01da 07       		.uleb128 0x7
+ 670 01db 38000000 		.4byte	.LVL16
+ 671 01df 9A000000 		.4byte	0x9a
+ 672 01e3 EE010000 		.4byte	0x1ee
+ 673 01e7 08       		.uleb128 0x8
+ 674 01e8 01       		.uleb128 0x1
+ 675 01e9 50       		.byte	0x50
+ 676 01ea 02       		.uleb128 0x2
+ 677 01eb 09       		.byte	0x9
+ 678 01ec E8       		.byte	0xe8
+ 679 01ed 00       		.byte	0
+ 680 01ee 07       		.uleb128 0x7
+ 681 01ef 3E000000 		.4byte	.LVL17
+ 682 01f3 9A000000 		.4byte	0x9a
+ 683 01f7 02020000 		.4byte	0x202
+ 684 01fb 08       		.uleb128 0x8
+ 685 01fc 01       		.uleb128 0x1
+ 686 01fd 50       		.byte	0x50
+ 687 01fe 02       		.uleb128 0x2
+ 688 01ff 09       		.byte	0x9
+ 689 0200 81       		.byte	0x81
+ 690 0201 00       		.byte	0
+ 691 0202 0B       		.uleb128 0xb
+ 692 0203 46000000 		.4byte	.LVL18
+ 693 0207 9A000000 		.4byte	0x9a
+ 694 020b 07       		.uleb128 0x7
+ 695 020c 4C000000 		.4byte	.LVL19
+ 696 0210 9A000000 		.4byte	0x9a
+ 697 0214 1F020000 		.4byte	0x21f
+ 698 0218 08       		.uleb128 0x8
+ 699 0219 01       		.uleb128 0x1
+ 700 021a 50       		.byte	0x50
+ 701 021b 02       		.uleb128 0x2
+ 702 021c 08       		.byte	0x8
+ 703 021d 2F       		.byte	0x2f
+ 704 021e 00       		.byte	0
+ 705 021f 07       		.uleb128 0x7
+ 706 0220 52000000 		.4byte	.LVL20
+ 707 0224 9A000000 		.4byte	0x9a
+ 708 0228 33020000 		.4byte	0x233
+ 709 022c 08       		.uleb128 0x8
+ 710 022d 01       		.uleb128 0x1
+ 711 022e 50       		.byte	0x50
+ 712 022f 02       		.uleb128 0x2
+ 713 0230 08       		.byte	0x8
+ 714 0231 40       		.byte	0x40
+ 715 0232 00       		.byte	0
+ 716 0233 07       		.uleb128 0x7
+ 717 0234 58000000 		.4byte	.LVL21
+ 718 0238 9A000000 		.4byte	0x9a
+ 719 023c 47020000 		.4byte	0x247
+ 720 0240 08       		.uleb128 0x8
+ 721 0241 01       		.uleb128 0x1
+ 722 0242 50       		.byte	0x50
+ 723 0243 02       		.uleb128 0x2
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 16
+
+
+ 724 0244 09       		.byte	0x9
+ 725 0245 A4       		.byte	0xa4
+ 726 0246 00       		.byte	0
+ 727 0247 07       		.uleb128 0x7
+ 728 0248 5E000000 		.4byte	.LVL22
+ 729 024c 9A000000 		.4byte	0x9a
+ 730 0250 5B020000 		.4byte	0x25b
+ 731 0254 08       		.uleb128 0x8
+ 732 0255 01       		.uleb128 0x1
+ 733 0256 50       		.byte	0x50
+ 734 0257 02       		.uleb128 0x2
+ 735 0258 09       		.byte	0x9
+ 736 0259 A6       		.byte	0xa6
+ 737 025a 00       		.byte	0
+ 738 025b 07       		.uleb128 0x7
+ 739 025c 64000000 		.4byte	.LVL23
+ 740 0260 9A000000 		.4byte	0x9a
+ 741 0264 6F020000 		.4byte	0x26f
+ 742 0268 08       		.uleb128 0x8
+ 743 0269 01       		.uleb128 0x1
+ 744 026a 50       		.byte	0x50
+ 745 026b 02       		.uleb128 0x2
+ 746 026c 09       		.byte	0x9
+ 747 026d 89       		.byte	0x89
+ 748 026e 00       		.byte	0
+ 749 026f 07       		.uleb128 0x7
+ 750 0270 6A000000 		.4byte	.LVL24
+ 751 0274 9A000000 		.4byte	0x9a
+ 752 0278 83020000 		.4byte	0x283
+ 753 027c 08       		.uleb128 0x8
+ 754 027d 01       		.uleb128 0x1
+ 755 027e 50       		.byte	0x50
+ 756 027f 02       		.uleb128 0x2
+ 757 0280 09       		.byte	0x9
+ 758 0281 B0       		.byte	0xb0
+ 759 0282 00       		.byte	0
+ 760 0283 07       		.uleb128 0x7
+ 761 0284 70000000 		.4byte	.LVL25
+ 762 0288 9A000000 		.4byte	0x9a
+ 763 028c 96020000 		.4byte	0x296
+ 764 0290 08       		.uleb128 0x8
+ 765 0291 01       		.uleb128 0x1
+ 766 0292 50       		.byte	0x50
+ 767 0293 01       		.uleb128 0x1
+ 768 0294 30       		.byte	0x30
+ 769 0295 00       		.byte	0
+ 770 0296 07       		.uleb128 0x7
+ 771 0297 76000000 		.4byte	.LVL26
+ 772 029b 9A000000 		.4byte	0x9a
+ 773 029f A9020000 		.4byte	0x2a9
+ 774 02a3 08       		.uleb128 0x8
+ 775 02a4 01       		.uleb128 0x1
+ 776 02a5 50       		.byte	0x50
+ 777 02a6 01       		.uleb128 0x1
+ 778 02a7 40       		.byte	0x40
+ 779 02a8 00       		.byte	0
+ 780 02a9 09       		.uleb128 0x9
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 17
+
+
+ 781 02aa 7C000000 		.4byte	.LVL27
+ 782 02ae 9A000000 		.4byte	0x9a
+ 783 02b2 08       		.uleb128 0x8
+ 784 02b3 01       		.uleb128 0x1
+ 785 02b4 50       		.byte	0x50
+ 786 02b5 02       		.uleb128 0x2
+ 787 02b6 09       		.byte	0x9
+ 788 02b7 AF       		.byte	0xaf
+ 789 02b8 00       		.byte	0
+ 790 02b9 00       		.byte	0
+ 791 02ba 05       		.uleb128 0x5
+ 792 02bb 2A000000 		.4byte	.LASF18
+ 793 02bf 01       		.byte	0x1
+ 794 02c0 53       		.byte	0x53
+ 795 02c1 00000000 		.4byte	.LFB36
+ 796 02c5 10000000 		.4byte	.LFE36-.LFB36
+ 797 02c9 01       		.uleb128 0x1
+ 798 02ca 9C       		.byte	0x9c
+ 799 02cb E8020000 		.4byte	0x2e8
+ 800 02cf 06       		.uleb128 0x6
+ 801 02d0 00000000 		.4byte	.LASF19
+ 802 02d4 01       		.byte	0x1
+ 803 02d5 53       		.byte	0x53
+ 804 02d6 6B000000 		.4byte	0x6b
+ 805 02da 42000000 		.4byte	.LLST2
+ 806 02de 0B       		.uleb128 0xb
+ 807 02df 0E000000 		.4byte	.LVL30
+ 808 02e3 9A000000 		.4byte	0x9a
+ 809 02e7 00       		.byte	0
+ 810 02e8 05       		.uleb128 0x5
+ 811 02e9 27020000 		.4byte	.LASF20
+ 812 02ed 01       		.byte	0x1
+ 813 02ee 5D       		.byte	0x5d
+ 814 02ef 00000000 		.4byte	.LFB37
+ 815 02f3 1A000000 		.4byte	.LFE37-.LFB37
+ 816 02f7 01       		.uleb128 0x1
+ 817 02f8 9C       		.byte	0x9c
+ 818 02f9 28030000 		.4byte	0x328
+ 819 02fd 06       		.uleb128 0x6
+ 820 02fe 9D000000 		.4byte	.LASF21
+ 821 0302 01       		.byte	0x1
+ 822 0303 5D       		.byte	0x5d
+ 823 0304 6B000000 		.4byte	0x6b
+ 824 0308 63000000 		.4byte	.LLST3
+ 825 030c 0B       		.uleb128 0xb
+ 826 030d 10000000 		.4byte	.LVL33
+ 827 0311 9A000000 		.4byte	0x9a
+ 828 0315 09       		.uleb128 0x9
+ 829 0316 18000000 		.4byte	.LVL34
+ 830 031a 9A000000 		.4byte	0x9a
+ 831 031e 08       		.uleb128 0x8
+ 832 031f 01       		.uleb128 0x1
+ 833 0320 50       		.byte	0x50
+ 834 0321 04       		.uleb128 0x4
+ 835 0322 74       		.byte	0x74
+ 836 0323 00       		.sleb128 0
+ 837 0324 3F       		.byte	0x3f
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 18
+
+
+ 838 0325 1A       		.byte	0x1a
+ 839 0326 00       		.byte	0
+ 840 0327 00       		.byte	0
+ 841 0328 0A       		.uleb128 0xa
+ 842 0329 05000000 		.4byte	.LASF23
+ 843 032d 01       		.byte	0x1
+ 844 032e 43       		.byte	0x43
+ 845 032f 00000000 		.4byte	.LFB35
+ 846 0333 2E000000 		.4byte	.LFE35-.LFB35
+ 847 0337 01       		.uleb128 0x1
+ 848 0338 9C       		.byte	0x9c
+ 849 0339 93030000 		.4byte	0x393
+ 850 033d 0C       		.uleb128 0xc
+ 851 033e 00000000 		.4byte	.LASF19
+ 852 0342 01       		.byte	0x1
+ 853 0343 45       		.byte	0x45
+ 854 0344 6B000000 		.4byte	0x6b
+ 855 0348 84000000 		.4byte	.LLST4
+ 856 034c 0C       		.uleb128 0xc
+ 857 034d 9D000000 		.4byte	.LASF21
+ 858 0351 01       		.byte	0x1
+ 859 0352 45       		.byte	0x45
+ 860 0353 6B000000 		.4byte	0x6b
+ 861 0357 AE000000 		.4byte	.LLST5
+ 862 035b 07       		.uleb128 0x7
+ 863 035c 0C000000 		.4byte	.LVL37
+ 864 0360 BA020000 		.4byte	0x2ba
+ 865 0364 6F030000 		.4byte	0x36f
+ 866 0368 08       		.uleb128 0x8
+ 867 0369 01       		.uleb128 0x1
+ 868 036a 50       		.byte	0x50
+ 869 036b 02       		.uleb128 0x2
+ 870 036c 75       		.byte	0x75
+ 871 036d 00       		.sleb128 0
+ 872 036e 00       		.byte	0
+ 873 036f 07       		.uleb128 0x7
+ 874 0370 12000000 		.4byte	.LVL38
+ 875 0374 E8020000 		.4byte	0x2e8
+ 876 0378 82030000 		.4byte	0x382
+ 877 037c 08       		.uleb128 0x8
+ 878 037d 01       		.uleb128 0x1
+ 879 037e 50       		.byte	0x50
+ 880 037f 01       		.uleb128 0x1
+ 881 0380 30       		.byte	0x30
+ 882 0381 00       		.byte	0
+ 883 0382 09       		.uleb128 0x9
+ 884 0383 1C000000 		.4byte	.LVL40
+ 885 0387 E2000000 		.4byte	0xe2
+ 886 038b 08       		.uleb128 0x8
+ 887 038c 01       		.uleb128 0x1
+ 888 038d 50       		.byte	0x50
+ 889 038e 02       		.uleb128 0x2
+ 890 038f 09       		.byte	0x9
+ 891 0390 80       		.byte	0x80
+ 892 0391 00       		.byte	0
+ 893 0392 00       		.byte	0
+ 894 0393 05       		.uleb128 0x5
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 19
+
+
+ 895 0394 60010000 		.4byte	.LASF24
+ 896 0398 01       		.byte	0x1
+ 897 0399 6A       		.byte	0x6a
+ 898 039a 00000000 		.4byte	.LFB38
+ 899 039e 12000000 		.4byte	.LFE38-.LFB38
+ 900 03a2 01       		.uleb128 0x1
+ 901 03a3 9C       		.byte	0x9c
+ 902 03a4 DC030000 		.4byte	0x3dc
+ 903 03a8 06       		.uleb128 0x6
+ 904 03a9 75020000 		.4byte	.LASF25
+ 905 03ad 01       		.byte	0x1
+ 906 03ae 6A       		.byte	0x6a
+ 907 03af 6B000000 		.4byte	0x6b
+ 908 03b3 D8000000 		.4byte	.LLST6
+ 909 03b7 07       		.uleb128 0x7
+ 910 03b8 0A000000 		.4byte	.LVL48
+ 911 03bc 9A000000 		.4byte	0x9a
+ 912 03c0 CB030000 		.4byte	0x3cb
+ 913 03c4 08       		.uleb128 0x8
+ 914 03c5 01       		.uleb128 0x1
+ 915 03c6 50       		.byte	0x50
+ 916 03c7 02       		.uleb128 0x2
+ 917 03c8 09       		.byte	0x9
+ 918 03c9 81       		.byte	0x81
+ 919 03ca 00       		.byte	0
+ 920 03cb 09       		.uleb128 0x9
+ 921 03cc 10000000 		.4byte	.LVL49
+ 922 03d0 9A000000 		.4byte	0x9a
+ 923 03d4 08       		.uleb128 0x8
+ 924 03d5 01       		.uleb128 0x1
+ 925 03d6 50       		.byte	0x50
+ 926 03d7 02       		.uleb128 0x2
+ 927 03d8 74       		.byte	0x74
+ 928 03d9 00       		.sleb128 0
+ 929 03da 00       		.byte	0
+ 930 03db 00       		.byte	0
+ 931 03dc 0A       		.uleb128 0xa
+ 932 03dd 84020000 		.4byte	.LASF26
+ 933 03e1 01       		.byte	0x1
+ 934 03e2 71       		.byte	0x71
+ 935 03e3 00000000 		.4byte	.LFB39
+ 936 03e7 0A000000 		.4byte	.LFE39-.LFB39
+ 937 03eb 01       		.uleb128 0x1
+ 938 03ec 9C       		.byte	0x9c
+ 939 03ed 02040000 		.4byte	0x402
+ 940 03f1 09       		.uleb128 0x9
+ 941 03f2 08000000 		.4byte	.LVL50
+ 942 03f6 9A000000 		.4byte	0x9a
+ 943 03fa 08       		.uleb128 0x8
+ 944 03fb 01       		.uleb128 0x1
+ 945 03fc 50       		.byte	0x50
+ 946 03fd 02       		.uleb128 0x2
+ 947 03fe 09       		.byte	0x9
+ 948 03ff A7       		.byte	0xa7
+ 949 0400 00       		.byte	0
+ 950 0401 00       		.byte	0
+ 951 0402 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 20
+
+
+ 952 0403 4F000000 		.4byte	.LASF27
+ 953 0407 01       		.byte	0x1
+ 954 0408 76       		.byte	0x76
+ 955 0409 00000000 		.4byte	.LFB40
+ 956 040d 0A000000 		.4byte	.LFE40-.LFB40
+ 957 0411 01       		.uleb128 0x1
+ 958 0412 9C       		.byte	0x9c
+ 959 0413 28040000 		.4byte	0x428
+ 960 0417 09       		.uleb128 0x9
+ 961 0418 08000000 		.4byte	.LVL51
+ 962 041c 9A000000 		.4byte	0x9a
+ 963 0420 08       		.uleb128 0x8
+ 964 0421 01       		.uleb128 0x1
+ 965 0422 50       		.byte	0x50
+ 966 0423 02       		.uleb128 0x2
+ 967 0424 09       		.byte	0x9
+ 968 0425 A6       		.byte	0xa6
+ 969 0426 00       		.byte	0
+ 970 0427 00       		.byte	0
+ 971 0428 0D       		.uleb128 0xd
+ 972 0429 75020000 		.4byte	.LASF25
+ 973 042d 01       		.byte	0x1
+ 974 042e 13       		.byte	0x13
+ 975 042f 6B000000 		.4byte	0x6b
+ 976 0433 05       		.uleb128 0x5
+ 977 0434 03       		.byte	0x3
+ 978 0435 00000000 		.4byte	contrast_value
+ 979 0439 0E       		.uleb128 0xe
+ 980 043a 15020000 		.4byte	.LASF28
+ 981 043e 15020000 		.4byte	.LASF28
+ 982 0442 02       		.byte	0x2
+ 983 0443 33       		.byte	0x33
+ 984 0444 0F       		.uleb128 0xf
+ 985 0445 46010000 		.4byte	.LASF29
+ 986 0449 46010000 		.4byte	.LASF29
+ 987 044d 03       		.byte	0x3
+ 988 044e 4403     		.2byte	0x344
+ 989 0450 0E       		.uleb128 0xe
+ 990 0451 8D000000 		.4byte	.LASF30
+ 991 0455 8D000000 		.4byte	.LASF30
+ 992 0459 04       		.byte	0x4
+ 993 045a 33       		.byte	0x33
+ 994 045b 0E       		.uleb128 0xe
+ 995 045c 96020000 		.4byte	.LASF31
+ 996 0460 96020000 		.4byte	.LASF31
+ 997 0464 05       		.byte	0x5
+ 998 0465 EC       		.byte	0xec
+ 999 0466 00       		.byte	0
+ 1000              		.section	.debug_abbrev,"",%progbits
+ 1001              	.Ldebug_abbrev0:
+ 1002 0000 01       		.uleb128 0x1
+ 1003 0001 11       		.uleb128 0x11
+ 1004 0002 01       		.byte	0x1
+ 1005 0003 25       		.uleb128 0x25
+ 1006 0004 0E       		.uleb128 0xe
+ 1007 0005 13       		.uleb128 0x13
+ 1008 0006 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 21
+
+
+ 1009 0007 03       		.uleb128 0x3
+ 1010 0008 0E       		.uleb128 0xe
+ 1011 0009 1B       		.uleb128 0x1b
+ 1012 000a 0E       		.uleb128 0xe
+ 1013 000b 55       		.uleb128 0x55
+ 1014 000c 17       		.uleb128 0x17
+ 1015 000d 11       		.uleb128 0x11
+ 1016 000e 01       		.uleb128 0x1
+ 1017 000f 10       		.uleb128 0x10
+ 1018 0010 17       		.uleb128 0x17
+ 1019 0011 00       		.byte	0
+ 1020 0012 00       		.byte	0
+ 1021 0013 02       		.uleb128 0x2
+ 1022 0014 24       		.uleb128 0x24
+ 1023 0015 00       		.byte	0
+ 1024 0016 0B       		.uleb128 0xb
+ 1025 0017 0B       		.uleb128 0xb
+ 1026 0018 3E       		.uleb128 0x3e
+ 1027 0019 0B       		.uleb128 0xb
+ 1028 001a 03       		.uleb128 0x3
+ 1029 001b 0E       		.uleb128 0xe
+ 1030 001c 00       		.byte	0
+ 1031 001d 00       		.byte	0
+ 1032 001e 03       		.uleb128 0x3
+ 1033 001f 24       		.uleb128 0x24
+ 1034 0020 00       		.byte	0
+ 1035 0021 0B       		.uleb128 0xb
+ 1036 0022 0B       		.uleb128 0xb
+ 1037 0023 3E       		.uleb128 0x3e
+ 1038 0024 0B       		.uleb128 0xb
+ 1039 0025 03       		.uleb128 0x3
+ 1040 0026 08       		.uleb128 0x8
+ 1041 0027 00       		.byte	0
+ 1042 0028 00       		.byte	0
+ 1043 0029 04       		.uleb128 0x4
+ 1044 002a 16       		.uleb128 0x16
+ 1045 002b 00       		.byte	0
+ 1046 002c 03       		.uleb128 0x3
+ 1047 002d 0E       		.uleb128 0xe
+ 1048 002e 3A       		.uleb128 0x3a
+ 1049 002f 0B       		.uleb128 0xb
+ 1050 0030 3B       		.uleb128 0x3b
+ 1051 0031 05       		.uleb128 0x5
+ 1052 0032 49       		.uleb128 0x49
+ 1053 0033 13       		.uleb128 0x13
+ 1054 0034 00       		.byte	0
+ 1055 0035 00       		.byte	0
+ 1056 0036 05       		.uleb128 0x5
+ 1057 0037 2E       		.uleb128 0x2e
+ 1058 0038 01       		.byte	0x1
+ 1059 0039 3F       		.uleb128 0x3f
+ 1060 003a 19       		.uleb128 0x19
+ 1061 003b 03       		.uleb128 0x3
+ 1062 003c 0E       		.uleb128 0xe
+ 1063 003d 3A       		.uleb128 0x3a
+ 1064 003e 0B       		.uleb128 0xb
+ 1065 003f 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 22
+
+
+ 1066 0040 0B       		.uleb128 0xb
+ 1067 0041 27       		.uleb128 0x27
+ 1068 0042 19       		.uleb128 0x19
+ 1069 0043 11       		.uleb128 0x11
+ 1070 0044 01       		.uleb128 0x1
+ 1071 0045 12       		.uleb128 0x12
+ 1072 0046 06       		.uleb128 0x6
+ 1073 0047 40       		.uleb128 0x40
+ 1074 0048 18       		.uleb128 0x18
+ 1075 0049 9742     		.uleb128 0x2117
+ 1076 004b 19       		.uleb128 0x19
+ 1077 004c 01       		.uleb128 0x1
+ 1078 004d 13       		.uleb128 0x13
+ 1079 004e 00       		.byte	0
+ 1080 004f 00       		.byte	0
+ 1081 0050 06       		.uleb128 0x6
+ 1082 0051 05       		.uleb128 0x5
+ 1083 0052 00       		.byte	0
+ 1084 0053 03       		.uleb128 0x3
+ 1085 0054 0E       		.uleb128 0xe
+ 1086 0055 3A       		.uleb128 0x3a
+ 1087 0056 0B       		.uleb128 0xb
+ 1088 0057 3B       		.uleb128 0x3b
+ 1089 0058 0B       		.uleb128 0xb
+ 1090 0059 49       		.uleb128 0x49
+ 1091 005a 13       		.uleb128 0x13
+ 1092 005b 02       		.uleb128 0x2
+ 1093 005c 17       		.uleb128 0x17
+ 1094 005d 00       		.byte	0
+ 1095 005e 00       		.byte	0
+ 1096 005f 07       		.uleb128 0x7
+ 1097 0060 898201   		.uleb128 0x4109
+ 1098 0063 01       		.byte	0x1
+ 1099 0064 11       		.uleb128 0x11
+ 1100 0065 01       		.uleb128 0x1
+ 1101 0066 31       		.uleb128 0x31
+ 1102 0067 13       		.uleb128 0x13
+ 1103 0068 01       		.uleb128 0x1
+ 1104 0069 13       		.uleb128 0x13
+ 1105 006a 00       		.byte	0
+ 1106 006b 00       		.byte	0
+ 1107 006c 08       		.uleb128 0x8
+ 1108 006d 8A8201   		.uleb128 0x410a
+ 1109 0070 00       		.byte	0
+ 1110 0071 02       		.uleb128 0x2
+ 1111 0072 18       		.uleb128 0x18
+ 1112 0073 9142     		.uleb128 0x2111
+ 1113 0075 18       		.uleb128 0x18
+ 1114 0076 00       		.byte	0
+ 1115 0077 00       		.byte	0
+ 1116 0078 09       		.uleb128 0x9
+ 1117 0079 898201   		.uleb128 0x4109
+ 1118 007c 01       		.byte	0x1
+ 1119 007d 11       		.uleb128 0x11
+ 1120 007e 01       		.uleb128 0x1
+ 1121 007f 31       		.uleb128 0x31
+ 1122 0080 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 23
+
+
+ 1123 0081 00       		.byte	0
+ 1124 0082 00       		.byte	0
+ 1125 0083 0A       		.uleb128 0xa
+ 1126 0084 2E       		.uleb128 0x2e
+ 1127 0085 01       		.byte	0x1
+ 1128 0086 3F       		.uleb128 0x3f
+ 1129 0087 19       		.uleb128 0x19
+ 1130 0088 03       		.uleb128 0x3
+ 1131 0089 0E       		.uleb128 0xe
+ 1132 008a 3A       		.uleb128 0x3a
+ 1133 008b 0B       		.uleb128 0xb
+ 1134 008c 3B       		.uleb128 0x3b
+ 1135 008d 0B       		.uleb128 0xb
+ 1136 008e 11       		.uleb128 0x11
+ 1137 008f 01       		.uleb128 0x1
+ 1138 0090 12       		.uleb128 0x12
+ 1139 0091 06       		.uleb128 0x6
+ 1140 0092 40       		.uleb128 0x40
+ 1141 0093 18       		.uleb128 0x18
+ 1142 0094 9742     		.uleb128 0x2117
+ 1143 0096 19       		.uleb128 0x19
+ 1144 0097 01       		.uleb128 0x1
+ 1145 0098 13       		.uleb128 0x13
+ 1146 0099 00       		.byte	0
+ 1147 009a 00       		.byte	0
+ 1148 009b 0B       		.uleb128 0xb
+ 1149 009c 898201   		.uleb128 0x4109
+ 1150 009f 00       		.byte	0
+ 1151 00a0 11       		.uleb128 0x11
+ 1152 00a1 01       		.uleb128 0x1
+ 1153 00a2 31       		.uleb128 0x31
+ 1154 00a3 13       		.uleb128 0x13
+ 1155 00a4 00       		.byte	0
+ 1156 00a5 00       		.byte	0
+ 1157 00a6 0C       		.uleb128 0xc
+ 1158 00a7 34       		.uleb128 0x34
+ 1159 00a8 00       		.byte	0
+ 1160 00a9 03       		.uleb128 0x3
+ 1161 00aa 0E       		.uleb128 0xe
+ 1162 00ab 3A       		.uleb128 0x3a
+ 1163 00ac 0B       		.uleb128 0xb
+ 1164 00ad 3B       		.uleb128 0x3b
+ 1165 00ae 0B       		.uleb128 0xb
+ 1166 00af 49       		.uleb128 0x49
+ 1167 00b0 13       		.uleb128 0x13
+ 1168 00b1 02       		.uleb128 0x2
+ 1169 00b2 17       		.uleb128 0x17
+ 1170 00b3 00       		.byte	0
+ 1171 00b4 00       		.byte	0
+ 1172 00b5 0D       		.uleb128 0xd
+ 1173 00b6 34       		.uleb128 0x34
+ 1174 00b7 00       		.byte	0
+ 1175 00b8 03       		.uleb128 0x3
+ 1176 00b9 0E       		.uleb128 0xe
+ 1177 00ba 3A       		.uleb128 0x3a
+ 1178 00bb 0B       		.uleb128 0xb
+ 1179 00bc 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 24
+
+
+ 1180 00bd 0B       		.uleb128 0xb
+ 1181 00be 49       		.uleb128 0x49
+ 1182 00bf 13       		.uleb128 0x13
+ 1183 00c0 3F       		.uleb128 0x3f
+ 1184 00c1 19       		.uleb128 0x19
+ 1185 00c2 02       		.uleb128 0x2
+ 1186 00c3 18       		.uleb128 0x18
+ 1187 00c4 00       		.byte	0
+ 1188 00c5 00       		.byte	0
+ 1189 00c6 0E       		.uleb128 0xe
+ 1190 00c7 2E       		.uleb128 0x2e
+ 1191 00c8 00       		.byte	0
+ 1192 00c9 3F       		.uleb128 0x3f
+ 1193 00ca 19       		.uleb128 0x19
+ 1194 00cb 3C       		.uleb128 0x3c
+ 1195 00cc 19       		.uleb128 0x19
+ 1196 00cd 6E       		.uleb128 0x6e
+ 1197 00ce 0E       		.uleb128 0xe
+ 1198 00cf 03       		.uleb128 0x3
+ 1199 00d0 0E       		.uleb128 0xe
+ 1200 00d1 3A       		.uleb128 0x3a
+ 1201 00d2 0B       		.uleb128 0xb
+ 1202 00d3 3B       		.uleb128 0x3b
+ 1203 00d4 0B       		.uleb128 0xb
+ 1204 00d5 00       		.byte	0
+ 1205 00d6 00       		.byte	0
+ 1206 00d7 0F       		.uleb128 0xf
+ 1207 00d8 2E       		.uleb128 0x2e
+ 1208 00d9 00       		.byte	0
+ 1209 00da 3F       		.uleb128 0x3f
+ 1210 00db 19       		.uleb128 0x19
+ 1211 00dc 3C       		.uleb128 0x3c
+ 1212 00dd 19       		.uleb128 0x19
+ 1213 00de 6E       		.uleb128 0x6e
+ 1214 00df 0E       		.uleb128 0xe
+ 1215 00e0 03       		.uleb128 0x3
+ 1216 00e1 0E       		.uleb128 0xe
+ 1217 00e2 3A       		.uleb128 0x3a
+ 1218 00e3 0B       		.uleb128 0xb
+ 1219 00e4 3B       		.uleb128 0x3b
+ 1220 00e5 05       		.uleb128 0x5
+ 1221 00e6 00       		.byte	0
+ 1222 00e7 00       		.byte	0
+ 1223 00e8 00       		.byte	0
+ 1224              		.section	.debug_loc,"",%progbits
+ 1225              	.Ldebug_loc0:
+ 1226              	.LLST0:
+ 1227 0000 00000000 		.4byte	.LVL0
+ 1228 0004 06000000 		.4byte	.LVL1
+ 1229 0008 0100     		.2byte	0x1
+ 1230 000a 50       		.byte	0x50
+ 1231 000b 06000000 		.4byte	.LVL1
+ 1232 000f 12000000 		.4byte	.LFE32
+ 1233 0013 0400     		.2byte	0x4
+ 1234 0015 F3       		.byte	0xf3
+ 1235 0016 01       		.uleb128 0x1
+ 1236 0017 50       		.byte	0x50
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 25
+
+
+ 1237 0018 9F       		.byte	0x9f
+ 1238 0019 00000000 		.4byte	0
+ 1239 001d 00000000 		.4byte	0
+ 1240              	.LLST1:
+ 1241 0021 00000000 		.4byte	.LVL4
+ 1242 0025 06000000 		.4byte	.LVL5
+ 1243 0029 0100     		.2byte	0x1
+ 1244 002b 50       		.byte	0x50
+ 1245 002c 06000000 		.4byte	.LVL5
+ 1246 0030 12000000 		.4byte	.LFE33
+ 1247 0034 0400     		.2byte	0x4
+ 1248 0036 F3       		.byte	0xf3
+ 1249 0037 01       		.uleb128 0x1
+ 1250 0038 50       		.byte	0x50
+ 1251 0039 9F       		.byte	0x9f
+ 1252 003a 00000000 		.4byte	0
+ 1253 003e 00000000 		.4byte	0
+ 1254              	.LLST2:
+ 1255 0042 00000000 		.4byte	.LVL28
+ 1256 0046 08000000 		.4byte	.LVL29
+ 1257 004a 0100     		.2byte	0x1
+ 1258 004c 50       		.byte	0x50
+ 1259 004d 08000000 		.4byte	.LVL29
+ 1260 0051 10000000 		.4byte	.LFE36
+ 1261 0055 0400     		.2byte	0x4
+ 1262 0057 F3       		.byte	0xf3
+ 1263 0058 01       		.uleb128 0x1
+ 1264 0059 50       		.byte	0x50
+ 1265 005a 9F       		.byte	0x9f
+ 1266 005b 00000000 		.4byte	0
+ 1267 005f 00000000 		.4byte	0
+ 1268              	.LLST3:
+ 1269 0063 00000000 		.4byte	.LVL31
+ 1270 0067 06000000 		.4byte	.LVL32
+ 1271 006b 0100     		.2byte	0x1
+ 1272 006d 50       		.byte	0x50
+ 1273 006e 06000000 		.4byte	.LVL32
+ 1274 0072 1A000000 		.4byte	.LFE37
+ 1275 0076 0400     		.2byte	0x4
+ 1276 0078 F3       		.byte	0xf3
+ 1277 0079 01       		.uleb128 0x1
+ 1278 007a 50       		.byte	0x50
+ 1279 007b 9F       		.byte	0x9f
+ 1280 007c 00000000 		.4byte	0
+ 1281 0080 00000000 		.4byte	0
+ 1282              	.LLST4:
+ 1283 0084 02000000 		.4byte	.LVL35
+ 1284 0088 06000000 		.4byte	.LVL36
+ 1285 008c 0200     		.2byte	0x2
+ 1286 008e 30       		.byte	0x30
+ 1287 008f 9F       		.byte	0x9f
+ 1288 0090 06000000 		.4byte	.LVL36
+ 1289 0094 26000000 		.4byte	.LVL43
+ 1290 0098 0100     		.2byte	0x1
+ 1291 009a 55       		.byte	0x55
+ 1292 009b 28000000 		.4byte	.LVL44
+ 1293 009f 2C000000 		.4byte	.LVL45
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 26
+
+
+ 1294 00a3 0100     		.2byte	0x1
+ 1295 00a5 55       		.byte	0x55
+ 1296 00a6 00000000 		.4byte	0
+ 1297 00aa 00000000 		.4byte	0
+ 1298              	.LLST5:
+ 1299 00ae 12000000 		.4byte	.LVL38
+ 1300 00b2 16000000 		.4byte	.LVL39
+ 1301 00b6 0200     		.2byte	0x2
+ 1302 00b8 30       		.byte	0x30
+ 1303 00b9 9F       		.byte	0x9f
+ 1304 00ba 16000000 		.4byte	.LVL39
+ 1305 00be 1E000000 		.4byte	.LVL41
+ 1306 00c2 0100     		.2byte	0x1
+ 1307 00c4 54       		.byte	0x54
+ 1308 00c5 20000000 		.4byte	.LVL42
+ 1309 00c9 28000000 		.4byte	.LVL44
+ 1310 00cd 0100     		.2byte	0x1
+ 1311 00cf 54       		.byte	0x54
+ 1312 00d0 00000000 		.4byte	0
+ 1313 00d4 00000000 		.4byte	0
+ 1314              	.LLST6:
+ 1315 00d8 00000000 		.4byte	.LVL46
+ 1316 00dc 06000000 		.4byte	.LVL47
+ 1317 00e0 0100     		.2byte	0x1
+ 1318 00e2 50       		.byte	0x50
+ 1319 00e3 06000000 		.4byte	.LVL47
+ 1320 00e7 12000000 		.4byte	.LFE38
+ 1321 00eb 0400     		.2byte	0x4
+ 1322 00ed F3       		.byte	0xf3
+ 1323 00ee 01       		.uleb128 0x1
+ 1324 00ef 50       		.byte	0x50
+ 1325 00f0 9F       		.byte	0x9f
+ 1326 00f1 00000000 		.4byte	0
+ 1327 00f5 00000000 		.4byte	0
+ 1328              		.section	.debug_aranges,"",%progbits
+ 1329 0000 5C000000 		.4byte	0x5c
+ 1330 0004 0200     		.2byte	0x2
+ 1331 0006 00000000 		.4byte	.Ldebug_info0
+ 1332 000a 04       		.byte	0x4
+ 1333 000b 00       		.byte	0
+ 1334 000c 0000     		.2byte	0
+ 1335 000e 0000     		.2byte	0
+ 1336 0010 00000000 		.4byte	.LFB32
+ 1337 0014 12000000 		.4byte	.LFE32-.LFB32
+ 1338 0018 00000000 		.4byte	.LFB33
+ 1339 001c 12000000 		.4byte	.LFE33-.LFB33
+ 1340 0020 00000000 		.4byte	.LFB34
+ 1341 0024 84000000 		.4byte	.LFE34-.LFB34
+ 1342 0028 00000000 		.4byte	.LFB36
+ 1343 002c 10000000 		.4byte	.LFE36-.LFB36
+ 1344 0030 00000000 		.4byte	.LFB37
+ 1345 0034 1A000000 		.4byte	.LFE37-.LFB37
+ 1346 0038 00000000 		.4byte	.LFB35
+ 1347 003c 2E000000 		.4byte	.LFE35-.LFB35
+ 1348 0040 00000000 		.4byte	.LFB38
+ 1349 0044 12000000 		.4byte	.LFE38-.LFB38
+ 1350 0048 00000000 		.4byte	.LFB39
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 27
+
+
+ 1351 004c 0A000000 		.4byte	.LFE39-.LFB39
+ 1352 0050 00000000 		.4byte	.LFB40
+ 1353 0054 0A000000 		.4byte	.LFE40-.LFB40
+ 1354 0058 00000000 		.4byte	0
+ 1355 005c 00000000 		.4byte	0
+ 1356              		.section	.debug_ranges,"",%progbits
+ 1357              	.Ldebug_ranges0:
+ 1358 0000 00000000 		.4byte	.LFB32
+ 1359 0004 12000000 		.4byte	.LFE32
+ 1360 0008 00000000 		.4byte	.LFB33
+ 1361 000c 12000000 		.4byte	.LFE33
+ 1362 0010 00000000 		.4byte	.LFB34
+ 1363 0014 84000000 		.4byte	.LFE34
+ 1364 0018 00000000 		.4byte	.LFB36
+ 1365 001c 10000000 		.4byte	.LFE36
+ 1366 0020 00000000 		.4byte	.LFB37
+ 1367 0024 1A000000 		.4byte	.LFE37
+ 1368 0028 00000000 		.4byte	.LFB35
+ 1369 002c 2E000000 		.4byte	.LFE35
+ 1370 0030 00000000 		.4byte	.LFB38
+ 1371 0034 12000000 		.4byte	.LFE38
+ 1372 0038 00000000 		.4byte	.LFB39
+ 1373 003c 0A000000 		.4byte	.LFE39
+ 1374 0040 00000000 		.4byte	.LFB40
+ 1375 0044 0A000000 		.4byte	.LFE40
+ 1376 0048 00000000 		.4byte	0
+ 1377 004c 00000000 		.4byte	0
+ 1378              		.section	.debug_line,"",%progbits
+ 1379              	.Ldebug_line0:
+ 1380 0000 5C010000 		.section	.debug_str,"MS",%progbits,1
+ 1380      02007E00 
+ 1380      00000201 
+ 1380      FB0E0D00 
+ 1380      01010101 
+ 1381              	.LASF19:
+ 1382 0000 70616765 		.ascii	"page\000"
+ 1382      00
+ 1383              	.LASF23:
+ 1384 0005 4C43445F 		.ascii	"LCD_Clear\000"
+ 1384      436C6561 
+ 1384      7200
+ 1385              	.LASF3:
+ 1386 000f 73686F72 		.ascii	"short unsigned int\000"
+ 1386      7420756E 
+ 1386      7369676E 
+ 1386      65642069 
+ 1386      6E7400
+ 1387              	.LASF16:
+ 1388 0022 636F6D6D 		.ascii	"command\000"
+ 1388      616E6400 
+ 1389              	.LASF18:
+ 1390 002a 4C43445F 		.ascii	"LCD_SetPageAddress\000"
+ 1390      53657450 
+ 1390      61676541 
+ 1390      64647265 
+ 1390      737300
+ 1391              	.LASF15:
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 28
+
+
+ 1392 003d 55433136 		.ascii	"UC1608_Write_data\000"
+ 1392      30385F57 
+ 1392      72697465 
+ 1392      5F646174 
+ 1392      6100
+ 1393              	.LASF27:
+ 1394 004f 4C43445F 		.ascii	"LCD_DisplayReverse\000"
+ 1394      44697370 
+ 1394      6C617952 
+ 1394      65766572 
+ 1394      736500
+ 1395              	.LASF9:
+ 1396 0062 666C6F61 		.ascii	"float\000"
+ 1396      7400
+ 1397              	.LASF17:
+ 1398 0068 64617461 		.ascii	"data\000"
+ 1398      00
+ 1399              	.LASF1:
+ 1400 006d 756E7369 		.ascii	"unsigned char\000"
+ 1400      676E6564 
+ 1400      20636861 
+ 1400      7200
+ 1401              	.LASF5:
+ 1402 007b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1402      20756E73 
+ 1402      69676E65 
+ 1402      6420696E 
+ 1402      7400
+ 1403              	.LASF30:
+ 1404 008d 4C43445F 		.ascii	"LCD_RESET_Write\000"
+ 1404      52455345 
+ 1404      545F5772 
+ 1404      69746500 
+ 1405              	.LASF21:
+ 1406 009d 636F6C75 		.ascii	"column\000"
+ 1406      6D6E00
+ 1407              	.LASF10:
+ 1408 00a4 646F7562 		.ascii	"double\000"
+ 1408      6C6500
+ 1409              	.LASF2:
+ 1410 00ab 73686F72 		.ascii	"short int\000"
+ 1410      7420696E 
+ 1410      7400
+ 1411              	.LASF14:
+ 1412 00b5 55433136 		.ascii	"UC1608_Write_Command\000"
+ 1412      30385F57 
+ 1412      72697465 
+ 1412      5F436F6D 
+ 1412      6D616E64 
+ 1413              	.LASF34:
+ 1414 00ca 433A5C48 		.ascii	"C:\\HackingChips\\Peugeot3008Display\\Firmware\\Peu"
+ 1414      61636B69 
+ 1414      6E674368 
+ 1414      6970735C 
+ 1414      50657567 
+ 1415 00f9 67656F74 		.ascii	"geotDisplay4245\\PeugeotDisplay4245.cydsn\000"
+ 1415      44697370 
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 29
+
+
+ 1415      6C617934 
+ 1415      3234355C 
+ 1415      50657567 
+ 1416              	.LASF8:
+ 1417 0122 756E7369 		.ascii	"unsigned int\000"
+ 1417      676E6564 
+ 1417      20696E74 
+ 1417      00
+ 1418              	.LASF7:
+ 1419 012f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1419      206C6F6E 
+ 1419      6720756E 
+ 1419      7369676E 
+ 1419      65642069 
+ 1420              	.LASF29:
+ 1421 0146 5350494C 		.ascii	"SPILCD_SpiUartWriteTxData\000"
+ 1421      43445F53 
+ 1421      70695561 
+ 1421      72745772 
+ 1421      69746554 
+ 1422              	.LASF24:
+ 1423 0160 4C43445F 		.ascii	"LCD_SetContrast\000"
+ 1423      53657443 
+ 1423      6F6E7472 
+ 1423      61737400 
+ 1424              	.LASF32:
+ 1425 0170 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1425      43313120 
+ 1425      352E342E 
+ 1425      31203230 
+ 1425      31363036 
+ 1426 01a3 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1426      20726576 
+ 1426      6973696F 
+ 1426      6E203233 
+ 1426      37373135 
+ 1427 01d6 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1427      66756E63 
+ 1427      74696F6E 
+ 1427      2D736563 
+ 1427      74696F6E 
+ 1428              	.LASF13:
+ 1429 01fe 73697A65 		.ascii	"sizetype\000"
+ 1429      74797065 
+ 1429      00
+ 1430              	.LASF6:
+ 1431 0207 6C6F6E67 		.ascii	"long long int\000"
+ 1431      206C6F6E 
+ 1431      6720696E 
+ 1431      7400
+ 1432              	.LASF28:
+ 1433 0215 4C43445F 		.ascii	"LCD_CD_Write\000"
+ 1433      43445F57 
+ 1433      72697465 
+ 1433      00
+ 1434              	.LASF11:
+ 1435 0222 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccukX0uX.s 			page 30
+
+
+ 1435      00
+ 1436              	.LASF20:
+ 1437 0227 4C43445F 		.ascii	"LCD_SetColumnAddress\000"
+ 1437      53657443 
+ 1437      6F6C756D 
+ 1437      6E416464 
+ 1437      72657373 
+ 1438              	.LASF22:
+ 1439 023c 4C43445F 		.ascii	"LCD_Init\000"
+ 1439      496E6974 
+ 1439      00
+ 1440              	.LASF33:
+ 1441 0245 55433136 		.ascii	"UC1608.c\000"
+ 1441      30382E63 
+ 1441      00
+ 1442              	.LASF35:
+ 1443 024e 75696E74 		.ascii	"uint8\000"
+ 1443      3800
+ 1444              	.LASF4:
+ 1445 0254 6C6F6E67 		.ascii	"long int\000"
+ 1445      20696E74 
+ 1445      00
+ 1446              	.LASF12:
+ 1447 025d 6C6F6E67 		.ascii	"long double\000"
+ 1447      20646F75 
+ 1447      626C6500 
+ 1448              	.LASF0:
+ 1449 0269 7369676E 		.ascii	"signed char\000"
+ 1449      65642063 
+ 1449      68617200 
+ 1450              	.LASF25:
+ 1451 0275 636F6E74 		.ascii	"contrast_value\000"
+ 1451      72617374 
+ 1451      5F76616C 
+ 1451      756500
+ 1452              	.LASF26:
+ 1453 0284 4C43445F 		.ascii	"LCD_DisplayNormal\000"
+ 1453      44697370 
+ 1453      6C61794E 
+ 1453      6F726D61 
+ 1453      6C00
+ 1454              	.LASF31:
+ 1455 0296 43794465 		.ascii	"CyDelay\000"
+ 1455      6C617900 
+ 1456              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

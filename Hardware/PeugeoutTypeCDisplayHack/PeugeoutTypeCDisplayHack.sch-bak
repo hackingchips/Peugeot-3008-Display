@@ -1,0 +1,1163 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A3 16535 11693
+encoding utf-8
+Sheet 1 1
+Title "Peugeot Type C Display Hack"
+Date "2020-09-18"
+Rev "1"
+Comp "Hackingchips.com"
+Comment1 "(C) Jesús Rodríguez Cacabelos"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L PeugeotTypeCDisplayHack:ER-CON30HB-1 J3
+U 1 1 5F5BD287
+P 13400 3300
+F 0 "J3" H 13500 3600 50  0000 L CNN
+F 1 "ER-CON30HB-1" H 13250 3500 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:ER-CON30HB-1" H 13550 3500 50  0001 C CNN
+F 3 "https://www.buydisplay.com/download/connector/ER-CON30HB-1.pdf" H 13550 3500 50  0001 C CNN
+	1    13400 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:CP_Small C12
+U 1 1 5F5BD28D
+P 12950 4100
+F 0 "C12" V 12850 3600 50  0000 C CNN
+F 1 "4u7" V 12950 3650 50  0000 C CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12950 4100 50  0001 C CNN
+F 3 "~" H 12950 4100 50  0001 C CNN
+	1    12950 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:CP_Small C13
+U 1 1 5F5BD293
+P 12950 4300
+F 0 "C13" V 12850 3800 50  0000 C CNN
+F 1 "4u7" V 12950 3850 50  0000 C CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12950 4300 50  0001 C CNN
+F 3 "~" H 12950 4300 50  0001 C CNN
+	1    12950 4300
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:C_Small C11
+U 1 1 5F5BD299
+P 12700 6600
+F 0 "C11" H 12792 6646 50  0000 L CNN
+F 1 "100nF" H 12792 6555 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12700 6600 50  0001 C CNN
+F 3 "~" H 12700 6600 50  0001 C CNN
+	1    12700 6600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12700 4200 12700 4300
+Wire Wire Line
+	12700 4300 12850 4300
+Wire Wire Line
+	12850 4100 12700 4100
+Wire Wire Line
+	12700 4100 12700 4000
+NoConn ~ 13300 3400
+NoConn ~ 13300 3500
+NoConn ~ 13300 3600
+NoConn ~ 13300 3700
+NoConn ~ 13300 3800
+NoConn ~ 13300 3900
+$Comp
+L power:GND #PWR024
+U 1 1 5F5BD2AF
+P 12700 6850
+F 0 "#PWR024" H 12700 6600 50  0001 C CNN
+F 1 "GND" H 12705 6677 50  0000 C CNN
+F 2 "" H 12700 6850 50  0001 C CNN
+F 3 "" H 12700 6850 50  0001 C CNN
+	1    12700 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR025
+U 1 1 5F5BD2B5
+P 13050 6850
+F 0 "#PWR025" H 13050 6600 50  0001 C CNN
+F 1 "GND" H 13055 6677 50  0000 C CNN
+F 2 "" H 13050 6850 50  0001 C CNN
+F 3 "" H 13050 6850 50  0001 C CNN
+	1    13050 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12700 6500 12700 6400
+Wire Wire Line
+	12400 6400 12700 6400
+Connection ~ 12700 6400
+Wire Wire Line
+	12700 4400 12700 6400
+Wire Wire Line
+	13050 6850 13050 6200
+Text Label 13100 4800 0    50   ~ 0
+DB7
+Text Label 13100 4900 0    50   ~ 0
+DB6
+Text Label 12350 5200 0    50   ~ 0
+LCD_SDA
+Text Label 12350 5500 0    50   ~ 0
+LCD_SCK
+$Comp
+L PeugeotTypeCDisplayHack:CP_Small C8
+U 1 1 5F5BD2CE
+P 11400 4900
+F 0 "C8" H 11100 4950 50  0000 L CNN
+F 1 "10uF" H 11100 4850 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 11400 4900 50  0001 C CNN
+F 3 "~" H 11400 4900 50  0001 C CNN
+	1    11400 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:C_Small C9
+U 1 1 5F5BD2D4
+P 11700 4900
+F 0 "C9" H 11792 4946 50  0000 L CNN
+F 1 "100nF" H 11792 4855 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 11700 4900 50  0001 C CNN
+F 3 "~" H 11700 4900 50  0001 C CNN
+	1    11700 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR022
+U 1 1 5F5BD2DA
+P 11700 5000
+F 0 "#PWR022" H 11700 4750 50  0001 C CNN
+F 1 "GND" H 11705 4827 50  0000 C CNN
+F 2 "" H 11700 5000 50  0001 C CNN
+F 3 "" H 11700 5000 50  0001 C CNN
+	1    11700 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR020
+U 1 1 5F5BD2E0
+P 11400 5000
+F 0 "#PWR020" H 11400 4750 50  0001 C CNN
+F 1 "GND" H 11405 4827 50  0000 C CNN
+F 2 "" H 11400 5000 50  0001 C CNN
+F 3 "" H 11400 5000 50  0001 C CNN
+	1    11400 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11400 4700 11400 4800
+Wire Wire Line
+	11700 4800 11700 4700
+Connection ~ 11700 4700
+$Comp
+L power:+3.3V #PWR021
+U 1 1 5F5BD2E9
+P 11700 4500
+F 0 "#PWR021" H 11700 4350 50  0001 C CNN
+F 1 "+3.3V" H 11715 4673 50  0000 C CNN
+F 2 "" H 11700 4500 50  0001 C CNN
+F 3 "" H 11700 4500 50  0001 C CNN
+	1    11700 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11700 4500 11700 4700
+Text Label 12350 5800 0    50   ~ 0
+LCD_CD
+Text Label 12350 5900 0    50   ~ 0
+LCD_RESET
+Text Label 13000 6000 0    50   ~ 0
+LCD_CS
+Wire Wire Line
+	11700 4700 11400 4700
+Connection ~ 13050 6100
+Wire Wire Line
+	13050 6100 13050 6000
+Text Label 13100 6100 0    50   ~ 0
+BM0
+Text Label 13100 6200 0    50   ~ 0
+BM1
+Text Notes 13350 6700 0    50   ~ 0
+  Serial 4 wires\nBM0 = 0, BM = 0
+Wire Wire Line
+	12700 4000 13300 4000
+Wire Wire Line
+	13050 4100 13300 4100
+Wire Wire Line
+	12700 4200 13300 4200
+Wire Wire Line
+	13050 4300 13300 4300
+Wire Wire Line
+	12700 4400 13300 4400
+Wire Wire Line
+	13050 4600 13300 4600
+Wire Wire Line
+	13050 6000 13300 6000
+Wire Wire Line
+	13050 6100 13300 6100
+NoConn ~ 13300 3300
+Wire Notes Line
+	13250 6500 14100 6500
+Wire Notes Line
+	14100 6500 14100 6750
+Wire Notes Line
+	14100 6750 13250 6750
+Wire Notes Line
+	13250 6750 13250 6500
+Wire Wire Line
+	13300 6200 13050 6200
+Connection ~ 13050 6200
+Wire Wire Line
+	13050 6200 13050 6100
+Wire Wire Line
+	13300 5600 13050 5600
+Connection ~ 13050 5600
+Wire Wire Line
+	13050 5600 13050 4600
+Wire Wire Line
+	13300 5700 13050 5700
+Connection ~ 13050 5700
+Wire Wire Line
+	13050 5700 13050 5600
+Wire Wire Line
+	13300 4900 12850 4900
+Wire Wire Line
+	12850 4900 12850 4800
+Wire Wire Line
+	12850 4700 13300 4700
+Wire Wire Line
+	13300 4800 12850 4800
+Connection ~ 12850 4800
+Wire Wire Line
+	12850 4800 12850 4700
+NoConn ~ 13300 5000
+NoConn ~ 13300 5100
+NoConn ~ 13300 5300
+NoConn ~ 13300 5400
+Wire Wire Line
+	3200 6100 3600 6100
+Wire Wire Line
+	3600 6100 3600 6000
+Wire Wire Line
+	3200 3400 3600 3400
+Connection ~ 3600 3400
+Wire Wire Line
+	3200 6000 3600 6000
+Connection ~ 3600 6000
+$Comp
+L power:GND #PWR02
+U 1 1 5F6127F6
+P 3900 6100
+F 0 "#PWR02" H 3900 5850 50  0001 C CNN
+F 1 "GND" H 3905 5927 50  0000 C CNN
+F 2 "" H 3900 6100 50  0001 C CNN
+F 3 "" H 3900 6100 50  0001 C CNN
+	1    3900 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 5F612DCF
+P 3600 3100
+F 0 "#PWR01" H 3600 2950 50  0001 C CNN
+F 1 "+5V" H 3615 3273 50  0000 C CNN
+F 2 "" H 3600 3100 50  0001 C CNN
+F 3 "" H 3600 3100 50  0001 C CNN
+	1    3600 3100
+	1    0    0    -1  
+$EndComp
+Text Label 3650 4200 0    50   ~ 0
+-RESET
+Text Label 3700 4100 0    50   ~ 0
+CS
+Text Label 3700 4300 0    50   ~ 0
+A0
+Text Label 3700 4400 0    50   ~ 0
+E
+Text Label 3700 4600 0    50   ~ 0
+D0
+Text Label 3700 4700 0    50   ~ 0
+D1
+Text Label 3700 4800 0    50   ~ 0
+D2
+Text Label 3700 4900 0    50   ~ 0
+D3
+Text Label 3700 5000 0    50   ~ 0
+D4
+Text Label 3700 5100 0    50   ~ 0
+D5
+Text Label 3700 5200 0    50   ~ 0
+D6
+Text Label 3700 5300 0    50   ~ 0
+D7
+Wire Wire Line
+	3900 5600 3900 5700
+Wire Wire Line
+	3200 5700 3900 5700
+Connection ~ 3900 5700
+Wire Wire Line
+	3900 5700 3900 5800
+Wire Wire Line
+	3200 5800 3900 5800
+Connection ~ 3900 5800
+Wire Wire Line
+	3900 5800 3900 5900
+Wire Wire Line
+	3200 5900 3900 5900
+Connection ~ 3900 5900
+Wire Wire Line
+	3900 5900 3900 6100
+$Comp
+L PeugeotTypeCDisplayHack:CY8C4245AXI-483 U2
+U 1 1 5F62A53E
+P 8100 5000
+F 0 "U2" H 8000 5000 50  0000 L CNN
+F 1 "CY8C4245AXI-483" H 7750 4900 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:TQFP-44_10x10mm_P0.8mm" H 8100 4800 50  0001 C CNN
+F 3 "https://www.cypress.com/file/138656/download" H 6350 6600 50  0001 C CNN
+	1    8100 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12700 6700 12700 6800
+Wire Wire Line
+	12400 6750 12400 6800
+Wire Wire Line
+	12400 6800 12700 6800
+Connection ~ 12700 6800
+Wire Wire Line
+	12700 6800 12700 6850
+Wire Wire Line
+	12400 6450 12400 6400
+$Comp
+L PeugeotTypeCDisplayHack:C C6
+U 1 1 5F6516B7
+P 9900 4250
+F 0 "C6" H 10015 4296 50  0000 L CNN
+F 1 "10nF" H 10015 4205 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9938 4100 50  0001 C CNN
+F 3 "~" H 9900 4250 50  0001 C CNN
+	1    9900 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5F65BC5A
+P 7050 5650
+F 0 "#PWR09" H 7050 5400 50  0001 C CNN
+F 1 "GND" H 7055 5477 50  0000 C CNN
+F 2 "" H 7050 5650 50  0001 C CNN
+F 3 "" H 7050 5650 50  0001 C CNN
+	1    7050 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 5650 7050 5400
+Wire Wire Line
+	7050 4500 7250 4500
+Wire Wire Line
+	7250 5400 7050 5400
+Connection ~ 7050 5400
+Wire Wire Line
+	7050 5400 7050 4500
+Wire Wire Line
+	8600 4150 8600 3900
+Wire Wire Line
+	9200 3900 8600 3900
+Connection ~ 8600 3900
+Wire Wire Line
+	8600 3900 8600 3800
+Wire Wire Line
+	8500 4150 8500 3900
+Wire Wire Line
+	8500 3900 8600 3900
+Wire Wire Line
+	8950 4600 9200 4600
+Wire Wire Line
+	9200 4600 9200 4400
+Wire Wire Line
+	9200 4100 9200 3900
+$Comp
+L PeugeotTypeCDisplayHack:C C7
+U 1 1 5F6721F2
+P 10300 4250
+F 0 "C7" H 10415 4296 50  0000 L CNN
+F 1 "100nF" H 10415 4205 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10338 4100 50  0001 C CNN
+F 3 "~" H 10300 4250 50  0001 C CNN
+	1    10300 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR016
+U 1 1 5F672849
+P 9900 4500
+F 0 "#PWR016" H 9900 4250 50  0001 C CNN
+F 1 "GND" H 9905 4327 50  0000 C CNN
+F 2 "" H 9900 4500 50  0001 C CNN
+F 3 "" H 9900 4500 50  0001 C CNN
+	1    9900 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR019
+U 1 1 5F672D2E
+P 10300 4500
+F 0 "#PWR019" H 10300 4250 50  0001 C CNN
+F 1 "GND" H 10305 4327 50  0000 C CNN
+F 2 "" H 10300 4500 50  0001 C CNN
+F 3 "" H 10300 4500 50  0001 C CNN
+	1    10300 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 4500 9900 4400
+Wire Wire Line
+	9900 4100 9900 3900
+Connection ~ 9900 3900
+Wire Wire Line
+	9900 3900 9200 3900
+Wire Wire Line
+	10300 4100 10300 3900
+Wire Wire Line
+	9900 3900 10300 3900
+Wire Wire Line
+	10300 4500 10300 4400
+$Comp
+L PeugeotTypeCDisplayHack:C C5
+U 1 1 5F68814A
+P 9100 5800
+F 0 "C5" H 9215 5846 50  0000 L CNN
+F 1 "1uF/25" H 9215 5755 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9138 5650 50  0001 C CNN
+F 3 "~" H 9100 5800 50  0001 C CNN
+	1    9100 5800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 5650 9100 4500
+Wire Wire Line
+	9100 4500 8950 4500
+$Comp
+L power:GND #PWR013
+U 1 1 5F68B774
+P 9100 5950
+F 0 "#PWR013" H 9100 5700 50  0001 C CNN
+F 1 "GND" H 9105 5777 50  0000 C CNN
+F 2 "" H 9100 5950 50  0001 C CNN
+F 3 "" H 9100 5950 50  0001 C CNN
+	1    9100 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 4150 8400 3900
+Wire Wire Line
+	8400 3900 7050 3900
+Wire Wire Line
+	7050 3900 7050 4500
+Connection ~ 7050 4500
+$Comp
+L PeugeotTypeCDisplayHack:C_Small C10
+U 1 1 5F63BDF9
+P 12450 4500
+F 0 "C10" V 12300 4200 50  0000 L CNN
+F 1 "100nF" V 12400 4200 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12450 4500 50  0001 C CNN
+F 3 "~" H 12450 4500 50  0001 C CNN
+	1    12450 4500
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R1
+U 1 1 5F64533C
+P 9200 4250
+F 0 "R1" H 9268 4296 50  0000 L CNN
+F 1 "4K7" H 9268 4205 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9240 4240 50  0001 C CNN
+F 3 "~" H 9200 4250 50  0001 C CNN
+	1    9200 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R10
+U 1 1 5F646EDC
+P 12400 6600
+F 0 "R10" H 12468 6646 50  0000 L CNN
+F 1 "10M" H 12468 6555 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 12440 6590 50  0001 C CNN
+F 3 "~" H 12400 6600 50  0001 C CNN
+	1    12400 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR023
+U 1 1 5F65B403
+P 12200 4500
+F 0 "#PWR023" H 12200 4250 50  0001 C CNN
+F 1 "GND" H 12205 4327 50  0000 C CNN
+F 2 "" H 12200 4500 50  0001 C CNN
+F 3 "" H 12200 4500 50  0001 C CNN
+	1    12200 4500
+	1    0    0    -1  
+$EndComp
+Text Label 13050 4500 0    50   ~ 0
+VBIAS
+Wire Wire Line
+	3200 4600 7250 4600
+Wire Wire Line
+	3200 4700 7250 4700
+Wire Wire Line
+	3200 4800 7250 4800
+Wire Wire Line
+	3200 4900 7250 4900
+Wire Wire Line
+	3200 5000 7250 5000
+Wire Wire Line
+	3200 5100 7250 5100
+Wire Wire Line
+	3200 5200 7250 5200
+Wire Wire Line
+	3200 5300 7250 5300
+Wire Wire Line
+	7800 4150 7800 3800
+Wire Wire Line
+	7800 3800 6900 3800
+Wire Wire Line
+	6900 3800 6900 4400
+Wire Wire Line
+	3200 4400 6900 4400
+Wire Wire Line
+	7900 4150 7900 3700
+Wire Wire Line
+	7900 3700 6800 3700
+Wire Wire Line
+	6800 3700 6800 4300
+Wire Wire Line
+	3200 4300 6800 4300
+Wire Wire Line
+	8000 4150 8000 3600
+Wire Wire Line
+	8000 3600 6700 3600
+Wire Wire Line
+	6700 3600 6700 4200
+Wire Wire Line
+	3200 4200 6700 4200
+Wire Wire Line
+	8100 4150 8100 3500
+Wire Wire Line
+	8100 3500 6600 3500
+Wire Wire Line
+	6600 3500 6600 4100
+Wire Wire Line
+	3200 4100 6600 4100
+Text Label 10000 5000 0    50   ~ 0
+LCD_SDA
+Text Label 10000 4800 0    50   ~ 0
+LCD_SCK
+Wire Wire Line
+	8200 5850 8200 6250
+Text Label 10000 6250 0    50   ~ 0
+LCD_CD
+Text Label 10000 6400 0    50   ~ 0
+LCD_RESET
+Connection ~ 13050 6000
+Wire Wire Line
+	13050 6000 13050 5700
+$Comp
+L PeugeotTypeCDisplayHack:CP C3
+U 1 1 5F737610
+P 5600 3650
+F 0 "C3" H 5718 3696 50  0000 L CNN
+F 1 "10uF" H 5718 3605 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5638 3500 50  0001 C CNN
+F 3 "~" H 5600 3650 50  0001 C CNN
+	1    5600 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:CP C1
+U 1 1 5F737FFA
+P 4000 3650
+F 0 "C1" H 4118 3696 50  0000 L CNN
+F 1 "10uF" H 4118 3605 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4038 3500 50  0001 C CNN
+F 3 "~" H 4000 3650 50  0001 C CNN
+	1    4000 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:C C4
+U 1 1 5F738381
+P 6100 3650
+F 0 "C4" H 6215 3696 50  0000 L CNN
+F 1 "100nF" H 6215 3605 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6138 3500 50  0001 C CNN
+F 3 "~" H 6100 3650 50  0001 C CNN
+	1    6100 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:C C2
+U 1 1 5F7389A0
+P 4500 3650
+F 0 "C2" H 4615 3696 50  0000 L CNN
+F 1 "100nf" H 4615 3605 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4538 3500 50  0001 C CNN
+F 3 "~" H 4500 3650 50  0001 C CNN
+	1    4500 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR012
+U 1 1 5F73E9E8
+P 8600 3800
+F 0 "#PWR012" H 8600 3650 50  0001 C CNN
+F 1 "+5V" H 8615 3973 50  0000 C CNN
+F 2 "" H 8600 3800 50  0001 C CNN
+F 3 "" H 8600 3800 50  0001 C CNN
+	1    8600 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5F73F57A
+P 4000 3800
+F 0 "#PWR03" H 4000 3550 50  0001 C CNN
+F 1 "GND" H 4005 3627 50  0000 C CNN
+F 2 "" H 4000 3800 50  0001 C CNN
+F 3 "" H 4000 3800 50  0001 C CNN
+	1    4000 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5F73FC4C
+P 4500 3800
+F 0 "#PWR04" H 4500 3550 50  0001 C CNN
+F 1 "GND" H 4505 3627 50  0000 C CNN
+F 2 "" H 4500 3800 50  0001 C CNN
+F 3 "" H 4500 3800 50  0001 C CNN
+	1    4500 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 5F7401A8
+P 5050 3800
+F 0 "#PWR05" H 5050 3550 50  0001 C CNN
+F 1 "GND" H 5055 3627 50  0000 C CNN
+F 2 "" H 5050 3800 50  0001 C CNN
+F 3 "" H 5050 3800 50  0001 C CNN
+	1    5050 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5F740868
+P 5600 3800
+F 0 "#PWR06" H 5600 3550 50  0001 C CNN
+F 1 "GND" H 5605 3627 50  0000 C CNN
+F 2 "" H 5600 3800 50  0001 C CNN
+F 3 "" H 5600 3800 50  0001 C CNN
+	1    5600 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5F740DEE
+P 6100 3800
+F 0 "#PWR07" H 6100 3550 50  0001 C CNN
+F 1 "GND" H 6105 3627 50  0000 C CNN
+F 2 "" H 6100 3800 50  0001 C CNN
+F 3 "" H 6100 3800 50  0001 C CNN
+	1    6100 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 3500 4000 3400
+Wire Wire Line
+	4000 3400 4500 3400
+Wire Wire Line
+	4500 3500 4500 3400
+Connection ~ 4500 3400
+Wire Wire Line
+	4500 3400 4750 3400
+Wire Wire Line
+	5350 3400 5600 3400
+Wire Wire Line
+	6100 3500 6100 3400
+Connection ~ 6100 3400
+Wire Wire Line
+	6100 3400 6450 3400
+Wire Wire Line
+	5600 3500 5600 3400
+Connection ~ 5600 3400
+Wire Wire Line
+	5600 3400 6100 3400
+$Comp
+L power:+3.3V #PWR08
+U 1 1 5F75D943
+P 6450 3400
+F 0 "#PWR08" H 6450 3250 50  0001 C CNN
+F 1 "+3.3V" V 6450 3650 50  0000 C CNN
+F 2 "" H 6450 3400 50  0001 C CNN
+F 3 "" H 6450 3400 50  0001 C CNN
+	1    6450 3400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5050 3800 5050 3700
+Wire Wire Line
+	4000 3400 3600 3400
+Connection ~ 4000 3400
+$Comp
+L PeugeotTypeCDisplayHack:R_US R2
+U 1 1 5F77B36A
+P 9350 4800
+F 0 "R2" V 9250 4700 50  0000 L CNN
+F 1 "1K" V 9250 4850 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9390 4790 50  0001 C CNN
+F 3 "~" H 9350 4800 50  0001 C CNN
+	1    9350 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R3
+U 1 1 5F782A13
+P 9350 5000
+F 0 "R3" V 9450 4900 50  0000 L CNN
+F 1 "1K" V 9550 4900 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9390 4990 50  0001 C CNN
+F 3 "~" H 9350 5000 50  0001 C CNN
+	1    9350 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R4
+U 1 1 5F783132
+P 9350 6250
+F 0 "R4" V 9150 6150 50  0000 L CNN
+F 1 "1K" V 9250 6150 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9390 6240 50  0001 C CNN
+F 3 "~" H 9350 6250 50  0001 C CNN
+	1    9350 6250
+	0    1    1    0   
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R5
+U 1 1 5F78387C
+P 9350 6400
+F 0 "R5" V 9450 6300 50  0000 L CNN
+F 1 "1K" V 9550 6300 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9390 6390 50  0001 C CNN
+F 3 "~" H 9350 6400 50  0001 C CNN
+	1    9350 6400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8200 6250 9200 6250
+Wire Wire Line
+	8100 6400 9200 6400
+Wire Wire Line
+	8100 5850 8100 6400
+Wire Wire Line
+	8950 4800 9200 4800
+Wire Wire Line
+	8950 5000 9200 5000
+$Comp
+L PeugeotTypeCDisplayHack:R_US R6
+U 1 1 5F7D5DCC
+P 9600 5250
+F 0 "R6" H 9400 5250 50  0000 L CNN
+F 1 "2K" H 9400 5150 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9640 5240 50  0001 C CNN
+F 3 "~" H 9600 5250 50  0001 C CNN
+	1    9600 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R8
+U 1 1 5F7D6998
+P 9900 5250
+F 0 "R8" H 9950 5250 50  0000 L CNN
+F 1 "2K" H 9950 5150 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9940 5240 50  0001 C CNN
+F 3 "~" H 9900 5250 50  0001 C CNN
+	1    9900 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R7
+U 1 1 5F7D7BDF
+P 9600 6650
+F 0 "R7" H 9400 6650 50  0000 L CNN
+F 1 "2K" H 9400 6550 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9640 6640 50  0001 C CNN
+F 3 "~" H 9600 6650 50  0001 C CNN
+	1    9600 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R9
+U 1 1 5F7D7BE5
+P 9900 6650
+F 0 "R9" H 9950 6650 50  0000 L CNN
+F 1 "2K" H 9950 6550 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9940 6640 50  0001 C CNN
+F 3 "~" H 9900 6650 50  0001 C CNN
+	1    9900 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR014
+U 1 1 5F7DE2D5
+P 9600 5400
+F 0 "#PWR014" H 9600 5150 50  0001 C CNN
+F 1 "GND" H 9605 5227 50  0000 C CNN
+F 2 "" H 9600 5400 50  0001 C CNN
+F 3 "" H 9600 5400 50  0001 C CNN
+	1    9600 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR017
+U 1 1 5F7DEA01
+P 9900 5400
+F 0 "#PWR017" H 9900 5150 50  0001 C CNN
+F 1 "GND" H 9905 5227 50  0000 C CNN
+F 2 "" H 9900 5400 50  0001 C CNN
+F 3 "" H 9900 5400 50  0001 C CNN
+	1    9900 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR015
+U 1 1 5F7DF18B
+P 9600 6800
+F 0 "#PWR015" H 9600 6550 50  0001 C CNN
+F 1 "GND" H 9605 6627 50  0000 C CNN
+F 2 "" H 9600 6800 50  0001 C CNN
+F 3 "" H 9600 6800 50  0001 C CNN
+	1    9600 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR018
+U 1 1 5F7DF909
+P 9900 6800
+F 0 "#PWR018" H 9900 6550 50  0001 C CNN
+F 1 "GND" H 9905 6627 50  0000 C CNN
+F 2 "" H 9900 6800 50  0001 C CNN
+F 3 "" H 9900 6800 50  0001 C CNN
+	1    9900 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 4800 9900 4800
+Wire Wire Line
+	9500 5000 9600 5000
+Wire Wire Line
+	9600 5100 9600 5000
+Wire Wire Line
+	9900 5100 9900 4800
+Wire Wire Line
+	9500 6250 9900 6250
+Wire Wire Line
+	9500 6400 9600 6400
+Wire Wire Line
+	9600 6500 9600 6400
+Wire Wire Line
+	9900 6500 9900 6250
+Connection ~ 9900 6250
+Wire Wire Line
+	3200 5600 3900 5600
+$Comp
+L PeugeotTypeCDisplayHack:PeugeotPCBConnector J1
+U 1 1 5F676D30
+P 2900 5550
+F 0 "J1" H 2867 8065 50  0000 C CNN
+F 1 "PeugeotPCBConnector" H 2867 7974 50  0000 C CNN
+F 2 "PeugeoutTypeCDisplayHack:PeugeotPCBConnector" H 2900 8150 50  0001 C CNN
+F 3 "" H 2350 7300 50  0001 C CNN
+	1    2900 5550
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 3200 7900
+NoConn ~ 3200 7800
+NoConn ~ 3200 7000
+Wire Wire Line
+	3200 6200 3600 6200
+Wire Wire Line
+	3600 6200 3600 6100
+Connection ~ 3600 6100
+NoConn ~ 7600 5850
+NoConn ~ 7900 5850
+NoConn ~ 8000 5850
+NoConn ~ 8300 5850
+NoConn ~ 8950 4700
+NoConn ~ 8950 4900
+NoConn ~ 8950 5100
+NoConn ~ 8950 5200
+NoConn ~ 8950 5300
+NoConn ~ 8950 5400
+NoConn ~ 8950 5500
+NoConn ~ 8300 4150
+NoConn ~ 8200 4150
+NoConn ~ 7700 4150
+NoConn ~ 7600 4150
+NoConn ~ 7250 5500
+NoConn ~ 3200 6400
+NoConn ~ 8400 5850
+NoConn ~ 8500 5850
+NoConn ~ 8600 5850
+Wire Wire Line
+	11700 4700 12850 4700
+Connection ~ 12850 4700
+Wire Wire Line
+	12200 4500 12350 4500
+Wire Wire Line
+	12550 4500 13300 4500
+$Comp
+L PeugeotTypeCDisplayHack:LM1117-3.3 U1
+U 1 1 5F68C04E
+P 5050 3450
+F 0 "U1" H 5050 3742 50  0000 C CNN
+F 1 "LM1117-3.3" H 5050 3651 50  0000 C CNN
+F 2 "PeugeoutTypeCDisplayHack:SOT-223-3_TabPin2" H 5050 3900 50  0001 C CNN
+F 3 "https://docs.rs-online.com/a60a/A700000006801822.pdf" H 5050 3450 50  0001 C CNN
+	1    5050 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:Conn_01x05 J2
+U 1 1 5F6ADD8C
+P 6750 6500
+F 0 "J2" H 6900 6550 50  0000 C CNN
+F 1 "Conn_01x05" H 7050 6450 50  0000 C CNN
+F 2 "PeugeoutTypeCDisplayHack:PinHeader_1x05_P2.54mm_Vertical" H 6950 6100 50  0001 C CNN
+F 3 "~" H 6750 6500 50  0001 C CNN
+	1    6750 6500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR010
+U 1 1 5F6B52D6
+P 7050 6100
+F 0 "#PWR010" H 7050 5950 50  0001 C CNN
+F 1 "+5V" H 7065 6273 50  0000 C CNN
+F 2 "" H 7050 6100 50  0001 C CNN
+F 3 "" H 7050 6100 50  0001 C CNN
+	1    7050 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 5F6B66BF
+P 7050 6800
+F 0 "#PWR011" H 7050 6550 50  0001 C CNN
+F 1 "GND" H 7055 6627 50  0000 C CNN
+F 2 "" H 7050 6800 50  0001 C CNN
+F 3 "" H 7050 6800 50  0001 C CNN
+	1    7050 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 6300 7050 6300
+Wire Wire Line
+	7050 6300 7050 6100
+Wire Wire Line
+	6950 6700 7050 6700
+Wire Wire Line
+	7050 6700 7050 6800
+Wire Wire Line
+	6950 6600 7800 6600
+Wire Wire Line
+	7800 6600 7800 5850
+Wire Wire Line
+	6950 6500 7700 6500
+Wire Wire Line
+	7700 6500 7700 5850
+Wire Wire Line
+	6950 6400 7400 6400
+Text Label 7100 6400 0    50   ~ 0
+-XRES
+Connection ~ 9200 3900
+Connection ~ 9600 5000
+Connection ~ 9600 6400
+Wire Wire Line
+	9200 4600 9700 4600
+Connection ~ 9200 4600
+Text Label 9350 4600 0    50   ~ 0
+-XRES
+Wire Wire Line
+	10950 5800 10950 6250
+Wire Wire Line
+	10950 5800 13300 5800
+Wire Wire Line
+	9900 6250 10950 6250
+Wire Wire Line
+	11050 6400 11050 5900
+Wire Wire Line
+	11050 5900 13300 5900
+Wire Wire Line
+	9600 6400 11050 6400
+Wire Wire Line
+	11050 5000 11050 5200
+Wire Wire Line
+	11050 5200 13300 5200
+Wire Wire Line
+	9600 5000 11050 5000
+Wire Wire Line
+	9900 4800 10950 4800
+Wire Wire Line
+	10950 4800 10950 5500
+Wire Wire Line
+	10950 5500 13300 5500
+Connection ~ 9900 4800
+Wire Wire Line
+	3600 3400 3600 6000
+NoConn ~ 3200 5500
+$Comp
+L PeugeotTypeCDisplayHack:Conn_01x02 J4
+U 1 1 5F691A49
+P 13600 7450
+F 0 "J4" H 13550 7700 50  0000 L CNN
+F 1 "Backlight" H 13450 7600 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:PinHeader_1x02_P2.00mm_Vertical" H 13600 7450 50  0001 C CNN
+F 3 "~" H 13600 7450 50  0001 C CNN
+	1    13600 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:R_US R11
+U 1 1 5F692039
+P 13100 7450
+F 0 "R11" V 13000 7300 50  0000 L CNN
+F 1 "???" V 13000 7500 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 13140 7440 50  0001 C CNN
+F 3 "~" H 13100 7450 50  0001 C CNN
+	1    13100 7450
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0101
+U 1 1 5F693725
+P 12800 7450
+F 0 "#PWR0101" H 12800 7300 50  0001 C CNN
+F 1 "+3.3V" V 12800 7700 50  0000 C CNN
+F 2 "" H 12800 7450 50  0001 C CNN
+F 3 "" H 12800 7450 50  0001 C CNN
+	1    12800 7450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5F694578
+P 13250 7650
+F 0 "#PWR0102" H 13250 7400 50  0001 C CNN
+F 1 "GND" H 13255 7477 50  0000 C CNN
+F 2 "" H 13250 7650 50  0001 C CNN
+F 3 "" H 13250 7650 50  0001 C CNN
+	1    13250 7650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12800 7450 12950 7450
+Wire Wire Line
+	13250 7450 13400 7450
+Wire Wire Line
+	13250 7650 13250 7550
+Wire Wire Line
+	13250 7550 13400 7550
+$Comp
+L PeugeotTypeCDisplayHack:Conn_01x02 S2
+U 1 1 5F6BF02C
+P 11460 7450
+F 0 "S2" H 11410 7700 50  0000 L CNN
+F 1 "F.Use" H 11310 7600 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:PinHeader_1x02_P2.00mm_Vertical" H 11460 7450 50  0001 C CNN
+F 3 "~" H 11460 7450 50  0001 C CNN
+	1    11460 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L PeugeotTypeCDisplayHack:Conn_01x02 S1
+U 1 1 5F6C069D
+P 10625 7450
+F 0 "S1" H 10575 7700 50  0000 L CNN
+F 1 "F.Use" H 10475 7600 50  0000 L CNN
+F 2 "PeugeoutTypeCDisplayHack:PinHeader_1x02_P2.00mm_Vertical" H 10625 7450 50  0001 C CNN
+F 3 "~" H 10625 7450 50  0001 C CNN
+	1    10625 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 5F6C17DD
+P 11260 7550
+F 0 "#PWR0103" H 11260 7300 50  0001 C CNN
+F 1 "GND" H 11265 7377 50  0000 C CNN
+F 2 "" H 11260 7550 50  0001 C CNN
+F 3 "" H 11260 7550 50  0001 C CNN
+	1    11260 7550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 5F6C2542
+P 10425 7550
+F 0 "#PWR0104" H 10425 7300 50  0001 C CNN
+F 1 "GND" H 10430 7377 50  0000 C CNN
+F 2 "" H 10425 7550 50  0001 C CNN
+F 3 "" H 10425 7550 50  0001 C CNN
+	1    10425 7550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11260 7450 11000 7450
+Wire Wire Line
+	7700 4150 7700 4000
+Wire Wire Line
+	7700 4000 7350 4000
+Wire Wire Line
+	7600 4150 7350 4150
+Text Label 7450 4000 0    50   ~ 0
+F1
+Text Label 7450 4150 0    50   ~ 0
+F2
+Text Label 11050 7450 0    50   ~ 0
+F2
+Wire Wire Line
+	10425 7450 10150 7450
+Text Label 10200 7450 0    50   ~ 0
+F1
+Wire Wire Line
+	3600 3100 3600 3300
+Wire Wire Line
+	3200 3300 3600 3300
+Connection ~ 3600 3300
+Wire Wire Line
+	3600 3300 3600 3400
+Text Notes 2775 2600 0    50   ~ 0
+Do not solder pin 1 to the \nmain board.
+Wire Notes Line
+	2725 2650 3850 2650
+Wire Notes Line
+	3850 2650 3850 2400
+Wire Notes Line
+	3850 2400 2725 2400
+Wire Notes Line
+	2725 2400 2725 2650
+Wire Notes Line
+	3450 2650 3450 3275
+$EndSCHEMATC

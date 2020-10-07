@@ -1,0 +1,1946 @@
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ISR_Reset_Handler,"ax",%progbits
+  20              		.align	2
+  21              		.global	ISR_Reset_Handler
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	ISR_Reset_Handler, %function
+  25              	ISR_Reset_Handler:
+  26              	.LFB32:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** #include "UC1608.h"
+  14:main.c        **** 
+  15:main.c        **** //#define SERIAL_PORT_SEND_DATA
+  16:main.c        **** #define SERIAL_PORT_SEND_PROCCESSED
+  17:main.c        **** 
+  18:main.c        **** /* ************************************************************************* */
+  19:main.c        **** enum { IDLE, DATA0, DATA1, DATA2 } BUS_STATE;
+  20:main.c        **** 
+  21:main.c        **** volatile    uint8 bus_state = IDLE;
+  22:main.c        **** 
+  23:main.c        **** volatile    uint8 data_buffer[2000];
+  24:main.c        **** volatile    uint16 data_buffer_ptr = 0;
+  25:main.c        **** 
+  26:main.c        **** volatile    uint8 data_ready = 0;
+  27:main.c        **** 
+  28:main.c        **** volatile    uint8 enable_capture = 0;
+  29:main.c        **** 
+  30:main.c        **** volatile    uint8 combined_data = 0;
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 2
+
+
+  31:main.c        **** volatile    uint8 page_counter = 0;
+  32:main.c        **** volatile    uint8 column_counter = 0;
+  33:main.c        **** volatile    uint8 is_first_byte = 1;
+  34:main.c        **** 
+  35:main.c        **** volatile    uint8 display_set_normal = 0;
+  36:main.c        **** volatile    uint8 display_set_reverse = 0;
+  37:main.c        **** 
+  38:main.c        **** /* Interrupt prototypes */
+  39:main.c        **** CY_ISR_PROTO(ISR_Reset_Handler);
+  40:main.c        **** CY_ISR_PROTO(ISR_Capture);
+  41:main.c        **** 
+  42:main.c        **** void Uart_SendCommandString(uint8 command);
+  43:main.c        **** 
+  44:main.c        **** /* ************************************************************************* */
+  45:main.c        **** 
+  46:main.c        **** 
+  47:main.c        **** /* Manage interrupt from RESET. */
+  48:main.c        **** CY_ISR(ISR_Reset_Handler)
+  49:main.c        **** {
+  28              		.loc 1 49 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  50:main.c        **** }
+  33              		.loc 1 50 0
+  34              		@ sp needed
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE32:
+  38              		.size	ISR_Reset_Handler, .-ISR_Reset_Handler
+  39 0002 C046     		.section	.text.ISR_Capture_Handler,"ax",%progbits
+  40              		.align	2
+  41              		.global	ISR_Capture_Handler
+  42              		.code	16
+  43              		.thumb_func
+  44              		.type	ISR_Capture_Handler, %function
+  45              	ISR_Capture_Handler:
+  46              	.LFB33:
+  51:main.c        **** 
+  52:main.c        **** /* Manage interrupt for command capture. */
+  53:main.c        **** CY_ISR(ISR_Capture_Handler)
+  54:main.c        **** {
+  47              		.loc 1 54 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  52              		.cfi_def_cfa_offset 24
+  53              		.cfi_offset 3, -24
+  54              		.cfi_offset 4, -20
+  55              		.cfi_offset 5, -16
+  56              		.cfi_offset 6, -12
+  57              		.cfi_offset 7, -8
+  58              		.cfi_offset 14, -4
+  55:main.c        ****     uint8 a0_state = A0_Read();
+  59              		.loc 1 55 0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 3
+
+
+  60 0002 FFF7FEFF 		bl	A0_Read
+  61              	.LVL0:
+  62 0006 0400     		movs	r4, r0
+  63              	.LVL1:
+  56:main.c        ****     uint8 e_state = E_Read();
+  64              		.loc 1 56 0
+  65 0008 FFF7FEFF 		bl	E_Read
+  66              	.LVL2:
+  67 000c 0500     		movs	r5, r0
+  68              	.LVL3:
+  57:main.c        ****     
+  58:main.c        ****     uint8 bdata = IData_Port_Read();
+  69              		.loc 1 58 0
+  70 000e FFF7FEFF 		bl	IData_Port_Read
+  71              	.LVL4:
+  72 0012 0200     		movs	r2, r0
+  73              	.LVL5:
+  59:main.c        ****     
+  60:main.c        ****     /* *** Waiting for command "data write". *** */
+  61:main.c        ****     if (bus_state == IDLE)
+  74              		.loc 1 61 0
+  75 0014 574B     		ldr	r3, .L13
+  76 0016 1B78     		ldrb	r3, [r3]
+  77 0018 002B     		cmp	r3, #0
+  78 001a 1BD1     		bne	.L3
+  62:main.c        ****     {
+  63:main.c        ****         if ((e_state == 1) && (a0_state == 0))
+  79              		.loc 1 63 0
+  80 001c 012D     		cmp	r5, #1
+  81 001e 00D0     		beq	.LCB42
+  82 0020 A7E0     		b	.L2	@long jump
+  83              	.LCB42:
+  84              		.loc 1 63 0 is_stmt 0 discriminator 1
+  85 0022 002C     		cmp	r4, #0
+  86 0024 00D0     		beq	.LCB44
+  87 0026 A4E0     		b	.L2	@long jump
+  88              	.LCB44:
+  64:main.c        ****         {
+  65:main.c        ****             if (bdata == 0b00011101)                                            // 0b00011101 = Dis
+  89              		.loc 1 65 0 is_stmt 1
+  90 0028 1D28     		cmp	r0, #29
+  91 002a 07D1     		bne	.L5
+  66:main.c        ****             {
+  67:main.c        ****                 page_counter = column_counter = data_buffer_ptr = 0;            // Initialize count
+  92              		.loc 1 67 0
+  93 002c 514B     		ldr	r3, .L13
+  94 002e 0021     		movs	r1, #0
+  95 0030 0020     		movs	r0, #0
+  96              	.LVL6:
+  97 0032 5880     		strh	r0, [r3, #2]
+  98 0034 1971     		strb	r1, [r3, #4]
+  99 0036 5971     		strb	r1, [r3, #5]
+  68:main.c        ****                 bus_state = DATA0;
+ 100              		.loc 1 68 0
+ 101 0038 0121     		movs	r1, #1
+ 102 003a 1970     		strb	r1, [r3]
+ 103              	.L5:
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 4
+
+
+  69:main.c        ****             }
+  70:main.c        ****             
+  71:main.c        ****             if (bdata == 0b10100110) display_set_normal = 1;                    // Display normal.
+ 104              		.loc 1 71 0
+ 105 003c A62A     		cmp	r2, #166
+ 106 003e 02D1     		bne	.L6
+ 107              		.loc 1 71 0 is_stmt 0 discriminator 1
+ 108 0040 0121     		movs	r1, #1
+ 109 0042 4C4B     		ldr	r3, .L13
+ 110 0044 9971     		strb	r1, [r3, #6]
+ 111              	.L6:
+  72:main.c        ****             if (bdata == 0b10100111) display_set_reverse = 1;                   // Display reverse.
+ 112              		.loc 1 72 0 is_stmt 1
+ 113 0046 A72A     		cmp	r2, #167
+ 114 0048 00D0     		beq	.LCB66
+ 115 004a 92E0     		b	.L2	@long jump
+ 116              	.LCB66:
+ 117              		.loc 1 72 0 is_stmt 0 discriminator 1
+ 118 004c A63A     		subs	r2, r2, #166
+ 119 004e 494B     		ldr	r3, .L13
+ 120 0050 DA71     		strb	r2, [r3, #7]
+ 121 0052 8EE0     		b	.L2
+ 122              	.LVL7:
+ 123              	.L3:
+  73:main.c        ****         }
+  74:main.c        ****     }
+  75:main.c        ****     /* *** First byte received is a dummy byte. We discard it. *** */
+  76:main.c        ****     else if (bus_state == DATA0) 
+ 124              		.loc 1 76 0 is_stmt 1
+ 125 0054 474B     		ldr	r3, .L13
+ 126 0056 1B78     		ldrb	r3, [r3]
+ 127 0058 012B     		cmp	r3, #1
+ 128 005a 03D1     		bne	.L7
+  77:main.c        ****     {
+  78:main.c        ****         bus_state = DATA1;
+ 129              		.loc 1 78 0
+ 130 005c 0222     		movs	r2, #2
+ 131 005e 454B     		ldr	r3, .L13
+ 132 0060 1A70     		strb	r2, [r3]
+ 133 0062 86E0     		b	.L2
+ 134              	.L7:
+  79:main.c        ****     }
+  80:main.c        ****     /* *** Received even page byte. *** */
+  81:main.c        ****     else if (bus_state == DATA1)
+ 135              		.loc 1 81 0
+ 136 0064 434B     		ldr	r3, .L13
+ 137 0066 1B78     		ldrb	r3, [r3]
+ 138 0068 022B     		cmp	r3, #2
+ 139 006a 38D1     		bne	.L8
+  82:main.c        ****     {
+  83:main.c        **** 
+  84:main.c        ****         if ((e_state == 0) && (a0_state == 1))
+ 140              		.loc 1 84 0
+ 141 006c 002D     		cmp	r5, #0
+ 142 006e 2DD1     		bne	.L9
+ 143              		.loc 1 84 0 is_stmt 0 discriminator 1
+ 144 0070 012C     		cmp	r4, #1
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 5
+
+
+ 145 0072 2BD1     		bne	.L9
+  85:main.c        ****         {
+  86:main.c        ****             if ((page_counter < 16) && (column_counter < 240))                  // Data outside dis
+ 146              		.loc 1 86 0 is_stmt 1
+ 147 0074 3F4B     		ldr	r3, .L13
+ 148 0076 5B79     		ldrb	r3, [r3, #5]
+ 149 0078 DBB2     		uxtb	r3, r3
+ 150 007a 0F2B     		cmp	r3, #15
+ 151 007c 17D8     		bhi	.L10
+ 152              		.loc 1 86 0 is_stmt 0 discriminator 1
+ 153 007e 3D4B     		ldr	r3, .L13
+ 154 0080 1B79     		ldrb	r3, [r3, #4]
+ 155 0082 DBB2     		uxtb	r3, r3
+ 156 0084 EF2B     		cmp	r3, #239
+ 157 0086 12D8     		bhi	.L10
+  87:main.c        ****             {
+  88:main.c        ****                 combined_data = (bdata & 0b00000001) |                          // Isolate every lo
+  89:main.c        ****                                 ((bdata & 0b00000100) >> 1) |                   // lower nibble of 
+ 158              		.loc 1 89 0 is_stmt 1
+ 159 0088 4510     		asrs	r5, r0, #1
+ 160              	.LVL8:
+  90:main.c        ****                                 ((bdata & 0b00010000) >> 2) |
+ 161              		.loc 1 90 0
+ 162 008a 8410     		asrs	r4, r0, #2
+ 163              	.LVL9:
+  91:main.c        ****                                 ((bdata & 0b01000000) >> 3);
+ 164              		.loc 1 91 0
+ 165 008c C210     		asrs	r2, r0, #3
+  88:main.c        ****                                 ((bdata & 0b00000100) >> 1) |                   // lower nibble of 
+ 166              		.loc 1 88 0
+ 167 008e 0121     		movs	r1, #1
+ 168 0090 0840     		ands	r0, r1
+ 169              	.LVL10:
+ 170 0092 0223     		movs	r3, #2
+ 171 0094 2B40     		ands	r3, r5
+ 172 0096 1843     		orrs	r0, r3
+ 173 0098 0423     		movs	r3, #4
+ 174 009a 2340     		ands	r3, r4
+ 175 009c 0100     		movs	r1, r0
+ 176 009e 1943     		orrs	r1, r3
+ 177 00a0 0823     		movs	r3, #8
+ 178 00a2 1340     		ands	r3, r2
+ 179 00a4 0B43     		orrs	r3, r1
+ 180 00a6 334A     		ldr	r2, .L13
+ 181 00a8 1372     		strb	r3, [r2, #8]
+  92:main.c        ****                                 
+  93:main.c        ****                 bus_state = DATA2;
+ 182              		.loc 1 93 0
+ 183 00aa 0323     		movs	r3, #3
+ 184 00ac 1370     		strb	r3, [r2]
+ 185              	.L10:
+  94:main.c        ****             }
+  95:main.c        ****                             
+  96:main.c        ****             page_counter++;
+ 186              		.loc 1 96 0
+ 187 00ae 314A     		ldr	r2, .L13
+ 188 00b0 5379     		ldrb	r3, [r2, #5]
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 6
+
+
+ 189 00b2 0133     		adds	r3, r3, #1
+ 190 00b4 DBB2     		uxtb	r3, r3
+ 191 00b6 5371     		strb	r3, [r2, #5]
+  97:main.c        ****             if (page_counter == 21) 
+ 192              		.loc 1 97 0
+ 193 00b8 5379     		ldrb	r3, [r2, #5]
+ 194 00ba 152B     		cmp	r3, #21
+ 195 00bc 59D1     		bne	.L2
+  98:main.c        ****             {
+  99:main.c        ****                 page_counter = 0; 
+ 196              		.loc 1 99 0
+ 197 00be 0023     		movs	r3, #0
+ 198 00c0 5371     		strb	r3, [r2, #5]
+ 100:main.c        ****                 column_counter++;
+ 199              		.loc 1 100 0
+ 200 00c2 1379     		ldrb	r3, [r2, #4]
+ 201 00c4 0133     		adds	r3, r3, #1
+ 202 00c6 DBB2     		uxtb	r3, r3
+ 203 00c8 1371     		strb	r3, [r2, #4]
+ 204 00ca 52E0     		b	.L2
+ 205              	.LVL11:
+ 206              	.L9:
+ 101:main.c        ****             }
+ 102:main.c        ****         }
+ 103:main.c        ****         else if ( e_state == 1 )
+ 207              		.loc 1 103 0
+ 208 00cc 012D     		cmp	r5, #1
+ 209 00ce 50D1     		bne	.L2
+ 104:main.c        ****         {
+ 105:main.c        ****             data_ready = 1;
+ 210              		.loc 1 105 0
+ 211 00d0 284B     		ldr	r3, .L13
+ 212 00d2 0122     		movs	r2, #1
+ 213 00d4 5A72     		strb	r2, [r3, #9]
+ 106:main.c        ****             bus_state = IDLE;
+ 214              		.loc 1 106 0
+ 215 00d6 0022     		movs	r2, #0
+ 216 00d8 1A70     		strb	r2, [r3]
+ 107:main.c        ****             CyGlobalIntDisable;
+ 217              		.loc 1 107 0
+ 218              		.syntax divided
+ 219              	@ 107 "main.c" 1
+ 220 00da 72B6     		CPSID   i
+ 221              	@ 0 "" 2
+ 222              		.thumb
+ 223              		.syntax unified
+ 224 00dc 49E0     		b	.L2
+ 225              	.L8:
+ 108:main.c        ****         }
+ 109:main.c        **** 
+ 110:main.c        ****     }
+ 111:main.c        ****     /* *** Received odd page byte. *** */
+ 112:main.c        ****     else if (bus_state == DATA2)
+ 226              		.loc 1 112 0
+ 227 00de 254B     		ldr	r3, .L13
+ 228 00e0 1B78     		ldrb	r3, [r3]
+ 229 00e2 032B     		cmp	r3, #3
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 7
+
+
+ 230 00e4 45D1     		bne	.L2
+ 113:main.c        ****     {
+ 114:main.c        ****         if ((e_state == 0) && (a0_state == 1))
+ 231              		.loc 1 114 0
+ 232 00e6 002D     		cmp	r5, #0
+ 233 00e8 3BD1     		bne	.L11
+ 234              		.loc 1 114 0 is_stmt 0 discriminator 1
+ 235 00ea 012C     		cmp	r4, #1
+ 236 00ec 39D1     		bne	.L11
+ 115:main.c        ****         {
+ 116:main.c        ****             if ((page_counter < 16) && (column_counter < 240))                  // Data outside dis
+ 237              		.loc 1 116 0 is_stmt 1
+ 238 00ee 214B     		ldr	r3, .L13
+ 239 00f0 5B79     		ldrb	r3, [r3, #5]
+ 240 00f2 DBB2     		uxtb	r3, r3
+ 241 00f4 0F2B     		cmp	r3, #15
+ 242 00f6 25D8     		bhi	.L12
+ 243              		.loc 1 116 0 is_stmt 0 discriminator 1
+ 244 00f8 1E4B     		ldr	r3, .L13
+ 245 00fa 1B79     		ldrb	r3, [r3, #4]
+ 246 00fc DBB2     		uxtb	r3, r3
+ 247 00fe EF2B     		cmp	r3, #239
+ 248 0100 20D8     		bhi	.L12
+ 117:main.c        ****             {
+ 118:main.c        ****                 combined_data = combined_data | ((bdata & 0b00000001) << 4) |   // Isolate every lo
+ 249              		.loc 1 118 0 is_stmt 1
+ 250 0102 0701     		lsls	r7, r0, #4
+ 251 0104 1B4B     		ldr	r3, .L13
+ 252 0106 1C7A     		ldrb	r4, [r3, #8]
+ 253              	.LVL12:
+ 119:main.c        ****                                                 ((bdata & 0b00000100) << 3) |   // higher nibble of
+ 254              		.loc 1 119 0
+ 255 0108 C500     		lsls	r5, r0, #3
+ 256              	.LVL13:
+ 120:main.c        ****                                                 ((bdata & 0b00010000) << 2) |   // Combine it with 
+ 257              		.loc 1 120 0
+ 258 010a 8100     		lsls	r1, r0, #2
+ 121:main.c        ****                                                 ((bdata & 0b01000000) << 1);
+ 259              		.loc 1 121 0
+ 260 010c 4000     		lsls	r0, r0, #1
+ 261              	.LVL14:
+ 118:main.c        ****                                                 ((bdata & 0b00000100) << 3) |   // higher nibble of
+ 262              		.loc 1 118 0
+ 263 010e 1026     		movs	r6, #16
+ 264 0110 3200     		movs	r2, r6
+ 265 0112 3A40     		ands	r2, r7
+ 266 0114 1443     		orrs	r4, r2
+ 267 0116 2022     		movs	r2, #32
+ 268 0118 2A40     		ands	r2, r5
+ 269 011a 1443     		orrs	r4, r2
+ 270 011c 4022     		movs	r2, #64
+ 271 011e 0A40     		ands	r2, r1
+ 272 0120 2243     		orrs	r2, r4
+ 273 0122 7F21     		movs	r1, #127
+ 274 0124 8843     		bics	r0, r1
+ 275 0126 0243     		orrs	r2, r0
+ 276 0128 D2B2     		uxtb	r2, r2
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 8
+
+
+ 277 012a 1A72     		strb	r2, [r3, #8]
+ 122:main.c        ****                                                 
+ 123:main.c        ****                 bus_state = DATA1;
+ 278              		.loc 1 123 0
+ 279 012c 0222     		movs	r2, #2
+ 280 012e 1A70     		strb	r2, [r3]
+ 124:main.c        ****                                                 
+ 125:main.c        ****                 data_buffer[data_buffer_ptr] = combined_data;
+ 281              		.loc 1 125 0
+ 282 0130 5A88     		ldrh	r2, [r3, #2]
+ 283 0132 92B2     		uxth	r2, r2
+ 284 0134 197A     		ldrb	r1, [r3, #8]
+ 285 0136 C9B2     		uxtb	r1, r1
+ 286 0138 0F48     		ldr	r0, .L13+4
+ 287 013a 8154     		strb	r1, [r0, r2]
+ 126:main.c        ****                 data_buffer_ptr++;
+ 288              		.loc 1 126 0
+ 289 013c 5A88     		ldrh	r2, [r3, #2]
+ 290 013e 0132     		adds	r2, r2, #1
+ 291 0140 92B2     		uxth	r2, r2
+ 292 0142 5A80     		strh	r2, [r3, #2]
+ 293              	.L12:
+ 127:main.c        ****             }
+ 128:main.c        ****                                             
+ 129:main.c        ****             page_counter++;
+ 294              		.loc 1 129 0
+ 295 0144 0B4A     		ldr	r2, .L13
+ 296 0146 5379     		ldrb	r3, [r2, #5]
+ 297 0148 0133     		adds	r3, r3, #1
+ 298 014a DBB2     		uxtb	r3, r3
+ 299 014c 5371     		strb	r3, [r2, #5]
+ 130:main.c        ****             if (page_counter == 21) 
+ 300              		.loc 1 130 0
+ 301 014e 5379     		ldrb	r3, [r2, #5]
+ 302 0150 152B     		cmp	r3, #21
+ 303 0152 0ED1     		bne	.L2
+ 131:main.c        ****             {
+ 132:main.c        ****                 page_counter = 0; 
+ 304              		.loc 1 132 0
+ 305 0154 0023     		movs	r3, #0
+ 306 0156 5371     		strb	r3, [r2, #5]
+ 133:main.c        ****                 column_counter++;
+ 307              		.loc 1 133 0
+ 308 0158 1379     		ldrb	r3, [r2, #4]
+ 309 015a 0133     		adds	r3, r3, #1
+ 310 015c DBB2     		uxtb	r3, r3
+ 311 015e 1371     		strb	r3, [r2, #4]
+ 312 0160 07E0     		b	.L2
+ 313              	.LVL15:
+ 314              	.L11:
+ 134:main.c        ****             }                                             
+ 135:main.c        ****         }
+ 136:main.c        ****         else if ( e_state == 1 )                                                
+ 315              		.loc 1 136 0
+ 316 0162 012D     		cmp	r5, #1
+ 317 0164 05D1     		bne	.L2
+ 137:main.c        ****         {
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 9
+
+
+ 138:main.c        ****             data_ready = 1;                                                     // All data has bee
+ 318              		.loc 1 138 0
+ 319 0166 034B     		ldr	r3, .L13
+ 320 0168 0122     		movs	r2, #1
+ 321 016a 5A72     		strb	r2, [r3, #9]
+ 139:main.c        ****             bus_state = IDLE;                                                   // monocrome and st
+ 322              		.loc 1 139 0
+ 323 016c 0022     		movs	r2, #0
+ 324 016e 1A70     		strb	r2, [r3]
+ 140:main.c        ****             CyGlobalIntDisable;                                                 // Set data_ready f
+ 325              		.loc 1 140 0
+ 326              		.syntax divided
+ 327              	@ 140 "main.c" 1
+ 328 0170 72B6     		CPSID   i
+ 329              	@ 0 "" 2
+ 330              	.LVL16:
+ 331              		.thumb
+ 332              		.syntax unified
+ 333              	.L2:
+ 141:main.c        ****         }
+ 142:main.c        ****     }    
+ 143:main.c        **** }
+ 334              		.loc 1 143 0
+ 335              		@ sp needed
+ 336 0172 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 337              	.L14:
+ 338              		.align	2
+ 339              	.L13:
+ 340 0174 00000000 		.word	.LANCHOR0
+ 341 0178 00000000 		.word	data_buffer
+ 342              		.cfi_endproc
+ 343              	.LFE33:
+ 344              		.size	ISR_Capture_Handler, .-ISR_Capture_Handler
+ 345              		.section	.text.main,"ax",%progbits
+ 346              		.align	2
+ 347              		.global	main
+ 348              		.code	16
+ 349              		.thumb_func
+ 350              		.type	main, %function
+ 351              	main:
+ 352              	.LFB34:
+ 144:main.c        **** 
+ 145:main.c        **** /* ************************************************************************* */
+ 146:main.c        **** 
+ 147:main.c        **** int main(void)
+ 148:main.c        **** {
+ 353              		.loc 1 148 0
+ 354              		.cfi_startproc
+ 355              		@ args = 0, pretend = 0, frame = 0
+ 356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 357 0000 70B5     		push	{r4, r5, r6, lr}
+ 358              		.cfi_def_cfa_offset 16
+ 359              		.cfi_offset 4, -16
+ 360              		.cfi_offset 5, -12
+ 361              		.cfi_offset 6, -8
+ 362              		.cfi_offset 14, -4
+ 149:main.c        ****     uint8 page, column;
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 10
+
+
+ 150:main.c        ****     
+ 151:main.c        ****     /* Configure and enable interrupts. */
+ 152:main.c        ****     ISR_Reset_StartEx(ISR_Reset_Handler);
+ 363              		.loc 1 152 0
+ 364 0002 2548     		ldr	r0, .L24
+ 365 0004 FFF7FEFF 		bl	ISR_Reset_StartEx
+ 366              	.LVL17:
+ 153:main.c        ****     ISR_Capture_StartEx(ISR_Capture_Handler);
+ 367              		.loc 1 153 0
+ 368 0008 2448     		ldr	r0, .L24+4
+ 369 000a FFF7FEFF 		bl	ISR_Capture_StartEx
+ 370              	.LVL18:
+ 154:main.c        ****     //CyGlobalIntEnable;
+ 155:main.c        ****     
+ 156:main.c        ****     /* Init SPILCD. */
+ 157:main.c        ****     SPILCD_Start();
+ 371              		.loc 1 157 0
+ 372 000e FFF7FEFF 		bl	SPILCD_Start
+ 373              	.LVL19:
+ 158:main.c        ****     
+ 159:main.c        ****     /* Initialize the display. */
+ 160:main.c        ****     LCD_Init();
+ 374              		.loc 1 160 0
+ 375 0012 FFF7FEFF 		bl	LCD_Init
+ 376              	.LVL20:
+ 161:main.c        ****     LCD_Clear();     
+ 377              		.loc 1 161 0
+ 378 0016 FFF7FEFF 		bl	LCD_Clear
+ 379              	.LVL21:
+ 162:main.c        ****           
+ 163:main.c        ****     LCD_SetPageAddress(0);
+ 380              		.loc 1 163 0
+ 381 001a 0020     		movs	r0, #0
+ 382 001c FFF7FEFF 		bl	LCD_SetPageAddress
+ 383              	.LVL22:
+ 164:main.c        ****     LCD_SetColumnAddress(0);    
+ 384              		.loc 1 164 0
+ 385 0020 0020     		movs	r0, #0
+ 386 0022 FFF7FEFF 		bl	LCD_SetColumnAddress
+ 387              	.LVL23:
+ 165:main.c        ****     
+ 166:main.c        ****     enable_capture = 1;
+ 388              		.loc 1 166 0
+ 389 0026 0122     		movs	r2, #1
+ 390 0028 1D4B     		ldr	r3, .L24+8
+ 391 002a 9A72     		strb	r2, [r3, #10]
+ 167:main.c        ****     CyGlobalIntEnable;    
+ 392              		.loc 1 167 0
+ 393              		.syntax divided
+ 394              	@ 167 "main.c" 1
+ 395 002c 62B6     		CPSIE   i
+ 396              	@ 0 "" 2
+ 397              		.thumb
+ 398              		.syntax unified
+ 399              	.L21:
+ 168:main.c        **** 
+ 169:main.c        ****     for(;;)
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 11
+
+
+ 170:main.c        ****     {
+ 171:main.c        ****   
+ 172:main.c        ****         /* --------------------------------------------- */
+ 173:main.c        ****         
+ 174:main.c        ****         if (data_ready == 1)
+ 400              		.loc 1 174 0
+ 401 002e 1C4B     		ldr	r3, .L24+8
+ 402 0030 5B7A     		ldrb	r3, [r3, #9]
+ 403 0032 012B     		cmp	r3, #1
+ 404 0034 1DD1     		bne	.L16
+ 175:main.c        ****         {
+ 176:main.c        ****             LCD_SetPageAddress(0);
+ 405              		.loc 1 176 0
+ 406 0036 0020     		movs	r0, #0
+ 407 0038 FFF7FEFF 		bl	LCD_SetPageAddress
+ 408              	.LVL24:
+ 177:main.c        ****             LCD_SetColumnAddress(0);
+ 409              		.loc 1 177 0
+ 410 003c 0020     		movs	r0, #0
+ 411 003e FFF7FEFF 		bl	LCD_SetColumnAddress
+ 412              	.LVL25:
+ 178:main.c        ****         
+ 179:main.c        ****             for (page = 0; page < 8; page++)
+ 413              		.loc 1 179 0
+ 414 0042 0025     		movs	r5, #0
+ 415 0044 0EE0     		b	.L17
+ 416              	.LVL26:
+ 417              	.L18:
+ 180:main.c        ****             {    
+ 181:main.c        ****                 for (column = 0; column < 240; column++)
+ 182:main.c        ****                 {
+ 183:main.c        ****                 
+ 184:main.c        ****                     UC1608_Write_data(data_buffer[(column * 8) + page]);
+ 418              		.loc 1 184 0 discriminator 3
+ 419 0046 E300     		lsls	r3, r4, #3
+ 420 0048 EB18     		adds	r3, r5, r3
+ 421 004a 164A     		ldr	r2, .L24+12
+ 422 004c D05C     		ldrb	r0, [r2, r3]
+ 423 004e C0B2     		uxtb	r0, r0
+ 424 0050 FFF7FEFF 		bl	UC1608_Write_data
+ 425              	.LVL27:
+ 181:main.c        ****                 {
+ 426              		.loc 1 181 0 discriminator 3
+ 427 0054 0134     		adds	r4, r4, #1
+ 428              	.LVL28:
+ 429 0056 E4B2     		uxtb	r4, r4
+ 430              	.LVL29:
+ 431 0058 00E0     		b	.L19
+ 432              	.LVL30:
+ 433              	.L23:
+ 434 005a 0024     		movs	r4, #0
+ 435              	.L19:
+ 436              	.LVL31:
+ 181:main.c        ****                 {
+ 437              		.loc 1 181 0 is_stmt 0 discriminator 1
+ 438 005c EF2C     		cmp	r4, #239
+ 439 005e F2D9     		bls	.L18
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 12
+
+
+ 179:main.c        ****             {    
+ 440              		.loc 1 179 0 is_stmt 1 discriminator 2
+ 441 0060 0135     		adds	r5, r5, #1
+ 442              	.LVL32:
+ 443 0062 EDB2     		uxtb	r5, r5
+ 444              	.LVL33:
+ 445              	.L17:
+ 179:main.c        ****             {    
+ 446              		.loc 1 179 0 is_stmt 0 discriminator 1
+ 447 0064 072D     		cmp	r5, #7
+ 448 0066 F8D9     		bls	.L23
+ 185:main.c        ****                 }
+ 186:main.c        ****             }            
+ 187:main.c        ****             
+ 188:main.c        ****             if (enable_capture) CyGlobalIntEnable;
+ 449              		.loc 1 188 0 is_stmt 1
+ 450 0068 0D4B     		ldr	r3, .L24+8
+ 451 006a 9B7A     		ldrb	r3, [r3, #10]
+ 452 006c 002B     		cmp	r3, #0
+ 453 006e 00D0     		beq	.L16
+ 454              		.loc 1 188 0 is_stmt 0 discriminator 1
+ 455              		.syntax divided
+ 456              	@ 188 "main.c" 1
+ 457 0070 62B6     		CPSIE   i
+ 458              	@ 0 "" 2
+ 459              	.LVL34:
+ 460              		.thumb
+ 461              		.syntax unified
+ 462              	.L16:
+ 189:main.c        ****         }
+ 190:main.c        ****         
+ 191:main.c        ****         if (display_set_normal)
+ 463              		.loc 1 191 0 is_stmt 1
+ 464 0072 0B4B     		ldr	r3, .L24+8
+ 465 0074 9B79     		ldrb	r3, [r3, #6]
+ 466 0076 002B     		cmp	r3, #0
+ 467 0078 04D0     		beq	.L20
+ 192:main.c        ****         {
+ 193:main.c        ****             LCD_DisplayNormal();
+ 468              		.loc 1 193 0
+ 469 007a FFF7FEFF 		bl	LCD_DisplayNormal
+ 470              	.LVL35:
+ 194:main.c        ****             display_set_normal = 0;
+ 471              		.loc 1 194 0
+ 472 007e 0022     		movs	r2, #0
+ 473 0080 074B     		ldr	r3, .L24+8
+ 474 0082 9A71     		strb	r2, [r3, #6]
+ 475              	.L20:
+ 195:main.c        ****         }
+ 196:main.c        ****         
+ 197:main.c        ****         if (display_set_reverse)
+ 476              		.loc 1 197 0
+ 477 0084 064B     		ldr	r3, .L24+8
+ 478 0086 DB79     		ldrb	r3, [r3, #7]
+ 479 0088 002B     		cmp	r3, #0
+ 480 008a D0D0     		beq	.L21
+ 198:main.c        ****         {
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 13
+
+
+ 199:main.c        ****             LCD_DisplayReverse();
+ 481              		.loc 1 199 0
+ 482 008c FFF7FEFF 		bl	LCD_DisplayReverse
+ 483              	.LVL36:
+ 200:main.c        ****             display_set_reverse = 0;
+ 484              		.loc 1 200 0
+ 485 0090 0022     		movs	r2, #0
+ 486 0092 034B     		ldr	r3, .L24+8
+ 487 0094 DA71     		strb	r2, [r3, #7]
+ 488 0096 CAE7     		b	.L21
+ 489              	.L25:
+ 490              		.align	2
+ 491              	.L24:
+ 492 0098 00000000 		.word	ISR_Reset_Handler
+ 493 009c 00000000 		.word	ISR_Capture_Handler
+ 494 00a0 00000000 		.word	.LANCHOR0
+ 495 00a4 00000000 		.word	data_buffer
+ 496              		.cfi_endproc
+ 497              	.LFE34:
+ 498              		.size	main, .-main
+ 499              		.global	display_set_reverse
+ 500              		.global	display_set_normal
+ 501              		.global	is_first_byte
+ 502              		.global	column_counter
+ 503              		.global	page_counter
+ 504              		.global	combined_data
+ 505              		.global	enable_capture
+ 506              		.global	data_ready
+ 507              		.global	data_buffer_ptr
+ 508              		.comm	data_buffer,2000,4
+ 509              		.global	bus_state
+ 510              		.comm	BUS_STATE,1,1
+ 511              		.data
+ 512              		.type	is_first_byte, %object
+ 513              		.size	is_first_byte, 1
+ 514              	is_first_byte:
+ 515 0000 01       		.byte	1
+ 516              		.bss
+ 517              		.align	1
+ 518              		.set	.LANCHOR0,. + 0
+ 519              		.type	bus_state, %object
+ 520              		.size	bus_state, 1
+ 521              	bus_state:
+ 522 0000 00       		.space	1
+ 523 0001 00       		.space	1
+ 524              		.type	data_buffer_ptr, %object
+ 525              		.size	data_buffer_ptr, 2
+ 526              	data_buffer_ptr:
+ 527 0002 0000     		.space	2
+ 528              		.type	column_counter, %object
+ 529              		.size	column_counter, 1
+ 530              	column_counter:
+ 531 0004 00       		.space	1
+ 532              		.type	page_counter, %object
+ 533              		.size	page_counter, 1
+ 534              	page_counter:
+ 535 0005 00       		.space	1
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 14
+
+
+ 536              		.type	display_set_normal, %object
+ 537              		.size	display_set_normal, 1
+ 538              	display_set_normal:
+ 539 0006 00       		.space	1
+ 540              		.type	display_set_reverse, %object
+ 541              		.size	display_set_reverse, 1
+ 542              	display_set_reverse:
+ 543 0007 00       		.space	1
+ 544              		.type	combined_data, %object
+ 545              		.size	combined_data, 1
+ 546              	combined_data:
+ 547 0008 00       		.space	1
+ 548              		.type	data_ready, %object
+ 549              		.size	data_ready, 1
+ 550              	data_ready:
+ 551 0009 00       		.space	1
+ 552              		.type	enable_capture, %object
+ 553              		.size	enable_capture, 1
+ 554              	enable_capture:
+ 555 000a 00       		.space	1
+ 556              		.text
+ 557              	.Letext0:
+ 558              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 559              		.file 3 "Generated_Source\\PSoC4/A0.h"
+ 560              		.file 4 "Generated_Source\\PSoC4/E.h"
+ 561              		.file 5 "Generated_Source\\PSoC4/IData_Port.h"
+ 562              		.file 6 "Generated_Source\\PSoC4/ISR_Reset.h"
+ 563              		.file 7 "Generated_Source\\PSoC4/ISR_Capture.h"
+ 564              		.file 8 "Generated_Source\\PSoC4/SPILCD.h"
+ 565              		.file 9 "UC1608.h"
+ 566              		.section	.debug_info,"",%progbits
+ 567              	.Ldebug_info0:
+ 568 0000 9A030000 		.4byte	0x39a
+ 569 0004 0400     		.2byte	0x4
+ 570 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 571 000a 04       		.byte	0x4
+ 572 000b 01       		.uleb128 0x1
+ 573 000c DE010000 		.4byte	.LASF50
+ 574 0010 0C       		.byte	0xc
+ 575 0011 A5020000 		.4byte	.LASF51
+ 576 0015 3F010000 		.4byte	.LASF52
+ 577 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 578 001d 00000000 		.4byte	0
+ 579 0021 00000000 		.4byte	.Ldebug_line0
+ 580 0025 02       		.uleb128 0x2
+ 581 0026 01       		.byte	0x1
+ 582 0027 06       		.byte	0x6
+ 583 0028 59030000 		.4byte	.LASF0
+ 584 002c 02       		.uleb128 0x2
+ 585 002d 01       		.byte	0x1
+ 586 002e 08       		.byte	0x8
+ 587 002f C1000000 		.4byte	.LASF1
+ 588 0033 02       		.uleb128 0x2
+ 589 0034 02       		.byte	0x2
+ 590 0035 05       		.byte	0x5
+ 591 0036 D7020000 		.4byte	.LASF2
+ 592 003a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 15
+
+
+ 593 003b 02       		.byte	0x2
+ 594 003c 07       		.byte	0x7
+ 595 003d 4D000000 		.4byte	.LASF3
+ 596 0041 02       		.uleb128 0x2
+ 597 0042 04       		.byte	0x4
+ 598 0043 05       		.byte	0x5
+ 599 0044 31030000 		.4byte	.LASF4
+ 600 0048 02       		.uleb128 0x2
+ 601 0049 04       		.byte	0x4
+ 602 004a 07       		.byte	0x7
+ 603 004b CF000000 		.4byte	.LASF5
+ 604 004f 02       		.uleb128 0x2
+ 605 0050 08       		.byte	0x8
+ 606 0051 05       		.byte	0x5
+ 607 0052 97020000 		.4byte	.LASF6
+ 608 0056 02       		.uleb128 0x2
+ 609 0057 08       		.byte	0x8
+ 610 0058 07       		.byte	0x7
+ 611 0059 B1010000 		.4byte	.LASF7
+ 612 005d 03       		.uleb128 0x3
+ 613 005e 04       		.byte	0x4
+ 614 005f 05       		.byte	0x5
+ 615 0060 696E7400 		.ascii	"int\000"
+ 616 0064 02       		.uleb128 0x2
+ 617 0065 04       		.byte	0x4
+ 618 0066 07       		.byte	0x7
+ 619 0067 97010000 		.4byte	.LASF8
+ 620 006b 04       		.uleb128 0x4
+ 621 006c BB000000 		.4byte	.LASF9
+ 622 0070 02       		.byte	0x2
+ 623 0071 F701     		.2byte	0x1f7
+ 624 0073 2C000000 		.4byte	0x2c
+ 625 0077 04       		.uleb128 0x4
+ 626 0078 21010000 		.4byte	.LASF10
+ 627 007c 02       		.byte	0x2
+ 628 007d F801     		.2byte	0x1f8
+ 629 007f 3A000000 		.4byte	0x3a
+ 630 0083 02       		.uleb128 0x2
+ 631 0084 04       		.byte	0x4
+ 632 0085 04       		.byte	0x4
+ 633 0086 B5000000 		.4byte	.LASF11
+ 634 008a 02       		.uleb128 0x2
+ 635 008b 08       		.byte	0x8
+ 636 008c 04       		.byte	0x4
+ 637 008d F0000000 		.4byte	.LASF12
+ 638 0091 02       		.uleb128 0x2
+ 639 0092 01       		.byte	0x1
+ 640 0093 08       		.byte	0x8
+ 641 0094 AC020000 		.4byte	.LASF13
+ 642 0098 05       		.uleb128 0x5
+ 643 0099 6B000000 		.4byte	0x6b
+ 644 009d 05       		.uleb128 0x5
+ 645 009e 77000000 		.4byte	0x77
+ 646 00a2 02       		.uleb128 0x2
+ 647 00a3 08       		.byte	0x8
+ 648 00a4 04       		.byte	0x4
+ 649 00a5 4D030000 		.4byte	.LASF14
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 16
+
+
+ 650 00a9 02       		.uleb128 0x2
+ 651 00aa 04       		.byte	0x4
+ 652 00ab 07       		.byte	0x7
+ 653 00ac 87020000 		.4byte	.LASF15
+ 654 00b0 06       		.uleb128 0x6
+ 655 00b1 01       		.byte	0x1
+ 656 00b2 2C000000 		.4byte	0x2c
+ 657 00b6 01       		.byte	0x1
+ 658 00b7 13       		.byte	0x13
+ 659 00b8 D5000000 		.4byte	0xd5
+ 660 00bc 07       		.uleb128 0x7
+ 661 00bd 6A000000 		.4byte	.LASF16
+ 662 00c1 00       		.byte	0
+ 663 00c2 07       		.uleb128 0x7
+ 664 00c3 82000000 		.4byte	.LASF17
+ 665 00c7 01       		.byte	0x1
+ 666 00c8 07       		.uleb128 0x7
+ 667 00c9 21000000 		.4byte	.LASF18
+ 668 00cd 02       		.byte	0x2
+ 669 00ce 07       		.uleb128 0x7
+ 670 00cf 9C000000 		.4byte	.LASF19
+ 671 00d3 03       		.byte	0x3
+ 672 00d4 00       		.byte	0
+ 673 00d5 08       		.uleb128 0x8
+ 674 00d6 12030000 		.4byte	.LASF53
+ 675 00da 01       		.byte	0x1
+ 676 00db 30       		.byte	0x30
+ 677 00dc 00000000 		.4byte	.LFB32
+ 678 00e0 02000000 		.4byte	.LFE32-.LFB32
+ 679 00e4 01       		.uleb128 0x1
+ 680 00e5 9C       		.byte	0x9c
+ 681 00e6 09       		.uleb128 0x9
+ 682 00e7 88000000 		.4byte	.LASF54
+ 683 00eb 01       		.byte	0x1
+ 684 00ec 35       		.byte	0x35
+ 685 00ed 00000000 		.4byte	.LFB33
+ 686 00f1 7C010000 		.4byte	.LFE33-.LFB33
+ 687 00f5 01       		.uleb128 0x1
+ 688 00f6 9C       		.byte	0x9c
+ 689 00f7 44010000 		.4byte	0x144
+ 690 00fb 0A       		.uleb128 0xa
+ 691 00fc 09030000 		.4byte	.LASF20
+ 692 0100 01       		.byte	0x1
+ 693 0101 37       		.byte	0x37
+ 694 0102 6B000000 		.4byte	0x6b
+ 695 0106 00000000 		.4byte	.LLST0
+ 696 010a 0A       		.uleb128 0xa
+ 697 010b E8000000 		.4byte	.LASF21
+ 698 010f 01       		.byte	0x1
+ 699 0110 38       		.byte	0x38
+ 700 0111 6B000000 		.4byte	0x6b
+ 701 0115 34000000 		.4byte	.LLST1
+ 702 0119 0A       		.uleb128 0xa
+ 703 011a C8010000 		.4byte	.LASF22
+ 704 011e 01       		.byte	0x1
+ 705 011f 3A       		.byte	0x3a
+ 706 0120 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 17
+
+
+ 707 0124 68000000 		.4byte	.LLST2
+ 708 0128 0B       		.uleb128 0xb
+ 709 0129 06000000 		.4byte	.LVL0
+ 710 012d 0E030000 		.4byte	0x30e
+ 711 0131 0B       		.uleb128 0xb
+ 712 0132 0C000000 		.4byte	.LVL2
+ 713 0136 19030000 		.4byte	0x319
+ 714 013a 0B       		.uleb128 0xb
+ 715 013b 12000000 		.4byte	.LVL4
+ 716 013f 24030000 		.4byte	0x324
+ 717 0143 00       		.byte	0
+ 718 0144 0C       		.uleb128 0xc
+ 719 0145 3A010000 		.4byte	.LASF55
+ 720 0149 01       		.byte	0x1
+ 721 014a 93       		.byte	0x93
+ 722 014b 5D000000 		.4byte	0x5d
+ 723 014f 00000000 		.4byte	.LFB34
+ 724 0153 A8000000 		.4byte	.LFE34-.LFB34
+ 725 0157 01       		.uleb128 0x1
+ 726 0158 9C       		.byte	0x9c
+ 727 0159 2C020000 		.4byte	0x22c
+ 728 015d 0A       		.uleb128 0xa
+ 729 015e 00000000 		.4byte	.LASF23
+ 730 0162 01       		.byte	0x1
+ 731 0163 95       		.byte	0x95
+ 732 0164 6B000000 		.4byte	0x6b
+ 733 0168 9C000000 		.4byte	.LLST3
+ 734 016c 0A       		.uleb128 0xa
+ 735 016d E1000000 		.4byte	.LASF24
+ 736 0171 01       		.byte	0x1
+ 737 0172 95       		.byte	0x95
+ 738 0173 6B000000 		.4byte	0x6b
+ 739 0177 C6000000 		.4byte	.LLST4
+ 740 017b 0D       		.uleb128 0xd
+ 741 017c 08000000 		.4byte	.LVL17
+ 742 0180 2F030000 		.4byte	0x32f
+ 743 0184 92010000 		.4byte	0x192
+ 744 0188 0E       		.uleb128 0xe
+ 745 0189 01       		.uleb128 0x1
+ 746 018a 50       		.byte	0x50
+ 747 018b 05       		.uleb128 0x5
+ 748 018c 03       		.byte	0x3
+ 749 018d 00000000 		.4byte	ISR_Reset_Handler
+ 750 0191 00       		.byte	0
+ 751 0192 0D       		.uleb128 0xd
+ 752 0193 0E000000 		.4byte	.LVL18
+ 753 0197 3A030000 		.4byte	0x33a
+ 754 019b A9010000 		.4byte	0x1a9
+ 755 019f 0E       		.uleb128 0xe
+ 756 01a0 01       		.uleb128 0x1
+ 757 01a1 50       		.byte	0x50
+ 758 01a2 05       		.uleb128 0x5
+ 759 01a3 03       		.byte	0x3
+ 760 01a4 00000000 		.4byte	ISR_Capture_Handler
+ 761 01a8 00       		.byte	0
+ 762 01a9 0B       		.uleb128 0xb
+ 763 01aa 12000000 		.4byte	.LVL19
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 18
+
+
+ 764 01ae 45030000 		.4byte	0x345
+ 765 01b2 0B       		.uleb128 0xb
+ 766 01b3 16000000 		.4byte	.LVL20
+ 767 01b7 50030000 		.4byte	0x350
+ 768 01bb 0B       		.uleb128 0xb
+ 769 01bc 1A000000 		.4byte	.LVL21
+ 770 01c0 5B030000 		.4byte	0x35b
+ 771 01c4 0D       		.uleb128 0xd
+ 772 01c5 20000000 		.4byte	.LVL22
+ 773 01c9 66030000 		.4byte	0x366
+ 774 01cd D7010000 		.4byte	0x1d7
+ 775 01d1 0E       		.uleb128 0xe
+ 776 01d2 01       		.uleb128 0x1
+ 777 01d3 50       		.byte	0x50
+ 778 01d4 01       		.uleb128 0x1
+ 779 01d5 30       		.byte	0x30
+ 780 01d6 00       		.byte	0
+ 781 01d7 0D       		.uleb128 0xd
+ 782 01d8 26000000 		.4byte	.LVL23
+ 783 01dc 71030000 		.4byte	0x371
+ 784 01e0 EA010000 		.4byte	0x1ea
+ 785 01e4 0E       		.uleb128 0xe
+ 786 01e5 01       		.uleb128 0x1
+ 787 01e6 50       		.byte	0x50
+ 788 01e7 01       		.uleb128 0x1
+ 789 01e8 30       		.byte	0x30
+ 790 01e9 00       		.byte	0
+ 791 01ea 0D       		.uleb128 0xd
+ 792 01eb 3C000000 		.4byte	.LVL24
+ 793 01ef 66030000 		.4byte	0x366
+ 794 01f3 FD010000 		.4byte	0x1fd
+ 795 01f7 0E       		.uleb128 0xe
+ 796 01f8 01       		.uleb128 0x1
+ 797 01f9 50       		.byte	0x50
+ 798 01fa 01       		.uleb128 0x1
+ 799 01fb 30       		.byte	0x30
+ 800 01fc 00       		.byte	0
+ 801 01fd 0D       		.uleb128 0xd
+ 802 01fe 42000000 		.4byte	.LVL25
+ 803 0202 71030000 		.4byte	0x371
+ 804 0206 10020000 		.4byte	0x210
+ 805 020a 0E       		.uleb128 0xe
+ 806 020b 01       		.uleb128 0x1
+ 807 020c 50       		.byte	0x50
+ 808 020d 01       		.uleb128 0x1
+ 809 020e 30       		.byte	0x30
+ 810 020f 00       		.byte	0
+ 811 0210 0B       		.uleb128 0xb
+ 812 0211 54000000 		.4byte	.LVL27
+ 813 0215 7C030000 		.4byte	0x37c
+ 814 0219 0B       		.uleb128 0xb
+ 815 021a 7E000000 		.4byte	.LVL35
+ 816 021e 87030000 		.4byte	0x387
+ 817 0222 0B       		.uleb128 0xb
+ 818 0223 90000000 		.4byte	.LVL36
+ 819 0227 92030000 		.4byte	0x392
+ 820 022b 00       		.byte	0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 19
+
+
+ 821 022c 0F       		.uleb128 0xf
+ 822 022d 43000000 		.4byte	.LASF25
+ 823 0231 01       		.byte	0x1
+ 824 0232 13       		.byte	0x13
+ 825 0233 B0000000 		.4byte	0xb0
+ 826 0237 05       		.uleb128 0x5
+ 827 0238 03       		.byte	0x3
+ 828 0239 00000000 		.4byte	BUS_STATE
+ 829 023d 0F       		.uleb128 0xf
+ 830 023e 60000000 		.4byte	.LASF26
+ 831 0242 01       		.byte	0x1
+ 832 0243 15       		.byte	0x15
+ 833 0244 98000000 		.4byte	0x98
+ 834 0248 05       		.uleb128 0x5
+ 835 0249 03       		.byte	0x3
+ 836 024a 00000000 		.4byte	bus_state
+ 837 024e 10       		.uleb128 0x10
+ 838 024f 98000000 		.4byte	0x98
+ 839 0253 5F020000 		.4byte	0x25f
+ 840 0257 11       		.uleb128 0x11
+ 841 0258 A9000000 		.4byte	0xa9
+ 842 025c CF07     		.2byte	0x7cf
+ 843 025e 00       		.byte	0
+ 844 025f 0F       		.uleb128 0xf
+ 845 0260 6C020000 		.4byte	.LASF27
+ 846 0264 01       		.byte	0x1
+ 847 0265 17       		.byte	0x17
+ 848 0266 70020000 		.4byte	0x270
+ 849 026a 05       		.uleb128 0x5
+ 850 026b 03       		.byte	0x3
+ 851 026c 00000000 		.4byte	data_buffer
+ 852 0270 05       		.uleb128 0x5
+ 853 0271 4E020000 		.4byte	0x24e
+ 854 0275 0F       		.uleb128 0xf
+ 855 0276 02010000 		.4byte	.LASF28
+ 856 027a 01       		.byte	0x1
+ 857 027b 18       		.byte	0x18
+ 858 027c 9D000000 		.4byte	0x9d
+ 859 0280 05       		.uleb128 0x5
+ 860 0281 03       		.byte	0x3
+ 861 0282 00000000 		.4byte	data_buffer_ptr
+ 862 0286 0F       		.uleb128 0xf
+ 863 0287 F7000000 		.4byte	.LASF29
+ 864 028b 01       		.byte	0x1
+ 865 028c 1A       		.byte	0x1a
+ 866 028d 98000000 		.4byte	0x98
+ 867 0291 05       		.uleb128 0x5
+ 868 0292 03       		.byte	0x3
+ 869 0293 00000000 		.4byte	data_ready
+ 870 0297 0F       		.uleb128 0xf
+ 871 0298 12010000 		.4byte	.LASF30
+ 872 029c 01       		.byte	0x1
+ 873 029d 1C       		.byte	0x1c
+ 874 029e 98000000 		.4byte	0x98
+ 875 02a2 05       		.uleb128 0x5
+ 876 02a3 03       		.byte	0x3
+ 877 02a4 00000000 		.4byte	enable_capture
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 20
+
+
+ 878 02a8 0F       		.uleb128 0xf
+ 879 02a9 05000000 		.4byte	.LASF31
+ 880 02ad 01       		.byte	0x1
+ 881 02ae 1E       		.byte	0x1e
+ 882 02af 98000000 		.4byte	0x98
+ 883 02b3 05       		.uleb128 0x5
+ 884 02b4 03       		.byte	0x3
+ 885 02b5 00000000 		.4byte	combined_data
+ 886 02b9 0F       		.uleb128 0xf
+ 887 02ba 24030000 		.4byte	.LASF32
+ 888 02be 01       		.byte	0x1
+ 889 02bf 1F       		.byte	0x1f
+ 890 02c0 98000000 		.4byte	0x98
+ 891 02c4 05       		.uleb128 0x5
+ 892 02c5 03       		.byte	0x3
+ 893 02c6 00000000 		.4byte	page_counter
+ 894 02ca 0F       		.uleb128 0xf
+ 895 02cb 78020000 		.4byte	.LASF33
+ 896 02cf 01       		.byte	0x1
+ 897 02d0 20       		.byte	0x20
+ 898 02d1 98000000 		.4byte	0x98
+ 899 02d5 05       		.uleb128 0x5
+ 900 02d6 03       		.byte	0x3
+ 901 02d7 00000000 		.4byte	column_counter
+ 902 02db 0F       		.uleb128 0xf
+ 903 02dc 13000000 		.4byte	.LASF34
+ 904 02e0 01       		.byte	0x1
+ 905 02e1 21       		.byte	0x21
+ 906 02e2 98000000 		.4byte	0x98
+ 907 02e6 05       		.uleb128 0x5
+ 908 02e7 03       		.byte	0x3
+ 909 02e8 00000000 		.4byte	is_first_byte
+ 910 02ec 0F       		.uleb128 0xf
+ 911 02ed 3A030000 		.4byte	.LASF35
+ 912 02f1 01       		.byte	0x1
+ 913 02f2 23       		.byte	0x23
+ 914 02f3 98000000 		.4byte	0x98
+ 915 02f7 05       		.uleb128 0x5
+ 916 02f8 03       		.byte	0x3
+ 917 02f9 00000000 		.4byte	display_set_normal
+ 918 02fd 0F       		.uleb128 0xf
+ 919 02fe E1020000 		.4byte	.LASF36
+ 920 0302 01       		.byte	0x1
+ 921 0303 24       		.byte	0x24
+ 922 0304 98000000 		.4byte	0x98
+ 923 0308 05       		.uleb128 0x5
+ 924 0309 03       		.byte	0x3
+ 925 030a 00000000 		.4byte	display_set_reverse
+ 926 030e 12       		.uleb128 0x12
+ 927 030f CF020000 		.4byte	.LASF37
+ 928 0313 CF020000 		.4byte	.LASF37
+ 929 0317 03       		.byte	0x3
+ 930 0318 32       		.byte	0x32
+ 931 0319 12       		.uleb128 0x12
+ 932 031a 90020000 		.4byte	.LASF38
+ 933 031e 90020000 		.4byte	.LASF38
+ 934 0322 04       		.byte	0x4
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 21
+
+
+ 935 0323 32       		.byte	0x32
+ 936 0324 12       		.uleb128 0x12
+ 937 0325 CE010000 		.4byte	.LASF39
+ 938 0329 CE010000 		.4byte	.LASF39
+ 939 032d 05       		.byte	0x5
+ 940 032e 32       		.byte	0x32
+ 941 032f 12       		.uleb128 0x12
+ 942 0330 28010000 		.4byte	.LASF40
+ 943 0334 28010000 		.4byte	.LASF40
+ 944 0338 06       		.byte	0x6
+ 945 0339 18       		.byte	0x18
+ 946 033a 12       		.uleb128 0x12
+ 947 033b F5020000 		.4byte	.LASF41
+ 948 033f F5020000 		.4byte	.LASF41
+ 949 0343 07       		.byte	0x7
+ 950 0344 18       		.byte	0x18
+ 951 0345 12       		.uleb128 0x12
+ 952 0346 A4010000 		.4byte	.LASF42
+ 953 034a A4010000 		.4byte	.LASF42
+ 954 034e 08       		.byte	0x8
+ 955 034f 72       		.byte	0x72
+ 956 0350 12       		.uleb128 0x12
+ 957 0351 C6020000 		.4byte	.LASF43
+ 958 0355 C6020000 		.4byte	.LASF43
+ 959 0359 09       		.byte	0x9
+ 960 035a 17       		.byte	0x17
+ 961 035b 12       		.uleb128 0x12
+ 962 035c 27000000 		.4byte	.LASF44
+ 963 0360 27000000 		.4byte	.LASF44
+ 964 0364 09       		.byte	0x9
+ 965 0365 18       		.byte	0x18
+ 966 0366 12       		.uleb128 0x12
+ 967 0367 6F000000 		.4byte	.LASF45
+ 968 036b 6F000000 		.4byte	.LASF45
+ 969 036f 09       		.byte	0x9
+ 970 0370 19       		.byte	0x19
+ 971 0371 12       		.uleb128 0x12
+ 972 0372 B1020000 		.4byte	.LASF46
+ 973 0376 B1020000 		.4byte	.LASF46
+ 974 037a 09       		.byte	0x9
+ 975 037b 1A       		.byte	0x1a
+ 976 037c 12       		.uleb128 0x12
+ 977 037d 31000000 		.4byte	.LASF47
+ 978 0381 31000000 		.4byte	.LASF47
+ 979 0385 09       		.byte	0x9
+ 980 0386 15       		.byte	0x15
+ 981 0387 12       		.uleb128 0x12
+ 982 0388 65030000 		.4byte	.LASF48
+ 983 038c 65030000 		.4byte	.LASF48
+ 984 0390 09       		.byte	0x9
+ 985 0391 1C       		.byte	0x1c
+ 986 0392 12       		.uleb128 0x12
+ 987 0393 A2000000 		.4byte	.LASF49
+ 988 0397 A2000000 		.4byte	.LASF49
+ 989 039b 09       		.byte	0x9
+ 990 039c 1D       		.byte	0x1d
+ 991 039d 00       		.byte	0
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 22
+
+
+ 992              		.section	.debug_abbrev,"",%progbits
+ 993              	.Ldebug_abbrev0:
+ 994 0000 01       		.uleb128 0x1
+ 995 0001 11       		.uleb128 0x11
+ 996 0002 01       		.byte	0x1
+ 997 0003 25       		.uleb128 0x25
+ 998 0004 0E       		.uleb128 0xe
+ 999 0005 13       		.uleb128 0x13
+ 1000 0006 0B       		.uleb128 0xb
+ 1001 0007 03       		.uleb128 0x3
+ 1002 0008 0E       		.uleb128 0xe
+ 1003 0009 1B       		.uleb128 0x1b
+ 1004 000a 0E       		.uleb128 0xe
+ 1005 000b 55       		.uleb128 0x55
+ 1006 000c 17       		.uleb128 0x17
+ 1007 000d 11       		.uleb128 0x11
+ 1008 000e 01       		.uleb128 0x1
+ 1009 000f 10       		.uleb128 0x10
+ 1010 0010 17       		.uleb128 0x17
+ 1011 0011 00       		.byte	0
+ 1012 0012 00       		.byte	0
+ 1013 0013 02       		.uleb128 0x2
+ 1014 0014 24       		.uleb128 0x24
+ 1015 0015 00       		.byte	0
+ 1016 0016 0B       		.uleb128 0xb
+ 1017 0017 0B       		.uleb128 0xb
+ 1018 0018 3E       		.uleb128 0x3e
+ 1019 0019 0B       		.uleb128 0xb
+ 1020 001a 03       		.uleb128 0x3
+ 1021 001b 0E       		.uleb128 0xe
+ 1022 001c 00       		.byte	0
+ 1023 001d 00       		.byte	0
+ 1024 001e 03       		.uleb128 0x3
+ 1025 001f 24       		.uleb128 0x24
+ 1026 0020 00       		.byte	0
+ 1027 0021 0B       		.uleb128 0xb
+ 1028 0022 0B       		.uleb128 0xb
+ 1029 0023 3E       		.uleb128 0x3e
+ 1030 0024 0B       		.uleb128 0xb
+ 1031 0025 03       		.uleb128 0x3
+ 1032 0026 08       		.uleb128 0x8
+ 1033 0027 00       		.byte	0
+ 1034 0028 00       		.byte	0
+ 1035 0029 04       		.uleb128 0x4
+ 1036 002a 16       		.uleb128 0x16
+ 1037 002b 00       		.byte	0
+ 1038 002c 03       		.uleb128 0x3
+ 1039 002d 0E       		.uleb128 0xe
+ 1040 002e 3A       		.uleb128 0x3a
+ 1041 002f 0B       		.uleb128 0xb
+ 1042 0030 3B       		.uleb128 0x3b
+ 1043 0031 05       		.uleb128 0x5
+ 1044 0032 49       		.uleb128 0x49
+ 1045 0033 13       		.uleb128 0x13
+ 1046 0034 00       		.byte	0
+ 1047 0035 00       		.byte	0
+ 1048 0036 05       		.uleb128 0x5
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 23
+
+
+ 1049 0037 35       		.uleb128 0x35
+ 1050 0038 00       		.byte	0
+ 1051 0039 49       		.uleb128 0x49
+ 1052 003a 13       		.uleb128 0x13
+ 1053 003b 00       		.byte	0
+ 1054 003c 00       		.byte	0
+ 1055 003d 06       		.uleb128 0x6
+ 1056 003e 04       		.uleb128 0x4
+ 1057 003f 01       		.byte	0x1
+ 1058 0040 0B       		.uleb128 0xb
+ 1059 0041 0B       		.uleb128 0xb
+ 1060 0042 49       		.uleb128 0x49
+ 1061 0043 13       		.uleb128 0x13
+ 1062 0044 3A       		.uleb128 0x3a
+ 1063 0045 0B       		.uleb128 0xb
+ 1064 0046 3B       		.uleb128 0x3b
+ 1065 0047 0B       		.uleb128 0xb
+ 1066 0048 01       		.uleb128 0x1
+ 1067 0049 13       		.uleb128 0x13
+ 1068 004a 00       		.byte	0
+ 1069 004b 00       		.byte	0
+ 1070 004c 07       		.uleb128 0x7
+ 1071 004d 28       		.uleb128 0x28
+ 1072 004e 00       		.byte	0
+ 1073 004f 03       		.uleb128 0x3
+ 1074 0050 0E       		.uleb128 0xe
+ 1075 0051 1C       		.uleb128 0x1c
+ 1076 0052 0B       		.uleb128 0xb
+ 1077 0053 00       		.byte	0
+ 1078 0054 00       		.byte	0
+ 1079 0055 08       		.uleb128 0x8
+ 1080 0056 2E       		.uleb128 0x2e
+ 1081 0057 00       		.byte	0
+ 1082 0058 3F       		.uleb128 0x3f
+ 1083 0059 19       		.uleb128 0x19
+ 1084 005a 03       		.uleb128 0x3
+ 1085 005b 0E       		.uleb128 0xe
+ 1086 005c 3A       		.uleb128 0x3a
+ 1087 005d 0B       		.uleb128 0xb
+ 1088 005e 3B       		.uleb128 0x3b
+ 1089 005f 0B       		.uleb128 0xb
+ 1090 0060 27       		.uleb128 0x27
+ 1091 0061 19       		.uleb128 0x19
+ 1092 0062 11       		.uleb128 0x11
+ 1093 0063 01       		.uleb128 0x1
+ 1094 0064 12       		.uleb128 0x12
+ 1095 0065 06       		.uleb128 0x6
+ 1096 0066 40       		.uleb128 0x40
+ 1097 0067 18       		.uleb128 0x18
+ 1098 0068 9742     		.uleb128 0x2117
+ 1099 006a 19       		.uleb128 0x19
+ 1100 006b 00       		.byte	0
+ 1101 006c 00       		.byte	0
+ 1102 006d 09       		.uleb128 0x9
+ 1103 006e 2E       		.uleb128 0x2e
+ 1104 006f 01       		.byte	0x1
+ 1105 0070 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 24
+
+
+ 1106 0071 19       		.uleb128 0x19
+ 1107 0072 03       		.uleb128 0x3
+ 1108 0073 0E       		.uleb128 0xe
+ 1109 0074 3A       		.uleb128 0x3a
+ 1110 0075 0B       		.uleb128 0xb
+ 1111 0076 3B       		.uleb128 0x3b
+ 1112 0077 0B       		.uleb128 0xb
+ 1113 0078 27       		.uleb128 0x27
+ 1114 0079 19       		.uleb128 0x19
+ 1115 007a 11       		.uleb128 0x11
+ 1116 007b 01       		.uleb128 0x1
+ 1117 007c 12       		.uleb128 0x12
+ 1118 007d 06       		.uleb128 0x6
+ 1119 007e 40       		.uleb128 0x40
+ 1120 007f 18       		.uleb128 0x18
+ 1121 0080 9742     		.uleb128 0x2117
+ 1122 0082 19       		.uleb128 0x19
+ 1123 0083 01       		.uleb128 0x1
+ 1124 0084 13       		.uleb128 0x13
+ 1125 0085 00       		.byte	0
+ 1126 0086 00       		.byte	0
+ 1127 0087 0A       		.uleb128 0xa
+ 1128 0088 34       		.uleb128 0x34
+ 1129 0089 00       		.byte	0
+ 1130 008a 03       		.uleb128 0x3
+ 1131 008b 0E       		.uleb128 0xe
+ 1132 008c 3A       		.uleb128 0x3a
+ 1133 008d 0B       		.uleb128 0xb
+ 1134 008e 3B       		.uleb128 0x3b
+ 1135 008f 0B       		.uleb128 0xb
+ 1136 0090 49       		.uleb128 0x49
+ 1137 0091 13       		.uleb128 0x13
+ 1138 0092 02       		.uleb128 0x2
+ 1139 0093 17       		.uleb128 0x17
+ 1140 0094 00       		.byte	0
+ 1141 0095 00       		.byte	0
+ 1142 0096 0B       		.uleb128 0xb
+ 1143 0097 898201   		.uleb128 0x4109
+ 1144 009a 00       		.byte	0
+ 1145 009b 11       		.uleb128 0x11
+ 1146 009c 01       		.uleb128 0x1
+ 1147 009d 31       		.uleb128 0x31
+ 1148 009e 13       		.uleb128 0x13
+ 1149 009f 00       		.byte	0
+ 1150 00a0 00       		.byte	0
+ 1151 00a1 0C       		.uleb128 0xc
+ 1152 00a2 2E       		.uleb128 0x2e
+ 1153 00a3 01       		.byte	0x1
+ 1154 00a4 3F       		.uleb128 0x3f
+ 1155 00a5 19       		.uleb128 0x19
+ 1156 00a6 03       		.uleb128 0x3
+ 1157 00a7 0E       		.uleb128 0xe
+ 1158 00a8 3A       		.uleb128 0x3a
+ 1159 00a9 0B       		.uleb128 0xb
+ 1160 00aa 3B       		.uleb128 0x3b
+ 1161 00ab 0B       		.uleb128 0xb
+ 1162 00ac 27       		.uleb128 0x27
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 25
+
+
+ 1163 00ad 19       		.uleb128 0x19
+ 1164 00ae 49       		.uleb128 0x49
+ 1165 00af 13       		.uleb128 0x13
+ 1166 00b0 8701     		.uleb128 0x87
+ 1167 00b2 19       		.uleb128 0x19
+ 1168 00b3 11       		.uleb128 0x11
+ 1169 00b4 01       		.uleb128 0x1
+ 1170 00b5 12       		.uleb128 0x12
+ 1171 00b6 06       		.uleb128 0x6
+ 1172 00b7 40       		.uleb128 0x40
+ 1173 00b8 18       		.uleb128 0x18
+ 1174 00b9 9742     		.uleb128 0x2117
+ 1175 00bb 19       		.uleb128 0x19
+ 1176 00bc 01       		.uleb128 0x1
+ 1177 00bd 13       		.uleb128 0x13
+ 1178 00be 00       		.byte	0
+ 1179 00bf 00       		.byte	0
+ 1180 00c0 0D       		.uleb128 0xd
+ 1181 00c1 898201   		.uleb128 0x4109
+ 1182 00c4 01       		.byte	0x1
+ 1183 00c5 11       		.uleb128 0x11
+ 1184 00c6 01       		.uleb128 0x1
+ 1185 00c7 31       		.uleb128 0x31
+ 1186 00c8 13       		.uleb128 0x13
+ 1187 00c9 01       		.uleb128 0x1
+ 1188 00ca 13       		.uleb128 0x13
+ 1189 00cb 00       		.byte	0
+ 1190 00cc 00       		.byte	0
+ 1191 00cd 0E       		.uleb128 0xe
+ 1192 00ce 8A8201   		.uleb128 0x410a
+ 1193 00d1 00       		.byte	0
+ 1194 00d2 02       		.uleb128 0x2
+ 1195 00d3 18       		.uleb128 0x18
+ 1196 00d4 9142     		.uleb128 0x2111
+ 1197 00d6 18       		.uleb128 0x18
+ 1198 00d7 00       		.byte	0
+ 1199 00d8 00       		.byte	0
+ 1200 00d9 0F       		.uleb128 0xf
+ 1201 00da 34       		.uleb128 0x34
+ 1202 00db 00       		.byte	0
+ 1203 00dc 03       		.uleb128 0x3
+ 1204 00dd 0E       		.uleb128 0xe
+ 1205 00de 3A       		.uleb128 0x3a
+ 1206 00df 0B       		.uleb128 0xb
+ 1207 00e0 3B       		.uleb128 0x3b
+ 1208 00e1 0B       		.uleb128 0xb
+ 1209 00e2 49       		.uleb128 0x49
+ 1210 00e3 13       		.uleb128 0x13
+ 1211 00e4 3F       		.uleb128 0x3f
+ 1212 00e5 19       		.uleb128 0x19
+ 1213 00e6 02       		.uleb128 0x2
+ 1214 00e7 18       		.uleb128 0x18
+ 1215 00e8 00       		.byte	0
+ 1216 00e9 00       		.byte	0
+ 1217 00ea 10       		.uleb128 0x10
+ 1218 00eb 01       		.uleb128 0x1
+ 1219 00ec 01       		.byte	0x1
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 26
+
+
+ 1220 00ed 49       		.uleb128 0x49
+ 1221 00ee 13       		.uleb128 0x13
+ 1222 00ef 01       		.uleb128 0x1
+ 1223 00f0 13       		.uleb128 0x13
+ 1224 00f1 00       		.byte	0
+ 1225 00f2 00       		.byte	0
+ 1226 00f3 11       		.uleb128 0x11
+ 1227 00f4 21       		.uleb128 0x21
+ 1228 00f5 00       		.byte	0
+ 1229 00f6 49       		.uleb128 0x49
+ 1230 00f7 13       		.uleb128 0x13
+ 1231 00f8 2F       		.uleb128 0x2f
+ 1232 00f9 05       		.uleb128 0x5
+ 1233 00fa 00       		.byte	0
+ 1234 00fb 00       		.byte	0
+ 1235 00fc 12       		.uleb128 0x12
+ 1236 00fd 2E       		.uleb128 0x2e
+ 1237 00fe 00       		.byte	0
+ 1238 00ff 3F       		.uleb128 0x3f
+ 1239 0100 19       		.uleb128 0x19
+ 1240 0101 3C       		.uleb128 0x3c
+ 1241 0102 19       		.uleb128 0x19
+ 1242 0103 6E       		.uleb128 0x6e
+ 1243 0104 0E       		.uleb128 0xe
+ 1244 0105 03       		.uleb128 0x3
+ 1245 0106 0E       		.uleb128 0xe
+ 1246 0107 3A       		.uleb128 0x3a
+ 1247 0108 0B       		.uleb128 0xb
+ 1248 0109 3B       		.uleb128 0x3b
+ 1249 010a 0B       		.uleb128 0xb
+ 1250 010b 00       		.byte	0
+ 1251 010c 00       		.byte	0
+ 1252 010d 00       		.byte	0
+ 1253              		.section	.debug_loc,"",%progbits
+ 1254              	.Ldebug_loc0:
+ 1255              	.LLST0:
+ 1256 0000 08000000 		.4byte	.LVL1
+ 1257 0004 0B000000 		.4byte	.LVL2-1
+ 1258 0008 0100     		.2byte	0x1
+ 1259 000a 50       		.byte	0x50
+ 1260 000b 0B000000 		.4byte	.LVL2-1
+ 1261 000f 8C000000 		.4byte	.LVL9
+ 1262 0013 0100     		.2byte	0x1
+ 1263 0015 54       		.byte	0x54
+ 1264 0016 CC000000 		.4byte	.LVL11
+ 1265 001a 08010000 		.4byte	.LVL12
+ 1266 001e 0100     		.2byte	0x1
+ 1267 0020 54       		.byte	0x54
+ 1268 0021 62010000 		.4byte	.LVL15
+ 1269 0025 72010000 		.4byte	.LVL16
+ 1270 0029 0100     		.2byte	0x1
+ 1271 002b 54       		.byte	0x54
+ 1272 002c 00000000 		.4byte	0
+ 1273 0030 00000000 		.4byte	0
+ 1274              	.LLST1:
+ 1275 0034 0E000000 		.4byte	.LVL3
+ 1276 0038 11000000 		.4byte	.LVL4-1
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 27
+
+
+ 1277 003c 0100     		.2byte	0x1
+ 1278 003e 50       		.byte	0x50
+ 1279 003f 11000000 		.4byte	.LVL4-1
+ 1280 0043 8A000000 		.4byte	.LVL8
+ 1281 0047 0100     		.2byte	0x1
+ 1282 0049 55       		.byte	0x55
+ 1283 004a CC000000 		.4byte	.LVL11
+ 1284 004e 0A010000 		.4byte	.LVL13
+ 1285 0052 0100     		.2byte	0x1
+ 1286 0054 55       		.byte	0x55
+ 1287 0055 62010000 		.4byte	.LVL15
+ 1288 0059 72010000 		.4byte	.LVL16
+ 1289 005d 0100     		.2byte	0x1
+ 1290 005f 55       		.byte	0x55
+ 1291 0060 00000000 		.4byte	0
+ 1292 0064 00000000 		.4byte	0
+ 1293              	.LLST2:
+ 1294 0068 14000000 		.4byte	.LVL5
+ 1295 006c 32000000 		.4byte	.LVL6
+ 1296 0070 0100     		.2byte	0x1
+ 1297 0072 50       		.byte	0x50
+ 1298 0073 54000000 		.4byte	.LVL7
+ 1299 0077 92000000 		.4byte	.LVL10
+ 1300 007b 0100     		.2byte	0x1
+ 1301 007d 50       		.byte	0x50
+ 1302 007e CC000000 		.4byte	.LVL11
+ 1303 0082 0E010000 		.4byte	.LVL14
+ 1304 0086 0100     		.2byte	0x1
+ 1305 0088 50       		.byte	0x50
+ 1306 0089 62010000 		.4byte	.LVL15
+ 1307 008d 72010000 		.4byte	.LVL16
+ 1308 0091 0100     		.2byte	0x1
+ 1309 0093 50       		.byte	0x50
+ 1310 0094 00000000 		.4byte	0
+ 1311 0098 00000000 		.4byte	0
+ 1312              	.LLST3:
+ 1313 009c 42000000 		.4byte	.LVL25
+ 1314 00a0 46000000 		.4byte	.LVL26
+ 1315 00a4 0200     		.2byte	0x2
+ 1316 00a6 30       		.byte	0x30
+ 1317 00a7 9F       		.byte	0x9f
+ 1318 00a8 46000000 		.4byte	.LVL26
+ 1319 00ac 62000000 		.4byte	.LVL32
+ 1320 00b0 0100     		.2byte	0x1
+ 1321 00b2 55       		.byte	0x55
+ 1322 00b3 64000000 		.4byte	.LVL33
+ 1323 00b7 72000000 		.4byte	.LVL34
+ 1324 00bb 0100     		.2byte	0x1
+ 1325 00bd 55       		.byte	0x55
+ 1326 00be 00000000 		.4byte	0
+ 1327 00c2 00000000 		.4byte	0
+ 1328              	.LLST4:
+ 1329 00c6 46000000 		.4byte	.LVL26
+ 1330 00ca 56000000 		.4byte	.LVL28
+ 1331 00ce 0100     		.2byte	0x1
+ 1332 00d0 54       		.byte	0x54
+ 1333 00d1 58000000 		.4byte	.LVL29
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 28
+
+
+ 1334 00d5 5A000000 		.4byte	.LVL30
+ 1335 00d9 0100     		.2byte	0x1
+ 1336 00db 54       		.byte	0x54
+ 1337 00dc 5C000000 		.4byte	.LVL31
+ 1338 00e0 64000000 		.4byte	.LVL33
+ 1339 00e4 0100     		.2byte	0x1
+ 1340 00e6 54       		.byte	0x54
+ 1341 00e7 00000000 		.4byte	0
+ 1342 00eb 00000000 		.4byte	0
+ 1343              		.section	.debug_aranges,"",%progbits
+ 1344 0000 2C000000 		.4byte	0x2c
+ 1345 0004 0200     		.2byte	0x2
+ 1346 0006 00000000 		.4byte	.Ldebug_info0
+ 1347 000a 04       		.byte	0x4
+ 1348 000b 00       		.byte	0
+ 1349 000c 0000     		.2byte	0
+ 1350 000e 0000     		.2byte	0
+ 1351 0010 00000000 		.4byte	.LFB32
+ 1352 0014 02000000 		.4byte	.LFE32-.LFB32
+ 1353 0018 00000000 		.4byte	.LFB33
+ 1354 001c 7C010000 		.4byte	.LFE33-.LFB33
+ 1355 0020 00000000 		.4byte	.LFB34
+ 1356 0024 A8000000 		.4byte	.LFE34-.LFB34
+ 1357 0028 00000000 		.4byte	0
+ 1358 002c 00000000 		.4byte	0
+ 1359              		.section	.debug_ranges,"",%progbits
+ 1360              	.Ldebug_ranges0:
+ 1361 0000 00000000 		.4byte	.LFB32
+ 1362 0004 02000000 		.4byte	.LFE32
+ 1363 0008 00000000 		.4byte	.LFB33
+ 1364 000c 7C010000 		.4byte	.LFE33
+ 1365 0010 00000000 		.4byte	.LFB34
+ 1366 0014 A8000000 		.4byte	.LFE34
+ 1367 0018 00000000 		.4byte	0
+ 1368 001c 00000000 		.4byte	0
+ 1369              		.section	.debug_line,"",%progbits
+ 1370              	.Ldebug_line0:
+ 1371 0000 68010000 		.section	.debug_str,"MS",%progbits,1
+ 1371      02009800 
+ 1371      00000201 
+ 1371      FB0E0D00 
+ 1371      01010101 
+ 1372              	.LASF23:
+ 1373 0000 70616765 		.ascii	"page\000"
+ 1373      00
+ 1374              	.LASF31:
+ 1375 0005 636F6D62 		.ascii	"combined_data\000"
+ 1375      696E6564 
+ 1375      5F646174 
+ 1375      6100
+ 1376              	.LASF34:
+ 1377 0013 69735F66 		.ascii	"is_first_byte\000"
+ 1377      69727374 
+ 1377      5F627974 
+ 1377      6500
+ 1378              	.LASF18:
+ 1379 0021 44415441 		.ascii	"DATA1\000"
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 29
+
+
+ 1379      3100
+ 1380              	.LASF44:
+ 1381 0027 4C43445F 		.ascii	"LCD_Clear\000"
+ 1381      436C6561 
+ 1381      7200
+ 1382              	.LASF47:
+ 1383 0031 55433136 		.ascii	"UC1608_Write_data\000"
+ 1383      30385F57 
+ 1383      72697465 
+ 1383      5F646174 
+ 1383      6100
+ 1384              	.LASF25:
+ 1385 0043 4255535F 		.ascii	"BUS_STATE\000"
+ 1385      53544154 
+ 1385      4500
+ 1386              	.LASF3:
+ 1387 004d 73686F72 		.ascii	"short unsigned int\000"
+ 1387      7420756E 
+ 1387      7369676E 
+ 1387      65642069 
+ 1387      6E7400
+ 1388              	.LASF26:
+ 1389 0060 6275735F 		.ascii	"bus_state\000"
+ 1389      73746174 
+ 1389      6500
+ 1390              	.LASF16:
+ 1391 006a 49444C45 		.ascii	"IDLE\000"
+ 1391      00
+ 1392              	.LASF45:
+ 1393 006f 4C43445F 		.ascii	"LCD_SetPageAddress\000"
+ 1393      53657450 
+ 1393      61676541 
+ 1393      64647265 
+ 1393      737300
+ 1394              	.LASF17:
+ 1395 0082 44415441 		.ascii	"DATA0\000"
+ 1395      3000
+ 1396              	.LASF54:
+ 1397 0088 4953525F 		.ascii	"ISR_Capture_Handler\000"
+ 1397      43617074 
+ 1397      7572655F 
+ 1397      48616E64 
+ 1397      6C657200 
+ 1398              	.LASF19:
+ 1399 009c 44415441 		.ascii	"DATA2\000"
+ 1399      3200
+ 1400              	.LASF49:
+ 1401 00a2 4C43445F 		.ascii	"LCD_DisplayReverse\000"
+ 1401      44697370 
+ 1401      6C617952 
+ 1401      65766572 
+ 1401      736500
+ 1402              	.LASF11:
+ 1403 00b5 666C6F61 		.ascii	"float\000"
+ 1403      7400
+ 1404              	.LASF9:
+ 1405 00bb 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 30
+
+
+ 1405      3800
+ 1406              	.LASF1:
+ 1407 00c1 756E7369 		.ascii	"unsigned char\000"
+ 1407      676E6564 
+ 1407      20636861 
+ 1407      7200
+ 1408              	.LASF5:
+ 1409 00cf 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1409      20756E73 
+ 1409      69676E65 
+ 1409      6420696E 
+ 1409      7400
+ 1410              	.LASF24:
+ 1411 00e1 636F6C75 		.ascii	"column\000"
+ 1411      6D6E00
+ 1412              	.LASF21:
+ 1413 00e8 655F7374 		.ascii	"e_state\000"
+ 1413      61746500 
+ 1414              	.LASF12:
+ 1415 00f0 646F7562 		.ascii	"double\000"
+ 1415      6C6500
+ 1416              	.LASF29:
+ 1417 00f7 64617461 		.ascii	"data_ready\000"
+ 1417      5F726561 
+ 1417      647900
+ 1418              	.LASF28:
+ 1419 0102 64617461 		.ascii	"data_buffer_ptr\000"
+ 1419      5F627566 
+ 1419      6665725F 
+ 1419      70747200 
+ 1420              	.LASF30:
+ 1421 0112 656E6162 		.ascii	"enable_capture\000"
+ 1421      6C655F63 
+ 1421      61707475 
+ 1421      726500
+ 1422              	.LASF10:
+ 1423 0121 75696E74 		.ascii	"uint16\000"
+ 1423      313600
+ 1424              	.LASF40:
+ 1425 0128 4953525F 		.ascii	"ISR_Reset_StartEx\000"
+ 1425      52657365 
+ 1425      745F5374 
+ 1425      61727445 
+ 1425      7800
+ 1426              	.LASF55:
+ 1427 013a 6D61696E 		.ascii	"main\000"
+ 1427      00
+ 1428              	.LASF52:
+ 1429 013f 433A5C48 		.ascii	"C:\\HackingChips\\Peugeot3008Display\\Firmware\\Peu"
+ 1429      61636B69 
+ 1429      6E674368 
+ 1429      6970735C 
+ 1429      50657567 
+ 1430 016e 67656F74 		.ascii	"geotDisplay4245\\PeugeotDisplay4245.cydsn\000"
+ 1430      44697370 
+ 1430      6C617934 
+ 1430      3234355C 
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 31
+
+
+ 1430      50657567 
+ 1431              	.LASF8:
+ 1432 0197 756E7369 		.ascii	"unsigned int\000"
+ 1432      676E6564 
+ 1432      20696E74 
+ 1432      00
+ 1433              	.LASF42:
+ 1434 01a4 5350494C 		.ascii	"SPILCD_Start\000"
+ 1434      43445F53 
+ 1434      74617274 
+ 1434      00
+ 1435              	.LASF7:
+ 1436 01b1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1436      206C6F6E 
+ 1436      6720756E 
+ 1436      7369676E 
+ 1436      65642069 
+ 1437              	.LASF22:
+ 1438 01c8 62646174 		.ascii	"bdata\000"
+ 1438      6100
+ 1439              	.LASF39:
+ 1440 01ce 49446174 		.ascii	"IData_Port_Read\000"
+ 1440      615F506F 
+ 1440      72745F52 
+ 1440      65616400 
+ 1441              	.LASF50:
+ 1442 01de 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1442      43313120 
+ 1442      352E342E 
+ 1442      31203230 
+ 1442      31363036 
+ 1443 0211 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1443      20726576 
+ 1443      6973696F 
+ 1443      6E203233 
+ 1443      37373135 
+ 1444 0244 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1444      66756E63 
+ 1444      74696F6E 
+ 1444      2D736563 
+ 1444      74696F6E 
+ 1445              	.LASF27:
+ 1446 026c 64617461 		.ascii	"data_buffer\000"
+ 1446      5F627566 
+ 1446      66657200 
+ 1447              	.LASF33:
+ 1448 0278 636F6C75 		.ascii	"column_counter\000"
+ 1448      6D6E5F63 
+ 1448      6F756E74 
+ 1448      657200
+ 1449              	.LASF15:
+ 1450 0287 73697A65 		.ascii	"sizetype\000"
+ 1450      74797065 
+ 1450      00
+ 1451              	.LASF38:
+ 1452 0290 455F5265 		.ascii	"E_Read\000"
+ 1452      616400
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 32
+
+
+ 1453              	.LASF6:
+ 1454 0297 6C6F6E67 		.ascii	"long long int\000"
+ 1454      206C6F6E 
+ 1454      6720696E 
+ 1454      7400
+ 1455              	.LASF51:
+ 1456 02a5 6D61696E 		.ascii	"main.c\000"
+ 1456      2E6300
+ 1457              	.LASF13:
+ 1458 02ac 63686172 		.ascii	"char\000"
+ 1458      00
+ 1459              	.LASF46:
+ 1460 02b1 4C43445F 		.ascii	"LCD_SetColumnAddress\000"
+ 1460      53657443 
+ 1460      6F6C756D 
+ 1460      6E416464 
+ 1460      72657373 
+ 1461              	.LASF43:
+ 1462 02c6 4C43445F 		.ascii	"LCD_Init\000"
+ 1462      496E6974 
+ 1462      00
+ 1463              	.LASF37:
+ 1464 02cf 41305F52 		.ascii	"A0_Read\000"
+ 1464      65616400 
+ 1465              	.LASF2:
+ 1466 02d7 73686F72 		.ascii	"short int\000"
+ 1466      7420696E 
+ 1466      7400
+ 1467              	.LASF36:
+ 1468 02e1 64697370 		.ascii	"display_set_reverse\000"
+ 1468      6C61795F 
+ 1468      7365745F 
+ 1468      72657665 
+ 1468      72736500 
+ 1469              	.LASF41:
+ 1470 02f5 4953525F 		.ascii	"ISR_Capture_StartEx\000"
+ 1470      43617074 
+ 1470      7572655F 
+ 1470      53746172 
+ 1470      74457800 
+ 1471              	.LASF20:
+ 1472 0309 61305F73 		.ascii	"a0_state\000"
+ 1472      74617465 
+ 1472      00
+ 1473              	.LASF53:
+ 1474 0312 4953525F 		.ascii	"ISR_Reset_Handler\000"
+ 1474      52657365 
+ 1474      745F4861 
+ 1474      6E646C65 
+ 1474      7200
+ 1475              	.LASF32:
+ 1476 0324 70616765 		.ascii	"page_counter\000"
+ 1476      5F636F75 
+ 1476      6E746572 
+ 1476      00
+ 1477              	.LASF4:
+ 1478 0331 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\Jesus\AppData\Local\Temp\ccXfJYpd.s 			page 33
+
+
+ 1478      20696E74 
+ 1478      00
+ 1479              	.LASF35:
+ 1480 033a 64697370 		.ascii	"display_set_normal\000"
+ 1480      6C61795F 
+ 1480      7365745F 
+ 1480      6E6F726D 
+ 1480      616C00
+ 1481              	.LASF14:
+ 1482 034d 6C6F6E67 		.ascii	"long double\000"
+ 1482      20646F75 
+ 1482      626C6500 
+ 1483              	.LASF0:
+ 1484 0359 7369676E 		.ascii	"signed char\000"
+ 1484      65642063 
+ 1484      68617200 
+ 1485              	.LASF48:
+ 1486 0365 4C43445F 		.ascii	"LCD_DisplayNormal\000"
+ 1486      44697370 
+ 1486      6C61794E 
+ 1486      6F726D61 
+ 1486      6C00
+ 1487              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

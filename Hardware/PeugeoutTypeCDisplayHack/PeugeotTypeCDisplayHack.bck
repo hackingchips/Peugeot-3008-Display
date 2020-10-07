@@ -1,0 +1,65 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP BD433M5FP2-CZE2
+D 500-mA 3.3-V Output LDO Regulators Automotive
+F https://docs.rs-online.com/50db/0900766b816d3140.pdf
+$ENDCMP
+#
+$CMP C
+D Unpolarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP CP
+D Polarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP CP_Small
+D Polarized capacitor, small symbol
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP CY8C4245AXI-483
+D Cypress PSoC 4 MCU
+F https://www.cypress.com/file/138656/download
+$ENDCMP
+#
+$CMP C_Small
+D Unpolarized capacitor, small symbol
+K capacitor cap
+F ~
+$ENDCMP
+#
+$CMP Conn_01x05
+D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP ER-CON30HB-1
+D FPC 30 pin 0,5mm pitch connector
+K FPC connector
+F https://www.buydisplay.com/download/connector/ER-CON30HB-1.pdf
+$ENDCMP
+#
+$CMP LM1117-3.3
+F https://docs.rs-online.com/a60a/A700000006801822.pdf
+$ENDCMP
+#
+$CMP R_POT_TRIM_US
+D Trim-potentiometer, US symbol
+K resistor variable trimpot trimmer
+F ~
+$ENDCMP
+#
+$CMP R_US
+D Resistor, US symbol
+K R res resistor
+F ~
+$ENDCMP
+#
+#End Doc Library

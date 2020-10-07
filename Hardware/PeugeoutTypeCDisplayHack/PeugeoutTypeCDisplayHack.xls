@@ -1,0 +1,43 @@
+Source,C:\Users\Jesus\Desktop\display_coche\LCD_Substitute\Hardware\PeugeoutTypeCDisplayHack\PeugeoutTypeCDisplayHack.sch
+Kicad Rev,Eeschema (5.1.6)-1
+Generated Date,24/09/2020 17:53:35
+
+Title,Peugeot Type C Display Hack
+Company,Hackingchips.com
+Revision,1
+Date Issue,2020-09-18
+Comment,(C) Jesús Rodríguez Cacabelos
+
+Reference,Value,Library,Library Ref
+J3,ER-CON30HB-1,PeugeotTypeCDisplayHack,ER-CON30HB-1
+C12,4u7,PeugeotTypeCDisplayHack,CP_Small
+C13,4u7,PeugeotTypeCDisplayHack,CP_Small
+C11,100nF,PeugeotTypeCDisplayHack,C_Small
+C8,10uF,PeugeotTypeCDisplayHack,CP_Small
+C9,100nF,PeugeotTypeCDisplayHack,C_Small
+U2,CY8C4245AXI-483,PeugeotTypeCDisplayHack,CY8C4245AXI-483
+C6,10nF,PeugeotTypeCDisplayHack,C
+C7,100nF,PeugeotTypeCDisplayHack,C
+C5,1uF/25,PeugeotTypeCDisplayHack,C
+C10,100nF,PeugeotTypeCDisplayHack,C_Small
+R1,4K7,PeugeotTypeCDisplayHack,R_US
+R10,10M,PeugeotTypeCDisplayHack,R_US
+C3,10uF,PeugeotTypeCDisplayHack,CP
+C1,10uF,PeugeotTypeCDisplayHack,CP
+C4,100nF,PeugeotTypeCDisplayHack,C
+C2,100nf,PeugeotTypeCDisplayHack,C
+R2,1K,PeugeotTypeCDisplayHack,R_US
+R3,1K,PeugeotTypeCDisplayHack,R_US
+R4,1K,PeugeotTypeCDisplayHack,R_US
+R5,1K,PeugeotTypeCDisplayHack,R_US
+R6,2K,PeugeotTypeCDisplayHack,R_US
+R8,2K,PeugeotTypeCDisplayHack,R_US
+R7,2K,PeugeotTypeCDisplayHack,R_US
+R9,2K,PeugeotTypeCDisplayHack,R_US
+J1,PeugeotPCBConnector,PeugeotTypeCDisplayHack,PeugeotPCBConnector
+U1,LM1117-3.3,PeugeotTypeCDisplayHack,LM1117-3.3
+J2,Conn_01x05,PeugeotTypeCDisplayHack,Conn_01x05
+J4,Backlight,PeugeotTypeCDisplayHack,Conn_01x02
+R11,???,PeugeotTypeCDisplayHack,R_US
+S2,F.Use,PeugeotTypeCDisplayHack,Conn_01x02
+S1,F.Use,PeugeotTypeCDisplayHack,Conn_01x02
