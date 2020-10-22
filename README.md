@@ -4,12 +4,12 @@ This repository is about changing the LCD crystal of my Peugeot 3008 multifuncti
 
 If you want more information go the following links:
 
-http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008.html
-http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_22.html
-http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_23.html
-http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_25.html
-http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_26.html
-http://www.hackingchips.com/2020/10/reparacion-de-display-peugeot-3008.html
+* http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008.html
+* http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_22.html
+* http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_23.html
+* http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_25.html
+* http://www.hackingchips.com/2020/09/reparacion-de-display-peugeot-3008_26.html
+* http://www.hackingchips.com/2020/10/reparacion-de-display-peugeot-3008.html
 
 
 ### Repository. ###
