@@ -19,5 +19,6 @@ If you want more information go the following links:
 * Mechanical: 3D models.
 * NewestArchives_xxx_date_xxx: Latest binary & docs.
 
-#### Thanks to Peter Pinter (moribacsi). His project PSAWifiDisplayControl (https://github.com/morcibacsi/PSAWifiDisplayControl) saved me a lot of work. ####
+#### Thanks to Peter Pinter ([morcibacsi]). His project PSAWifiDisplayControl (https://github.com/morcibacsi/PSAWifiDisplayControl) saved me a lot of work. ####
 
+[morcibacsi]: https://github.com/morcibacsi
